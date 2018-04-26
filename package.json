@@ -1,0 +1,32 @@
+{
+  "name": "artograph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "nodemon": "^1.17.3",
+    "pg": "^7.4.1",
+    "public-instagram": "^0.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.1.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenziebottoms/artograph.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenziebottoms/artograph/issues"
+  },
+  "homepage": "https://github.com/kenziebottoms/artograph#readme"
+}
