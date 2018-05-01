@@ -23,7 +23,6 @@ An app to geographically visualize and organize tattoo artist information.
 - [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/)
     - [Marker clustering](https://developers.google.com/maps/documentation/javascript/marker-clustering)
     - [(Reverse) geocoding](https://developers.google.com/maps/documentation/geocoding/intro#ReverseGeocoding)
-- [`public-instagram` module](https://www.npmjs.com/package/public-instagram), Ivo Lima Silva
 - [Sequelize](http://docs.sequelizejs.com/)
 - [Sass](http://sass-lang.com/)
 
