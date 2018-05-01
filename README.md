@@ -36,8 +36,8 @@ An app to geographically visualize and organize tattoo artist information.
 | ---- | ------ | ------ |
 | `/insta/meta/:username` | `GET` | Scrape Instagram user metadata |
 | `/insta/posts/:username` | `GET` | Scrape recent Instagram user posts |
-| ~~`/register`~~ | ~~`GET`~~ | ~~Render the register screen~~ |
+| `/register` | `GET` | Render the register screen |
 | `/register` | `POST` | Register |
-| ~~`/login`~~ | ~~`GET`~~ | ~~Render the login screen~~ |
+| `/login` | `GET` | Render the login screen |
 | `/login` | `POST` | Login |
 | `/logout` | `GET` | Logout |
