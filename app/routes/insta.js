@@ -3,7 +3,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const insta = require('../instagram');
+const insta = require('../ctrl/instagram');
 
 router.get('/meta/:uid', (req, res, next) => {
   let { uid } = req.params;
