@@ -29,3 +29,10 @@ An app to geographically visualize and organize tattoo artist information.
 
 ## Links
 - [Previous front-end-only attempt](https://github.com/kenziebottoms/inkmap)
+
+## Endpoints
+
+| Path | Method | Result |
+| ---- | ------ | ------ |
+| `/insta/meta/:username` | `GET` | Scrape Instagram user metadata |
+| `/insta/posts/:username` | `GET` | Scrape recent Instagram user posts |
