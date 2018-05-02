@@ -1,0 +1,21 @@
+<div id='register' class='form'>
+  <h3 class='mb-4'>Register as a new user or <a href='/#!/login'>login</a></h3>
+  <div class='form-group'>
+    <input type='email' class='form-control' id='email'  ng-model='email' placeholder='Email'>
+  </div>
+  <div class='form-group'>
+    <input type='text' class='form-control' id='username' ng-model='username' placeholder='Username'>
+  </div>
+  <div class='row'>
+    <div class='col-12 col-md-6 mb-3'>
+      <input type='password' class='form-control' id='password' ng-model='password' placeholder='Password'>
+      <small ng-show='password_error' id="passwordHelpBlock" class="form-text text-muted">
+        {{password_error}}
+      </small>
+    </div>
+    <div class='col-12 col-md-6 mb-3'>
+      <input type='password' class='form-control' id='confirmation' ng-model='confirmation' placeholder='Password again, please'>
+    </div>
+  </div>
+  <button type='submit' class='btn btn-primary btn-block mx-auto' ng-click='register()'>Submit</button>
+</div>

@@ -1,0 +1,20 @@
+<div id='login' class='form'>
+  <h3 class='mb-4'>Login or
+    <a href='/#!/register'>register as a new user</a>
+  </h3>
+  <div class='form-group'>
+    <input type='text' class='form-control' id='username' placeholder='Username' ng-model='username'>
+  </div>
+  <div class='row'>
+    <div class='col-12 col-md-6 mb-3'>
+      <input type='password' class='form-control' ng-model='password' id='password' placeholder='Password'>
+    </div>
+    <div class='col-12 col-md-6 mb-3'>
+      <input type='password' class='form-control' id='confirmation' ng-model='confirmation' placeholder='Password again, please'>
+    </div>
+  </div>
+  <div ng-show='error' class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+  <button type='submit' ng-click='login()' class='btn btn-primary btn-block mx-auto'>Submit</button>
+</div>
