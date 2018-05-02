@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
   // returns all artists alphabetized by last name
   Artist.findAll()
     .then(artists => {
-      artists = _.sortBy(artists, [a => a.name.split(' ').reverse()[0]]);
+      artists = _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
       res.status(200).json(artists);
     })
     .catch(err => next(err));

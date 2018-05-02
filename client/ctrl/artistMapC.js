@@ -14,21 +14,24 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
           zoom: 8,
           center: { lat, lng }
         });
+        // one info window that moves to whatever point is clicked
         let info = new google.maps.InfoWindow();
+        // extract lat/long from artists
         let markers = artists.map(a => {
           let marker = new google.maps.Marker({
             position: { lat: parseFloat(a.lat), lng: parseFloat(a.lng) }
           });
+          // add info window listener to each artist point
           marker.addListener('click', () => {
-            info.setContent(`<h5 ng-click='selectArtist(${a.id})'>${a.name}</h5>`);
+            info.setContent(`<h5 data-id='${a.id}'>${a.name}</h5>`);
             info.open(map, marker);
           });
           return marker;
         });
+        // clusterize the whole thing
         let markerCluster = new MarkerClusterer(map, markers, { imagePath: 'img/m' });
 
         // you are here star
-
         let star = {
           path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
           anchor: new google.maps.Point(130, 150),
@@ -42,21 +45,27 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
         // listen for non-point clicks
         google.maps.event.addListener(map, 'click', (event) => {
-          $scope.selectArtist(null);
+          selectArtist(null);
           info.close();
           let point = {
             lat: event.latLng.lat(),
             lng: event.latLng.lng()
           };
 
-          // get rid of existing "You Are Here" marker
+          // move existing active marker
           $scope.activeMarker.setMap(map);
           $scope.activeMarker.setPosition(point);
         });
       })
   };
 
-  $scope.selectArtist = id => {
+  const selectArtist = id => {
     $rootScope.$broadcast("highlightArtist", id);
+  };
+
+  $scope.mapClick = () => {
+    if (event.target.tagName == "H5") {
+      selectArtist(event.target.dataset.id);
+    }
   };
 });
