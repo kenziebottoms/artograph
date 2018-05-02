@@ -9,6 +9,10 @@ An app to geographically visualize and organize tattoo artist information.
 > an illustrated map
 
 ## Goals
+- [ ] Users can search a list of artists by
+    - [x] name,
+    - [ ] tags,
+    - [ ] location.
 - [ ] User can select their current location and receive a filterable list of tattoo artists ordered by distance from that point.
 - [ ] User can enter in tattoo artist information for other users to browse.
 - [ ] Users can add tags to artists that other users can search by.
