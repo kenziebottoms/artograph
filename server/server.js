@@ -2,7 +2,6 @@
 
 const express = require('express');
 const app = express();
-const pug = require('pug');
 const path = require('path');
 
 app.set("models", require('./db/models'));
