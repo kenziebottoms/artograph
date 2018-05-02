@@ -1,15 +1,12 @@
-<h3>
-  <span>{{artist.name}}</span>
-  <a target="blank" ng-show="artist.insta" ng-href="{{artist.insta}}">
-      <img src="img/insta48.png">
-      @{{artist.insta}}
+<div class='header'>
+  <h4 data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>{{artist.name}}</h4>
+  <a target='blank' ng-show='artist.insta' ng-href='{{artist.insta}}'>
+    <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
   </a>
-</h3>
-<h4 ng-show="artist.locale">
-  <i class="material-icons">location_on</i>
-  {{artist.locale}}
-</h4>
-<p>{{artist.email.toLowerCase()}}</p>
-<div class="tags">
-  <span ng-repeat="tag in artist.tags" class="tag">{{tag}}</span>
+  <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
+    <i class='material-icons'>email</i>
+  </a>
+</div>
+<div class='tags'>
+  <span ng-repeat='tag in artist.tags' class='tag'>{{tag}}</span>
 </div>
