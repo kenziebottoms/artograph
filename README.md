@@ -39,6 +39,8 @@ An app to geographically visualize and organize tattoo artist information.
 | `/register` | `POST` | Register |
 | `/login` | `POST` | Login |
 | `/logout` | `POST` | Logout |
+| `/artists` | `GET` | Get all artists |
+| `/artists:/id` | `GET` | Get one artist by `id` |
 
 ## Angular Routes
 
