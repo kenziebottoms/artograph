@@ -20,7 +20,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-require('./config/passport-strat.js');
+require('./db/config/passport-strat.js');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));

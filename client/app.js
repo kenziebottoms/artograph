@@ -14,8 +14,8 @@ angular.module('artograph', ['ui.router'])
             templateUrl: 'partials/artistMap.html'
           },
           'search@home': {
-            controller: 'ArtistSearchCtrl',
-            templateUrl: 'partials/artistSearch.html'
+            controller: 'ArtistListCtrl',
+            templateUrl: 'partials/artistList.html'
           }
         }
       })
@@ -37,4 +37,10 @@ angular.module('artograph', ['ui.router'])
           }
         }
       });
+  })
+  .config($sceDelegateProvider => {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      'http://*.google.com/**'
+    ]);
   });
