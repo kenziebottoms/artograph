@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('artograph').factory('ArtistFactory', function($q, $http) {
+angular.module('artograph').factory('ArtistFactory', function ($q, $http) {
   const getAll = () => {
-    return $q((resolve, reject) => {
-      $http.get(`/artists`)
-        .then(({data}) => {
-          resolve(data);
-        })
-        .catch(err => reject(err));
-    });
+    return $http.get(`/artists`)
+      .then(({ data }) => data)
   }
-  return { getAll };
+  const getAllByDistance = ({ lat, lng }) => {
+    return $http.get(`/artists?lat=${lat}&lng=${lng}`)
+      .then(({ data }) => data)
+  }
+  return { getAll, getAllByDistance };
 });

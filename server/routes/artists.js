@@ -10,7 +10,12 @@ router.get('/', (req, res, next) => {
   // returns all artists alphabetized by last name
   Artist.findAll()
     .then(artists => {
-      res.status(200).json(sortAlphabetically(artists));
+      if (req.query.lat && req.query.lng) {
+        let { lat, lng } = req.query;
+        res.status(200).json(sortByDistance(artists, {lat, lng}));
+      } else {
+        res.status(200).json(sortAlphabetically(artists));
+      }
     })
     .catch(err => next(err));
 });
@@ -53,7 +58,6 @@ const sortByDistance = (artists, { lat, lng }) => {
   return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
 }
 const sortAlphabetically = (artists) => {
-
   return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
 };
 
