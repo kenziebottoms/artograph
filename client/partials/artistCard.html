@@ -1,0 +1,15 @@
+<h3>
+  <span>{{artist.name}}</span>
+  <a target="blank" ng-show="artist.insta" ng-href="{{artist.insta}}">
+      <img src="img/insta48.png">
+      @{{artist.insta}}
+  </a>
+</h3>
+<h4 ng-show="artist.locale">
+  <i class="material-icons">location_on</i>
+  {{artist.locale}}
+</h4>
+<p>{{artist.email.toLowerCase()}}</p>
+<div class="tags">
+  <span ng-repeat="tag in artist.tags" class="tag">{{tag}}</span>
+</div>

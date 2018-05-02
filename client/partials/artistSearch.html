@@ -4,8 +4,8 @@
       <i class="material-icons">add_circle_outline</i>
   </a>
 </div>
-<div id="focusedArtist" ng-show="focusedArtist" class="result" ng-include="'assets/partials/artistCard.html'" ng-repeat="artist in [focusedArtist]">
-</div>
+<!-- <div id="focusedArtist" ng-show="focusedArtist" class="result" ng-include="'partials/artistCard.html'" ng-repeat="artist in [focusedArtist]">
+</div> -->
 <div id="results">
-  <div ng-include="'assets/partials/artistCard.html'" ng-repeat="artist in results | filter:term" class="result"></div>
+  <div ng-include="'partials/artistCard.html'" ng-repeat="artist in artists" class="result"></div>
 </div>
