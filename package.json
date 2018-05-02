@@ -27,8 +27,8 @@
     "test": "mocha -R nyan --watch",
     "start": "nodemon server/server.js",
     "db:gen": "node server/db/createDb.js",
-    "css:build": "node-sass client/sass/* client/css/*",
-    "css:watch": "nodemon -e scss -x \"npm run css:build\""
+    "css:build": "node-sass client/sass/style.sass client/css/style.css",
+    "css:watch": "nodemon -e sass -x \"npm run css:build\""
   },
   "repository": {
     "type": "git",
