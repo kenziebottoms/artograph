@@ -21,6 +21,7 @@ An app to geographically visualize and organize tattoo artist information.
 - [ ] Users can up- and downvote others’ tags.
 - [ ] Users can look up an Instagram account and the app will try and guess/scrape the artist’s information and location.
 - [ ] App will scrape instagram to show recent tattoos.
+- [ ] App will automatically geolocate user.
 
 ## Tech
 - [Geolocation](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation), MDN
