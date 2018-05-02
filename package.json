@@ -5,16 +5,18 @@
   "main": "index.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
+    "node-sass": "^4.9.0",
     "nodemon": "^1.17.3",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.1",
-    "pug": "^2.0.3",
     "request": "^2.85.0",
     "sequelize": "^4.37.6"
   },
@@ -23,8 +25,10 @@
   },
   "scripts": {
     "test": "mocha -R nyan --watch",
-    "start": "nodemon app/app.js",
-    "db:gen": "node app/db/createDb.js"
+    "start": "nodemon server/server.js",
+    "db:gen": "node server/db/createDb.js",
+    "css:build": "node-sass client/sass/* client/css/*",
+    "css:watch": "nodemon -e scss -x \"npm run css:build\""
   },
   "repository": {
     "type": "git",
