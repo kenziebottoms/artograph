@@ -19,5 +19,9 @@ models.sequelize.sync({ force: true })
   }).then(() => {
     return models.Tag.bulkCreate(tags);
   }).then(() => {
+    return models.Tag.findById(3);
+  }).then((tag) => {
+    return tag.addArtist([2, 6, 7, 8, 9, 12, 13]);
+  }).then(() => {
     process.exit();
   });
