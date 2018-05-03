@@ -2,28 +2,27 @@
 
 angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeolocationFactory) {
 
-  $scope.artists = null;
   let geo = { lat: null, lng: null };
 
+  // grab all artists by default
   ArtistFactory.getAll()
     .then(artists => {
       $scope.artists = artists;
     })
     .catch(err => console.log(err));
-  // try to geolocate
+
+    // try to geolocate
   GeolocationFactory.geolocate()
     .then(({ lat, lng }) => {
       geo = { lat: parseFloat(lat), lng: parseFloat(lng) };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
-          $rootScope.$broadcast("recenterMap", geo);
+          $rootScope.$broadcast('recenterMap', geo);
           $scope.artists = artists;
         })
         .catch(err => console.log(err));
     })
-    // if no geo available, get em all
-    .catch(err => {
-    });
+    .catch(err => console.log('No geo availabe', err));
 
   $rootScope.$on('highlightArtist', (event, artistId) => {
     if (artistId >= 0) {
