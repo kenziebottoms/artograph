@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Artist.associate = function(models) {
     Artist.belongsToMany(models.Tag, {
-      through: 'ArtistTags'
+      through: 'ArtistTags',
+      foreignKey: 'ArtistId'
     });
   };
   return Artist;

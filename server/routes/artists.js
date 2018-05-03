@@ -49,10 +49,23 @@ router.get('/nearby', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  const { Artist } = req.app.get('models');
+  const { Artist, Tag, ArtistTag } = req.app.get('models');
   Artist.findById(req.params.id, { raw: true })
     .then(artist => {
       res.status(200).json(artist);
+    })
+    .catch(err => next(err));
+});
+
+router.get('/:id/tags', (req, res, next) => {
+  const { Artist, Tag, ArtistTag } = req.app.get('models');
+  Artist.findById(req.params.id)
+    .then(artist => {
+      return artist.getTags({
+        attributes: ['id','name']
+      });
+    }).then((tags) => {
+      res.status(200).json(tags);
     })
     .catch(err => next(err));
 });
