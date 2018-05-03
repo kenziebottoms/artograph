@@ -5,7 +5,6 @@ const bCrypt = require('bcrypt-nodejs');
 module.exports.register = (req, res, next) => {
   // first argument is name of the passport strategy we created in passport-strat.js
   passport.authenticate('local-signup', (err, user, msgObj) => {
-    // console.log('Where are we? session.js', user);
 
     if (err) return next(err);
 
