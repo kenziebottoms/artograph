@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Tag.associate = function(models) {
-    // associations can be defined here
+    Tag.belongsToMany(models.Artist, {
+      through: 'ArtistTags'
+    });
   };
   return Tag;
 };

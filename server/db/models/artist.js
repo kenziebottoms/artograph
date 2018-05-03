@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     insta: DataTypes.STRING
   }, {});
   Artist.associate = function(models) {
-    // associations can be defined here
+    Artist.belongsToMany(models.Tag, {
+      through: 'ArtistTags'
+    });
   };
   return Artist;
 };
