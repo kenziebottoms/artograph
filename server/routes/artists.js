@@ -34,8 +34,8 @@ router.get('/nearby', (req, res, next) => {
           [Op.lt]: parseFloat(lat) + parseFloat(allowance)
         }
       },
+      // longitude is within allowance lat/long points of given longitude
       lng: {
-        // longitude is within allowance lat/long points of given longitude
         [Op.and]: {
           [Op.gt]: parseFloat(lng) - parseFloat(allowance),
           [Op.lt]: parseFloat(lng) + parseFloat(allowance)
