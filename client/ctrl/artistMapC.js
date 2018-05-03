@@ -58,11 +58,12 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     
     // clusterize the whole thing
     $scope.markerCluster = new MarkerClusterer($scope.map, markers, { imagePath: 'img/m' });
-    google.maps.event.addListener($scope.map, 'click', activateMapListeners);
+    // listen for non-marker clicks
+    google.maps.event.addListener($scope.map, 'click', changeEpicenter);
   };
 
-  // listen for non-marker clicks
-  const activateMapListeners = event => {
+  // move the epicenter to clicked point
+  const changeEpicenter = event => {
       // hide highlighted artist
       selectArtist(null);
       // close all (one) info windows
