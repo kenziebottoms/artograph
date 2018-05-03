@@ -1,8 +1,10 @@
 'use strict';
 
-const { artists } = require('./seeders/artists');
 const models = require('./models');
 const { generateHash } = require('../ctrl/auth');
+
+const { artists } = require('./seeders/artists');
+const { tags } = require('./seeders/tags');
 
 models.sequelize.sync({ force: true })
   .then(() => {
@@ -14,6 +16,8 @@ models.sequelize.sync({ force: true })
   })
   .then(() => {
     return models.Artist.bulkCreate(artists);
+  }).then(() => {
+    return models.Tag.bulkCreate(tags);
   }).then(() => {
     process.exit();
   });
