@@ -11,18 +11,18 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     })
     .catch(err => console.log(err));
 
-    // try to geolocate
+  // try to geolocate
   GeolocationFactory.geolocate()
     .then(({ lat, lng }) => {
-      geo = { lat: parseFloat(lat), lng: parseFloat(lng) };
+      geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
-          $rootScope.$broadcast('recenterMap', geo);
+          $scope.recenterMap(geo);
           $scope.artists = artists;
         })
         .catch(err => console.log(err));
     })
-    .catch(err => console.log('No geo availabe', err));
+    .catch(err => console.log('No geo available'));
 
   $rootScope.$on('highlightArtist', (event, artistId) => {
     if (artistId >= 0) {
@@ -38,5 +38,8 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       })
       .catch(err => console.log(err));
   });
+  $scope.recenterMap = ({ lat, lng }) => {
+    $rootScope.$broadcast('recenterMap', { lat, lng });
+  };
 
 });

@@ -15,8 +15,10 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // only one list of artists
   $scope.artists = null;
+  // only one list of markers
+  $scope.markers = null;
   // only one map which is altered as needed
-  $scope.map =  new google.maps.Map(document.getElementById('map'));
+  $scope.map = new google.maps.Map(document.getElementById('map'));
   // only one markerCluster which is overwritten when the map is changed (zoom/center, not points)
   $scope.markerCluster = null;
   // one info window that moves to whatever point is clicked
@@ -47,6 +49,8 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   };
 
   const drawMap = (artists, { lat, lng }) => {
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
     // refresh $scope
     $scope.artists = artists;
     // zoom in if there is a non-default epicenter
@@ -54,30 +58,30 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     // recenter on given epicenter
     $scope.map.setCenter({ lat, lng })
 
-    let markers = getMarkers(artists);
-    
+    $scope.markers = getMarkers(artists);
+
     // clusterize the whole thing
-    $scope.markerCluster = new MarkerClusterer($scope.map, markers, { imagePath: 'img/m' });
+    $scope.markerCluster = new MarkerClusterer($scope.map, $scope.markers, { imagePath: 'img/m' });
     // listen for non-marker clicks
     google.maps.event.addListener($scope.map, 'click', changeEpicenter);
   };
 
   // move the epicenter to clicked point
   const changeEpicenter = event => {
-      // hide highlighted artist
-      selectArtist(null);
-      // close all (one) info windows
-      $scope.info.close();
-      // location of click
-      let point = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
-      };
+    // hide highlighted artist
+    selectArtist(null);
+    // close all (one) info windows
+    $scope.info.close();
+    // location of click
+    let point = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng()
+    };
 
-      // move existing active marker
-      $scope.activeMarker.setPosition(point);
-      // tell ArtistListCtrl to resort the artists
-      $rootScope.$broadcast('resortByDistance', point);
+    // move existing active marker
+    $scope.activeMarker.setPosition(point);
+    // tell ArtistListCtrl to resort the artists
+    $rootScope.$broadcast('resortByDistance', point);
   };
 
   // tell ArtistListCtrl to highlight the clicked artist
@@ -94,12 +98,6 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // waits for ArtistListCtrl to tell it to recenter the map
   $rootScope.$on('recenterMap', (event, { lat, lng }) => {
-    $scope.map.setCenter({ lat, lng });
-    // zoom in if out
-    $scope.map.setZoom(8);
-    // rebuild markers in case $scope.artists is different
-    let markers = getMarkers($scope.artists);
-    // rebuild markerCluster
-    $scope.markerCluster = new MarkerClusterer($scope.map, markers, { imagePath: 'img/m' });
+    drawMap($scope.artists, { lat, lng });
   });
 });

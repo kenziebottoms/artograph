@@ -1,4 +1,4 @@
-<div class='header'>
+<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng})' class='header'>
   <h4 data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>{{artist.name}}</h4>
   <a target='blank' ng-show='artist.insta' ng-href='{{artist.insta}}'>
     <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
