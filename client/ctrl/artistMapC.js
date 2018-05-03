@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $scope, GOOGLE, GeolocationFactory, ArtistFactory) {
+angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $scope, ArtistFactory) {
 
   // $scope variables
   const star = {
