@@ -1,10 +1,28 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistListCtrl', function($rootScope, $scope, ArtistFactory) {
+angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeolocationFactory) {
+
+  $scope.artists = null;
+  let geo = { lat: null, lng: null };
 
   ArtistFactory.getAll()
-    .then(data => {
-      $scope.artists = data;
+  .then(artists => {
+    $scope.artists = artists;
+  })
+  .catch(err => console.log(err));
+  // try to geolocate
+  GeolocationFactory.geolocate()
+    .then(({ lat, lng }) => {
+      geo = { lat: parseFloat(lat), lng: parseFloat(lng) };
+      ArtistFactory.getAllByDistance(geo)
+        .then(artists => {
+          $rootScope.$broadcast("recenterMap", geo);
+          $scope.artists = artists;
+        })
+        .catch(err => console.log(err));
+    })
+    // if no geo available, get em all
+    .catch(err => {
     });
 
   $rootScope.$on('highlightArtist', (event, artistId) => {

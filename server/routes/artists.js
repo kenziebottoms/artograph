@@ -8,11 +8,13 @@ const { Op } = require('sequelize');
 router.get('/', (req, res, next) => {
   const { Artist } = req.app.get('models');
   // returns all artists alphabetized by last name
-  Artist.findAll()
+  Artist.findAll({ raw: true })
     .then(artists => {
-      if (req.query.lat && req.query.lng) {
-        let { lat, lng } = req.query;
-        res.status(200).json(sortByDistance(artists, {lat, lng}));
+      let lat = parseFloat(req.query.lat);
+      let lng = parseFloat(req.query.lng);
+      // checks that both are numbers
+      if (lat == lat && lng == lng) {
+        res.status(200).json(sortByDistance(artists, { lat, lng }));
       } else {
         res.status(200).json(sortAlphabetically(artists));
       }
@@ -39,7 +41,8 @@ router.get('/nearby', (req, res, next) => {
           [Op.lt]: parseFloat(lng) + parseFloat(allowance)
         }
       }
-    }
+    },
+    raw: true
   })
     .then(artists => res.status(200).json(sortByDistance(artists, { lat, lng })))
     .catch(err => next(err));
@@ -47,7 +50,7 @@ router.get('/nearby', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const { Artist } = req.app.get('models');
-  Artist.findById(req.params.id)
+  Artist.findById(req.params.id, { raw: true })
     .then(artist => {
       res.status(200).json(artist);
     })

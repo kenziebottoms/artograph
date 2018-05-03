@@ -2,32 +2,23 @@
 
 angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $scope, GOOGLE, GeolocationFactory, ArtistFactory) {
 
-  // go ahead and get everybody and draw an empty map
   ArtistFactory.getAll()
     .then(artists => {
       $scope.drawMap(artists, { lat: 0, lng: 0 });
-    });
+    })
+    .catch(err => console.log('ArtistFactory.getAll error', err));
 
-  // then go geolocate;
-  GeolocationFactory.geolocate()
-    .then(({ lat, lng }) => {
-      ArtistFactory.getAllByDistance({ lat, lng })
-        .then(artists => {
-          $scope.drawMap(artists, { lat, lng });
-        })
-        .catch(err => console.log(err));
-    });
-
+  let map, markerCluster, markers;
   $scope.drawMap = (artists, { lat, lng }) => {
     $scope.artists = artists;
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: (lat == 0 && lng == 0) ? 2 : 8,
       center: { lat, lng }
     });
     // one info window that moves to whatever point is clicked
     let info = new google.maps.InfoWindow();
     // extract lat/long from artists
-    let markers = artists.map(a => {
+    markers = artists.map(a => {
       let marker = new google.maps.Marker({
         position: { lat: parseFloat(a.lat), lng: parseFloat(a.lng) }
       });
@@ -77,4 +68,9 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
       selectArtist(event.target.dataset.id);
     }
   };
+  $rootScope.$on('recenterMap', (event, { lat, lng }) => {
+    map.setCenter({ lat, lng });
+    map.setZoom(8);
+    let markerCluster = new MarkerClusterer(map, markers, { imagePath: 'img/m' });
+  });
 });
