@@ -25,32 +25,35 @@ img {
   grid-template-rows: auto auto 1fr; }
   #search-half #results {
     overflow: scroll; }
-  #search-half .artist-list-item .header {
-    display: flex; }
-    #search-half .artist-list-item .header h4 {
+  #search-half > div .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    #search-half > div .header h4 {
       font-size: 1.5rem;
-      margin-right: .5rem;
-      cursor: pointer; }
-    #search-half .artist-list-item .header a {
+      cursor: pointer;
+      flex-grow: 2; }
+    #search-half > div .header a {
       display: block; }
-    #search-half .artist-list-item .header img, #search-half .artist-list-item .header i {
+    #search-half > div .header img, #search-half > div .header i {
       height: 1.5rem;
       vertical-align: middle;
       padding: 0 .25rem;
       box-sizing: border-box; }
-  #search-half .artist-list-item.highlight {
+  #search-half > div.highlight {
     background: #FDEE96; }
-  #search-half .artist-list-item .details .posts {
+  #search-half > div .details .posts {
     display: grid;
+    grid-gap: .5em;
     grid-template-columns: repeat(3, 1fr); }
-    #search-half .artist-list-item .details .posts a {
+    #search-half > div .details .posts a {
       opacity: 1; }
-  #search-half .artist-list-item .tags .tag {
+  #search-half > div .tags .tag {
+    font-size: .9rem;
+    font-weight: 100;
     opacity: 1;
-    display: inline-block;
-    background: #0001;
-    padding: .25rem .5rem;
-    margin-right: .5rem; }
+    padding: .25em .5em;
+    display: inline-block; }
 
 .lds-hourglass {
   display: block;
