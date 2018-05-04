@@ -6,9 +6,18 @@ const _ = require('lodash');
 const { Op } = require('sequelize');
 
 router.get('/', (req, res, next) => {
-  const { Artist } = req.app.get('models');
+  const models = req.app.get('models');
   // returns all artists alphabetized by last name
-  Artist.findAll({ raw: true })
+  models.sequelize.query(`SELECT
+      a.*,
+      STRING_AGG(t.name,',') as Tags
+    FROM "Artists" a
+    LEFT JOIN "ArtistTags" at
+      ON at."ArtistId" = a.id
+    LEFT JOIN "Tags" t
+      ON t.id = at."TagId"
+    GROUP BY a.id`,
+    { type: models.sequelize.QueryTypes.SELECT })
     .then(artists => {
       let lat = parseFloat(req.query.lat);
       let lng = parseFloat(req.query.lng);
@@ -49,8 +58,18 @@ router.get('/nearby', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  const { Artist, Tag, ArtistTag } = req.app.get('models');
-  Artist.findById(req.params.id, { raw: true })
+  const models = req.app.get('models');
+  models.sequelize.query(`SELECT
+      a.*,
+      STRING_AGG(t.name,',') as Tags
+    FROM "Artists" a
+    JOIN "ArtistTags" at
+      ON at."ArtistId" = a.id
+    LEFT JOIN "Tags" t
+      ON t.id = at."TagId"
+    WHERE a.id = ${req.params.id}
+    GROUP BY a.id`,
+    { type: models.sequelize.QueryTypes.SELECT })
     .then(artist => {
       res.status(200).json(artist);
     })

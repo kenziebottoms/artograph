@@ -8,13 +8,13 @@
   </a>
 </div>
 <div class='details' ng-show='highlight.id == artist.id'>
-  <div ng-show='!highlight.details.posts' class="lds-hourglass"></div>
+  <div ng-show='!highlight.posts' class="lds-hourglass"></div>
   <div class='posts'>
-    <a target='blank' ng-repeat='post in highlight.details.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>
+    <a target='blank' ng-repeat='post in highlight.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>
       <img ng-src='{{post.thumb}}'>
     </a>
   </div>
-  <div class='tags'>
-    <a ng-repeat='tag in highlight.details.tags' ng-href='/#!/tags/{{tag.id}}' class='tag'>{{tag.name}}</span>
-  </div>
+</div>
+<div class='tags'>
+  <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='tag'>{{tag}}</span>
 </div>

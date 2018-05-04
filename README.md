@@ -75,7 +75,7 @@ Returns a list of artists within an `allowance` by `allowance` latitude/longitud
 
 #### `GET /artists/:id/tags`
 
-Returns a list of the tags associated with the provided artist.
+Returns a list of the tags with their `id`s associated with the provided artist.
 
 ## Angular Routes
 
