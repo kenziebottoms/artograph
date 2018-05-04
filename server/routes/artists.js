@@ -63,8 +63,9 @@ router.get('/:id/tags', (req, res, next) => {
     FROM "Artists" a
     JOIN "ArtistTags" at
       ON at."ArtistId" = a.id
-    JOIN "Tags" t
+    LEFT JOIN "Tags" t
       ON t.id = at."TagId"
+    WHERE a.id = ${req.params.id}
     GROUP BY t.id`,
     { type: models.sequelize.QueryTypes.SELECT })
     .then(tags => {

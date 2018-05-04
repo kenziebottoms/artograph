@@ -1,4 +1,4 @@
-<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng})' class='header'>
+<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}); expandArtist(artist.id)' class='header'>
   <h4 data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>{{artist.name}}</h4>
   <a target='blank' ng-show='artist.insta' ng-href='{{artist.insta}}'>
     <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
@@ -7,6 +7,8 @@
     <i class='material-icons'>email</i>
   </a>
 </div>
-<div class='tags'>
-  <span ng-repeat='tag in artist.tags' class='tag'>{{tag}}</span>
+<div class='details' ng-show='details && details.id == artist.id'>
+  <div class='tags'>
+    <a ng-repeat='tag in details.tags' ng-href='/#!/tags/{{tag.id}}' class='tag'>{{tag.name}}</span>
+  </div>
 </div>
