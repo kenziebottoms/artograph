@@ -41,12 +41,16 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $scope.recenterMap = ({ lat, lng }) => {
     $rootScope.$broadcast('recenterMap', { lat, lng });
   };
-  $scope.expandArtist = id => {
-    ArtistFactory.getDetails(id)
-      .then(details => {
-        $scope.details = details;
-        $scope.details.id = id;
-      })
-      .catch(err => console.log(err));
+  $scope.expandArtist = (id, insta) => {
+    if (!$scope.details || $scope.details.id != id) {
+      $scope.details = { id };
+      ArtistFactory.getDetails(id, insta.split('.com/')[1].trim('/'))
+        .then(details => {
+          $scope.details = details;
+        })
+        .catch(err => console.log(err));
+    } else {
+      $scope.details = null;
+    }
   };
 });

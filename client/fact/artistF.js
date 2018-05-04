@@ -15,15 +15,17 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http) {
         .catch(err => reject(err));
     });
   };
-  const getDetails = id => {
+  const getDetails = (id, insta) => {
     return $q((resolve, reject) => {
       Promise.all([
         $http.get(`/artists/${id}`),
-        $http.get(`/artists/${id}/tags`)
+        $http.get(`/artists/${id}/tags`),
+        $http.get(`/insta/posts/${insta}`)
       ])
-        .then(([details, tags]) => {
+        .then(([details, tags, instagram]) => {
           details = details.data;
           details.tags = tags.data;
+          details.posts = instagram.data;
           resolve(details);
         })
         .catch(err => reject(err));
