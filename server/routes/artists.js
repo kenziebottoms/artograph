@@ -58,13 +58,16 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/:id/tags', (req, res, next) => {
-  const { Artist, Tag, ArtistTag } = req.app.get('models');
-  Artist.findById(req.params.id)
-    .then(artist => {
-      return artist.getTags({
-        attributes: ['id','name']
-      });
-    }).then((tags) => {
+  const models = req.app.get('models');
+  models.sequelize.query(`SELECT t.name, t.id
+    FROM "Artists" a
+    JOIN "ArtistTags" at
+      ON at."ArtistId" = a.id
+    JOIN "Tags" t
+      ON t.id = at."TagId"
+    GROUP BY t.id`,
+    { type: models.sequelize.QueryTypes.SELECT })
+    .then(tags => {
       res.status(200).json(tags);
     })
     .catch(err => next(err));
