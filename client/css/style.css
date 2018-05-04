@@ -21,7 +21,10 @@ img {
 
 #search-half {
   height: 100vh;
-  overflow: scroll; }
+  display: grid;
+  grid-template-rows: auto auto 1fr; }
+  #search-half #results {
+    overflow: scroll; }
   #search-half .artist-list-item .header {
     display: flex; }
     #search-half .artist-list-item .header h4 {
@@ -42,6 +45,12 @@ img {
     grid-template-columns: repeat(3, 1fr); }
     #search-half .artist-list-item .details .posts a {
       opacity: 1; }
+  #search-half .artist-list-item .tags .tag {
+    opacity: 1;
+    display: inline-block;
+    background: #0001;
+    padding: .25rem .5rem;
+    margin-right: .5rem; }
 
 .lds-hourglass {
   display: block;
