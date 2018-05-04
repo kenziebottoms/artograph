@@ -27,6 +27,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $rootScope.$on('highlightArtist', (event, artistId) => {
     if (artistId >= 0) {
       $scope.highlight = $scope.artists.find(a => a.id == artistId);
+      $scope.expandArtist($scope.highlight.id, $scope.highlight.insta)
     } else {
       $scope.highlight = null;
     }
