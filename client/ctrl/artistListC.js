@@ -25,9 +25,8 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     .catch(err => console.log('No geo available'));
 
   $rootScope.$on('highlightArtist', (event, artistId) => {
-    if (artistId >= 0) {
-      $scope.highlight = $scope.artists.find(a => a.id == artistId);
-      $scope.expandArtist($scope.highlight.id, $scope.highlight.insta)
+    if (artistId != null) {
+      $scope.expandArtist(artistId);
     } else {
       $scope.highlight = null;
     }
@@ -42,16 +41,16 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $scope.recenterMap = ({ lat, lng }) => {
     $rootScope.$broadcast('recenterMap', { lat, lng });
   };
-  $scope.expandArtist = (id, insta) => {
-    if (!$scope.details || $scope.details.id != id) {
-      $scope.details = { id };
-      ArtistFactory.getDetails(id, insta.split('.com/')[1].trim('/'))
+  $scope.expandArtist = (id) => {
+    if (!$scope.highlight || $scope.highlight.id != id) {
+      $scope.highlight = $scope.artists.find(a => a.id == id);
+      ArtistFactory.getDetails(id, $scope.highlight.insta.split('.com/')[1].trim('/'))
         .then(details => {
-          $scope.details = details;
+          $scope.highlight.details = details;
         })
         .catch(err => console.log(err));
     } else {
-      $scope.details = null;
+      $scope.highlight = null;
     }
   };
 });
