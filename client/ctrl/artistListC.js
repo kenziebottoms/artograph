@@ -44,9 +44,10 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $scope.expandArtist = (id) => {
     if (!$scope.highlight || $scope.highlight.id != id) {
       $scope.highlight = $scope.artists.find(a => a.id == id);
-      ArtistFactory.getDetails(id, $scope.highlight.insta.split('.com/')[1].trim('/'))
-        .then(details => {
-          $scope.highlight.details = details;
+      let insta = $scope.highlight.insta.split('.com/')[1].trim('/');
+      ArtistFactory.getPosts(insta)
+        .then(posts => {
+          $scope.highlight.posts = posts;
         })
         .catch(err => console.log(err));
     } else {
