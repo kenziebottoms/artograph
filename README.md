@@ -71,6 +71,12 @@ Returns one artist by `id`.
 
 Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
 
+### Tag search
+
+#### `GET /artists/:id/tags`
+
+Returns a list of the tags associated with the provided artist.
+
 ## Angular Routes
 
 | Path | Description |

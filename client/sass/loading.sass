@@ -1,0 +1,28 @@
+// https://loading.io/css/
+.lds-hourglass
+  display: block
+  margin: auto
+  position: relative
+  width: 64px
+  height: 64px
+  transform: scale(0.6)
+.lds-hourglass:after
+  content: " "
+  display: block
+  border-radius: 50%
+  width: 0
+  height: 0
+  margin: 6px
+  box-sizing: border-box
+  border: 26px solid #00000044
+  border-color: #00000044 transparent #00000044 transparent
+  animation: lds-hourglass 2s infinite
+@keyframes lds-hourglass
+  0%
+    transform: rotate(0)
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19)
+  50%
+    transform: rotate(900deg)
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1)
+  100%
+    transform: rotate(1800deg)
