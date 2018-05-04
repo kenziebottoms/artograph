@@ -1,10 +1,12 @@
-<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}); expandArtist(artist.id)' class='header'>
-  <h4 data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>{{artist.name}}</h4>
-  <a target='blank' ng-show='artist.insta' ng-href='{{artist.insta}}'>
-    <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
-  </a>
+<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}); expandArtist(artist.id)' class='header m-2'>
+  <h4 class='my-0 mr-2' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
+    {{artist.name}}
+  </h4>
   <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
     <i class='material-icons'>email</i>
+  </a>
+  <a target='blank' ng-show='artist.insta' ng-href='{{artist.insta}}'>
+    <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
   </a>
 </div>
 <div class='details' ng-show='highlight.id == artist.id'>
@@ -15,6 +17,8 @@
     </a>
   </div>
 </div>
-<div class='tags'>
-  <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='tag'>{{tag}}</span>
+<div ng-show='artist.tags' class='tags m-2'>
+  <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag mr-2'>
+    {{tag}}
+  </span>
 </div>

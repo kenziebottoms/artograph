@@ -22,13 +22,15 @@ img
   grid-template-rows: auto auto 1fr
   #results
     overflow: scroll
-  .artist-list-item
+  > div
     .header
       display: flex
+      justify-content: space-between
+      align-items: center;
       h4
         font-size: 1.5rem
-        margin-right: .5rem
         cursor: pointer
+        flex-grow: 2
       a
         display: block
       img, i
@@ -43,13 +45,14 @@ img
         a
           opacity: 1
         display: grid
+        grid-gap: .5em;
         grid-template-columns: repeat(3, 1fr)
     .tags
       .tag
-        opacity: 1;
+        font-size: .9rem
+        font-weight: 100
+        opacity: 1
+        padding: .25em .5em
         display: inline-block
-        background: #0001
-        padding: .25rem .5rem
-        margin-right: .5rem;
 
 @import loading
