@@ -93,6 +93,16 @@ router.get('/:id/tags', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.patch('/:id', (req, res, next) => {
+  const { Artist } = req.app.get('models');
+  const data = req.body;
+  Artist.update(data, {
+    where: { id: req.params.id }
+  })
+    .then(statusCode => res.send(statusCode ? 200 : 500))
+    .catch(err => console.log(err));
+});
+
 const sortByDistance = (artists, { lat, lng }) => {
   return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
 }
