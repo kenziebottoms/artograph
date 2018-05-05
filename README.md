@@ -9,10 +9,10 @@ An app to geographically visualize and organize tattoo artist information.
 > an illustrated map
 
 ## Goals
-- [ ] Users can search a list of artists by
+- [x] Users can search a list of artists by
     - [x] name,
     - [x] tags,
-    - [ ] region name.
+    - [x] region name.
 - [x] User can select their current location and receive a filterable list of tattoo artists ordered by distance from that point.
 - [ ] User can enter in tattoo artist information for other users to browse.
 - [ ] Users can add tags to artists that other users can search by.
@@ -22,6 +22,7 @@ An app to geographically visualize and organize tattoo artist information.
 - [ ] Users can look up an Instagram account and the app will try and guess/scrape the artist’s information and location.
 - [x] App will scrape instagram to show recent tattoos.
 - [x] App will automatically geolocate user.
+- [x] App will reverse-geocode latitude and longitude and infer a region name.
 
 ## Tech
 - [Geolocation](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation), MDN
