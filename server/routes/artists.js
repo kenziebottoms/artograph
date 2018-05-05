@@ -63,7 +63,7 @@ router.get('/:id', (req, res, next) => {
       a.*,
       STRING_AGG(t.name,',') as Tags
     FROM "Artists" a
-    JOIN "ArtistTags" at
+    LEFT JOIN "ArtistTags" at
       ON at."ArtistId" = a.id
     LEFT JOIN "Tags" t
       ON t.id = at."TagId"
@@ -80,7 +80,7 @@ router.get('/:id/tags', (req, res, next) => {
   const models = req.app.get('models');
   models.sequelize.query(`SELECT t.name, t.id
     FROM "Artists" a
-    JOIN "ArtistTags" at
+    LEFT JOIN "ArtistTags" at
       ON at."ArtistId" = a.id
     LEFT JOIN "Tags" t
       ON t.id = at."TagId"
@@ -91,6 +91,16 @@ router.get('/:id/tags', (req, res, next) => {
       res.status(200).json(tags);
     })
     .catch(err => next(err));
+});
+
+router.patch('/:id', (req, res, next) => {
+  const { Artist } = req.app.get('models');
+  const data = req.body;
+  Artist.update(data, {
+    where: { id: req.params.id }
+  })
+    .then(statusCode => res.send(statusCode ? 200 : 500))
+    .catch(err => console.log(err));
 });
 
 const sortByDistance = (artists, { lat, lng }) => {

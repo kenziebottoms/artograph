@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     lat: DataTypes.DECIMAL,
     lng: DataTypes.DECIMAL,
-    insta: DataTypes.STRING
+    insta: DataTypes.STRING,
+    region: DataTypes.STRING
   }, {});
   Artist.associate = function(models) {
     Artist.belongsToMany(models.Tag, {

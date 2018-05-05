@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').factory('ArtistFactory', function ($q, $http) {
+angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFactory) {
   const getAll = () => {
     return $q((resolve, reject) => {
       $http.get(`/artists`)
@@ -27,19 +27,34 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http) {
     });
   };
 
-  const getDetails = (id) => {
+  const getRegion = (id) => {
     return $q((resolve, reject) => {
-      Promise.all([
-        $http.get(`/artists/${id}`),
-        $http.get(`/artists/${id}/tags`)
-      ])
-        .then(([details, tags]) => {
-          details = details.data;
-          details.tags = tags.data;
-          resolve(details);
+      let region;
+      $http.get(`/artists/${id}`)
+        .then(({ data }) => {
+          if (data.length) data = data[0];
+          if (!data.region) {
+            let { lat, lng } = data;
+            GeoFactory.reverseGeocode({ lat, lng })
+              .then(response => {
+                if (response) {
+                  region = response;
+                  $http.patch(`/artists/${id}`, { region })
+                    .then(response => {
+                      resolve(region);
+                    })
+                    .catch(err => reject(err));
+                } else {
+                  resolve('');
+                }
+              })
+              .catch(err => reject(err));
+          } else {
+            resolve(data.region);
+          }
         })
         .catch(err => reject(err));
     });
   };
-  return { getAll, getAllByDistance, getPosts, getDetails };
+  return { getAll, getAllByDistance, getPosts, getRegion };
 });

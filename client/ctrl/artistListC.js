@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeolocationFactory) {
+angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory) {
 
   let geo = { lat: null, lng: null };
 
@@ -12,7 +12,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     .catch(err => console.log(err));
 
   // try to geolocate
-  GeolocationFactory.geolocate()
+  GeoFactory.geolocate()
     .then(({ lat, lng }) => {
       geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
@@ -48,6 +48,14 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       ArtistFactory.getPosts(insta)
         .then(posts => {
           $scope.highlight.posts = posts;
+          if (!$scope.highlight.region) {
+            ArtistFactory.getRegion(id)
+              .then(region => {
+                $scope.artists.find(a => a.id == id).region = region;
+                $scope.highlight.region = region;
+              })
+              .catch(err => console.log(err));
+          }
         })
         .catch(err => console.log(err));
     } else {
