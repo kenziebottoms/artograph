@@ -49,12 +49,13 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
         .then(posts => {
           $scope.highlight.posts = posts;
           if (!$scope.highlight.region) {
-            return ArtistFactory.getRegion(id);
+            ArtistFactory.getRegion(id)
+              .then(region => {
+                $scope.artists.find(a => a.id == id).region = region;
+                $scope.highlight.region = region;
+              })
+              .catch(err => console.log(err));
           }
-        })
-        .then(region => {
-          $scope.artists.find(a => a.id == id).region = region;
-          $scope.highlight.region = region;
         })
         .catch(err => console.log(err));
     } else {
