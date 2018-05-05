@@ -28,13 +28,17 @@ img {
   #search-half > div .header {
     display: flex;
     justify-content: space-between;
-    align-items: center; }
+    align-items: flex-end; }
     #search-half > div .header h4 {
       font-size: 1.5rem;
       cursor: pointer;
-      flex-grow: 2; }
+      flex-grow: 1; }
+    #search-half > div .header .region {
+      display: block;
+      flex-grow: 100; }
     #search-half > div .header a {
-      display: block; }
+      display: block;
+      flex-grow: 0; }
     #search-half > div .header img, #search-half > div .header i {
       height: 1.5rem;
       vertical-align: middle;
