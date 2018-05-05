@@ -28,31 +28,30 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
   };
 
   const getRegion = (id) => {
-    console.log('getting region');
     return $q((resolve, reject) => {
       let region;
       $http.get(`/artists/${id}`)
-        .then(({data}) => {
-          console.log(artistDetails);
-          if (data.region == "") {
+        .then(({ data }) => {
+          if (data.length) data = data[0];
+          if (!data.region) {
             let { lat, lng } = data;
-            console.log('reverse geocoding');
-            return GeoFactory.reverseGeocode({ lat, lng });
+            GeoFactory.reverseGeocode({ lat, lng })
+              .then(response => {
+                if (response) {
+                  region = response;
+                  $http.patch(`/artists/${id}`, { region })
+                    .then(response => {
+                      resolve(region);
+                    })
+                    .catch(err => reject(err));
+                } else {
+                  resolve('');
+                }
+              })
+              .catch(err => reject(err));
           } else {
-            resolve(region);
+            resolve(data.region);
           }
-        })
-        .then(response => {
-          if (response) {
-            region = response;
-            console.log('patching artist');
-            return $http.patch(`/artists/${id}`, { region });
-          } else {
-            resolve('');
-          }
-        }).then(response => {
-          console.log('add region to artist details');
-          resolve(region);
         })
         .catch(err => reject(err));
     });

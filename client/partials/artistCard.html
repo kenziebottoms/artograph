@@ -2,6 +2,9 @@
   <h4 class='my-0 mr-2' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
     {{artist.name}}
   </h4>
+  <p class='region m-0 ml-1' ng-show='artist.region'>
+    {{artist.region}}
+  </p>
   <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
     <i class='material-icons'>email</i>
   </a>
