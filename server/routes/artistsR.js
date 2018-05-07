@@ -7,7 +7,8 @@ const {
   getById,
   getAllAlpha,
   getAllDistance,
-  getNearby
+  getNearby,
+  paranoidCreate
 } = require('../ctrl/artistC');
 const tags = require('../ctrl/tagsC');
 
@@ -58,34 +59,14 @@ router.get('/:id/tags', (req, res, next) => {
 
 // Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist.
 router.post('/', (req, res, next) => {
-  const { Artist, Tag } = req.app.get('models');
-  const data = validate(req.body);
-  if (data) {
-    let { email } = data;
-    if (email) {
-      Artist.findAll({ where: { email } })
-        .then(artist => {
-          if (artist.length > 0) {
-            res.sendStatus(409);
-          } else {
-            Artist.create(data)
-              .then(response => {
-                console.log(response);
-                Promise.all(data.tags.map(t => {
-
-                }))
-                if (response) {
-                  res.status(200).json(response);
-                }
-              })
-              .catch(err => next(err));
-          }
-        })
-        .catch(err => next(err));
-    }
-  } else {
-    res.sendStatus(400);
-  }
+  paranoidCreate(req.body)
+    .then(response => {
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      console.log('paranoidCreate err: ',err);
+      res.sendStatus(err);
+    });
 });
 
 // Updates the artist with the given `id` without overwriting unaddressed properties.
@@ -98,42 +79,5 @@ router.patch('/:id', (req, res, next) => {
     .then(statusCode => res.send(statusCode ? 200 : 500))
     .catch(err => console.log(err));
 });
-
-const sortByDistance = (artists, { lat, lng }) => {
-  return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
-}
-const sortAlphabetically = (artists) => {
-  return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
-};
-const validate = body => {
-  let { email, name, lat, lng, insta, tags } = body;
-  if (email) {
-    email = email.toLowerCase();
-    let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
-    if (!emailRx.test(email)) {
-      return false;
-    }
-  }
-  if (insta) {
-    insta = insta.toLowerCase().trim();
-    if (insta.split('').reverse()[0] == '/') {
-      insta = insta.slice(0, insta.length - 1);
-    }
-    let instaRx = /[a-z]{4,5}:\/\/www.instagram.com\/[\.a-z0-9_-]+/gi;
-    if (!instaRx.test(insta)) {
-      return false;
-    }
-  }
-  if (isNaN(lat) || isNaN(lng)) {
-    return false;
-  } else {
-    lat = parseFloat(lat);
-    lng = parseFloat(lng);
-  }
-  if (tags) {
-    tags = tags.split(',').map(s => s.trim());
-  }
-  return { email, name, lat, lng, insta };
-};
 
 module.exports = router;
