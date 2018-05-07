@@ -99,7 +99,6 @@ router.get('/:id/tags', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { Artist } = req.app.get('models');
   const data = validate(req.body);
-  console.log(data);
   if (data) {
     let { email } = data;
     if (email) {
