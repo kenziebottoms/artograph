@@ -74,7 +74,7 @@ router.post('/', (req, res, next) => {
 router.patch('/:id', (req, res, next) => {
   edit(req.params.id, req.body)
     .then(statusCode => res.send(statusCode ? 200 : 500))
-    .catch(err => console.log(err));
+    .catch(err => res.sendStatus(err));
 });
 
 module.exports = router;

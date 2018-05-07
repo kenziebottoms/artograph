@@ -5,7 +5,7 @@ const models = require('../db/models');
 const { Tag, Artist } = models;
 
 // check for duplicates, validate data, create new tag
-const create = data => {
+const paranoidCreate = data => {
   return new Promise((resolve, reject) => {
     data = validate(data);
     // if data is invalid
@@ -14,32 +14,40 @@ const create = data => {
       reject(400);
     } else {
       let { name } = data;
-      getMatches(name)
+      getMatch(name)
         .then(dupes => {
           // if a tag like this already exists
-          if (dupes.length > 0) {
+          if (dupes) {
             // 409: conflict
             reject(409);
           } else {
-            Tag.create(data)
-              .then(response => {
-                // returns new tag
-                if (response) resolve(response);
-              })
-              .catch(err => {
-                console.log('tag creation err', err);
-                reject(500);
-              });
+            create(data);
           }
-        });
+        })
+        .catch(err => reject(err));
     }
   });
 };
 
-// returns tags whose names match `q` exactly (case-insensitive)
-const getMatches = q => {
+// doesn't validate or chekc anything
+const create = data => {
   return new Promise((resolve, reject) => {
-    Tag.findAll({
+    Tag.create(data)
+      .then(response => {
+        // returns new tag
+        if (response) resolve(response);
+      })
+      .catch(err => {
+        console.log('tag creation err', err);
+        reject(500);
+      });
+  });
+};
+
+// returns tags whose names match `q` exactly (case-insensitive)
+const getMatch = q => {
+  return new Promise((resolve, reject) => {
+    Tag.findOne({
       where: {
         name: {
           [Op.iLike]: `${q}`
@@ -78,8 +86,24 @@ const getByArtist = id => {
       WHERE a.id = ${id}
       GROUP BY t.id
     `, { type: models.sequelize.QueryTypes.SELECT })
-    .then(tags => resolve(tags))
-    .catch(err => reject(err));
+      .then(tags => resolve(tags))
+      .catch(err => reject(err));
+  });
+};
+
+// finds a match for or creates a tag with the given name
+const findOrCreate = name => {
+  return new Promise((resolve, reject) => {
+    getMatch(name)
+      .then(match => {
+        if (match) {
+          resolve(match);
+        } else {
+          paranoidCreate({ name })
+            .then(tag => resolve(tag))
+            .catch(err => reject(err));
+        }
+      });
   });
 };
 
@@ -93,4 +117,4 @@ const validate = data => {
   }
 };
 
-module.exports = { getMatches, findSimilar, getByArtist, create };
+module.exports = { getMatch, findSimilar, getByArtist, create, findOrCreate };

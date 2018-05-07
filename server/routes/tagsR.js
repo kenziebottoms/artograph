@@ -4,7 +4,7 @@ const { Router } = require('express');
 const router = Router();
 
 const {
-  getMatches,
+  getMatch,
   findSimilar,
   create
 } = require('../ctrl/tagsC.js');
@@ -41,7 +41,7 @@ router.get('/like/:q', (req, res, next) => {
 
 // returns tags that match `q` more or less exactly
 router.get('/match/:q', (req, res, next) => {
-  getMatches(req.params.q)
+  getMatch(req.params.q)
     .then(tags => {
       res.status(200).json(tags);
     })

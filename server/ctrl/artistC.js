@@ -5,6 +5,7 @@ const models = require('../db/models');
 const { Op } = require('sequelize');
 
 const { Artist, Tag } = models;
+const tags = require('./tagsC');
 
 // get one artist by id
 const getById = id => {
@@ -49,13 +50,19 @@ const getAll = () => {
 const create = data => {
   return new Promise((resolve, reject) => {
     Artist.create(data)
-      .then(response => {
-        // Promise.all(data.tags.map(t => {
-        //   // TODO: deal with tags
-        // }))
-        if (response) {
-          resolve(response);
-        }
+      .then(artist => {
+        if (!data.tags) return resolve(artist);
+        // find or create each tag name as object
+        Promise.all(data.tags.map(t => tags.findOrCreate(t)))
+          .then(tags => {
+            // add all tags to that artist
+            let ids = tags.map(t => t.id);
+            return artist.addTag(ids);
+          })
+          .then(tagsAdded => {
+            resolve(tagsAdded);
+          })
+          .catch(err => reject(err));
       })
       .catch(err => reject(err));
   });
@@ -77,7 +84,6 @@ const paranoidCreate = data => {
   return new Promise((resolve, reject) => {
     data = validate(data);
     // if invalid data, 400: bad request
-    console.log(data);
     if (!data) return reject(400);
     let { email } = data;
     if (email) {
@@ -87,14 +93,14 @@ const paranoidCreate = data => {
           // if there's already an artist with this email
           if (artist.length > 0) {
             // 409: conflict
-            reject(409);
+            return reject(409);
           } else {
             create(data)
               .then(response => resolve(response))
               .catch(err => reject(err));
           }
         })
-        .catch(err => next(err));
+        .catch(err => reject(err));
     } else {
       create(data)
         .then(response => resolve(response))
@@ -198,7 +204,7 @@ const validate = body => {
   if (tags) {
     tags = tags.split(',').map(s => s.trim());
   }
-  return { email, name, lat, lng, insta };
+  return { email, name, lat, lng, insta, tags };
 };
 
 module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };
