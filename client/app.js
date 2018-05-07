@@ -19,6 +19,22 @@ angular.module('artograph', ['ui.router'])
           }
         }
       })
+      .state('addArtist', {
+        url: '/new',
+        views: {
+          '' : {
+              templateUrl: 'partials/addArtist.html'
+          },
+          'map@addArtist': {
+            controller: 'ArtistMapCtrl',
+            templateUrl: 'partials/artistMap.html'
+          },
+          'addNew@addArtist': {
+            controller: 'AddArtistCtrl',
+            templateUrl: 'partials/newArtistForm.html'
+          }
+        }
+      })
       .state('register', {
         url: '/register',
         views: {

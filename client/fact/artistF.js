@@ -56,5 +56,16 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
         .catch(err => reject(err));
     });
   };
-  return { getAll, getAllByDistance, getPosts, getRegion };
+
+  const createNew = data => {
+    return $q((resolve, reject) => {
+      $http.post(`/artists`, data)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => reject(err));
+    });
+  };
+
+  return { getAll, getAllByDistance, getPosts, getRegion, createNew };
 });
