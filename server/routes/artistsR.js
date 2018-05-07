@@ -3,11 +3,11 @@
 const { Router } = require('express');
 const router = Router();
 const _ = require('lodash');
-const { Op } = require('sequelize');
 const {
   getById,
   getAllAlpha,
-  getAllDistance
+  getAllDistance,
+  getNearby
 } = require('../ctrl/artistC');
 const tags = require('../ctrl/tagsC');
 
@@ -33,28 +33,8 @@ router.get('/', (req, res, next) => {
 
 // Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
 router.get('/nearby', (req, res, next) => {
-  const { Artist } = req.app.get('models');
-  let { lat, lng, allowance } = req.query;
-  Artist.findAll({
-    where: {
-      // latitude is within allowance lat/long points of given latitude
-      lat: {
-        [Op.and]: {
-          [Op.gt]: parseFloat(lat) - parseFloat(allowance),
-          [Op.lt]: parseFloat(lat) + parseFloat(allowance)
-        }
-      },
-      // longitude is within allowance lat/long points of given longitude
-      lng: {
-        [Op.and]: {
-          [Op.gt]: parseFloat(lng) - parseFloat(allowance),
-          [Op.lt]: parseFloat(lng) + parseFloat(allowance)
-        }
-      }
-    },
-    raw: true
-  })
-    .then(artists => res.status(200).json(sortByDistance(artists, { lat, lng })))
+  getNearby(req.query)
+    .then(artists => res.status(200).json(artists))
     .catch(err => next(err));
 });
 

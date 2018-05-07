@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const models = require('../db/models');
+const { Op } = require('sequelize');
 
 const { Artist, Tag } = models;
 
@@ -72,4 +73,37 @@ const sortAlphabetically = (artists) => {
   return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
 };
 
-module.exports = { getById, getAllAlpha, getAllDistance };
+// Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
+const getNearby = data => {
+  return new Promise((resolve, reject) => {
+    // if data is invalid
+    let { lat, lng, allowance } = data || null;
+    if (!data || isNaN(lat) || isNaN(lng) || isNaN(allowance)) {
+      // 400: bad request
+      return reject(400);
+    }
+    Artist.findAll({
+      where: {
+        // latitude is within allowance lat/long points of given latitude
+        lat: {
+          [Op.and]: {
+            [Op.gt]: parseFloat(lat) - parseFloat(allowance),
+            [Op.lt]: parseFloat(lat) + parseFloat(allowance)
+          }
+        },
+        // longitude is within allowance lat/long points of given longitude
+        lng: {
+          [Op.and]: {
+            [Op.gt]: parseFloat(lng) - parseFloat(allowance),
+            [Op.lt]: parseFloat(lng) + parseFloat(allowance)
+          }
+        }
+      },
+      raw: true
+    })
+      .then(artists => resolve(artists))
+      .catch(err => reject(err));
+  });
+}
+
+module.exports = { getById, getAllAlpha, getAllDistance, getNearby };
