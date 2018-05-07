@@ -110,7 +110,7 @@ router.post('/', (req, res, next) => {
           } else {
             Artist.create(data)
               .then(response => {
-                if (response) res.send(200).json(response);
+                if (response) res.status(200).json(response);
               })
               .catch(err => next(err));
           }
@@ -140,7 +140,7 @@ const sortAlphabetically = (artists) => {
   return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
 };
 const validate = body => {
-  let { email, name, lat, lng, insta } = body;
+  let { email, name, lat, lng, insta, tags } = body;
   if (email) {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
@@ -163,6 +163,9 @@ const validate = body => {
   } else {
     lat = parseFloat(lat);
     lng = parseFloat(lng);
+  }
+  if (tags) {
+    tags = tags.split(',').map(s => s.trim());
   }
   return { email, name, lat, lng, insta };
 };
