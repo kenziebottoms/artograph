@@ -14,8 +14,8 @@ An app to geographically visualize and organize tattoo artist information.
     - [x] tags,
     - [x] region name.
 - [x] User can select their current location and receive a filterable list of tattoo artists ordered by distance from that point.
-- [ ] User can enter in tattoo artist information for other users to browse.
-- [ ] Users can add tags to artists that other users can search by.
+- [x] User can enter in tattoo artist information for other users to browse.
+- [x] Users can add tags to artists that other users can search by.
 
 ### Stretch Goals
 - [ ] Users can up- and downvote others’ tags.
@@ -36,9 +36,9 @@ An app to geographically visualize and organize tattoo artist information.
 - [Previous front-end-only attempt](https://github.com/kenziebottoms/inkmap)
 - [Instagram scraping practice](https://github.com/kenziebottoms/scram)
 
-## Node Endpoints
+# Node Endpoints
 
-### Instagram scraping
+## Instagram scraping
 
 #### `GET /insta/meta/:username`
 
@@ -48,7 +48,7 @@ Returns metadata on the given user scraped from Instagram.
 
 Returns an object with the 3 most recent posts from Instagram. Returns an image link and a post link.
 
-### Authentication
+## Authentication
 
 | Path | Method | Result |
 | ---- | ------ | ------ |
@@ -56,7 +56,7 @@ Returns an object with the 3 most recent posts from Instagram. Returns an image 
 | `/login` | `POST` | Login |
 | `/logout` | `POST` | Logout |
 
-### Artist search
+## Artist search
 
 #### `GET /artists?lat=:lat&lng=:lng`
 
@@ -72,7 +72,7 @@ Returns one artist by `id`.
 
 Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
 
-### Tag search
+## Tags
 
 #### `GET /artists/:id/tags`
 
@@ -94,7 +94,7 @@ Returns a list of tags whose titles match `q` (case insensitive).
 
 Checks for an existing tag with the given `name`; if not found, validates data, and adds new tag. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if there's no `name` property in the request body).
 
-### Artist transformation
+## Artist transformation
 
 #### `POST /artists`
 
@@ -104,8 +104,9 @@ Checks for an existing artist with the given `email`; if not found, validates da
 
 Updates the artist with the given `id` without overwriting unaddressed properties.
 
-## Angular Routes
+# Angular Routes
 
 | Path | Description |
 | ---- | ----------- |
 | `/#!/` | Homepage |
+| `/#!/new` | Add new artist form |
