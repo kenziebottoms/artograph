@@ -6,7 +6,7 @@ const {
   register,
   login,
   logout
-} = require('../ctrl/auth');
+} = require('../ctrl/authC');
 const path = require('path');
 
 router.post('/register', register);

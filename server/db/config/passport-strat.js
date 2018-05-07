@@ -5,7 +5,7 @@ const bCrypt = require("bcrypt-nodejs");
 const passport = require("passport");
 
 const { Strategy } = require("passport-local");
-const { generateHash } = require('../../ctrl/auth');
+const { generateHash } = require('../../ctrl/authC');
 
 let User = null;
 

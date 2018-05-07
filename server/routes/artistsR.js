@@ -98,7 +98,7 @@ router.get('/:id/tags', (req, res, next) => {
 
 // Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist.
 router.post('/', (req, res, next) => {
-  const { Artist } = req.app.get('models');
+  const { Artist, Tag } = req.app.get('models');
   const data = validate(req.body);
   if (data) {
     let { email } = data;
@@ -110,7 +110,13 @@ router.post('/', (req, res, next) => {
           } else {
             Artist.create(data)
               .then(response => {
-                if (response) res.status(200).json(response);
+                console.log(response);
+                Promise.all(data.tags.map(t => {
+                  
+                }))
+                if (response) {
+                  res.status(200).json(response);
+                }
               })
               .catch(err => next(err));
           }

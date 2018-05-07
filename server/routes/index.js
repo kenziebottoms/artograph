@@ -3,9 +3,9 @@
 const { Router } = require('express');
 const router = Router();
 
-router.use(require('./auth'));
-router.use('/insta', require('./insta'));
-router.use('/artists', require('./artists'));
-router.use('/tags', require('./tags'));
+router.use(require('./authR'));
+router.use('/insta', require('./instaR'));
+router.use('/artists', require('./artistsR'));
+router.use('/tags', require('./tagsR'));
 
 module.exports = router;
