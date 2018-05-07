@@ -4,31 +4,29 @@ const { Router } = require('express');
 const router = Router();
 const _ = require('lodash');
 const { Op } = require('sequelize');
+const {
+  getAllAlpha,
+  getAllDistance
+} = require('../ctrl/artistC');
 
 // returns all artists alphabetized by last name
 router.get('/', (req, res, next) => {
-  const models = req.app.get('models');
-  models.sequelize.query(`SELECT
-      a.*,
-      STRING_AGG(t.name,',') as Tags
-    FROM "Artists" a
-    LEFT JOIN "ArtistTags" at
-      ON at."ArtistId" = a.id
-    LEFT JOIN "Tags" t
-      ON t.id = at."TagId"
-    GROUP BY a.id`,
-    { type: models.sequelize.QueryTypes.SELECT })
-    .then(artists => {
-      let lat = parseFloat(req.query.lat);
-      let lng = parseFloat(req.query.lng);
-      // checks that both are numbers
-      if (lat == lat && lng == lng) {
-        res.status(200).json(sortByDistance(artists, { lat, lng }));
-      } else {
-        res.status(200).json(sortAlphabetically(artists));
-      }
-    })
-    .catch(err => next(err));
+  let lat = parseFloat(req.query.lat);
+  let lng = parseFloat(req.query.lng);
+  // checks that both are numbers
+  if (!isNaN(lat) && !isNaN(lng)) {
+    getAllDistance({ lat, lng })
+      .then(artists => {
+        res.status(200).json(artists);
+      })
+      .catch(err => next(err));
+  } else {
+    getAllAlpha()
+      .then(artists => {
+        res.status(200).json(artists);
+      })
+      .catch(err => next(err));
+  }
 });
 
 // Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
@@ -112,7 +110,7 @@ router.post('/', (req, res, next) => {
               .then(response => {
                 console.log(response);
                 Promise.all(data.tags.map(t => {
-                  
+
                 }))
                 if (response) {
                   res.status(200).json(response);
@@ -157,7 +155,7 @@ const validate = body => {
   if (insta) {
     insta = insta.toLowerCase().trim();
     if (insta.split('').reverse()[0] == '/') {
-      insta = insta.slice(0,insta.length-1);
+      insta = insta.slice(0, insta.length - 1);
     }
     let instaRx = /[a-z]{4,5}:\/\/www.instagram.com\/[\.a-z0-9_-]+/gi;
     if (!instaRx.test(insta)) {
