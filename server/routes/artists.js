@@ -117,6 +117,8 @@ router.post('/', (req, res, next) => {
         })
         .catch(err => next(err));
     }
+  } else {
+    res.sendStatus(400);
   }
 });
 
