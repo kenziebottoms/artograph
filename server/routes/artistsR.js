@@ -8,7 +8,8 @@ const {
   getAllAlpha,
   getAllDistance,
   getNearby,
-  paranoidCreate
+  paranoidCreate,
+  edit
 } = require('../ctrl/artistC');
 const tags = require('../ctrl/tagsC');
 
@@ -71,11 +72,7 @@ router.post('/', (req, res, next) => {
 
 // Updates the artist with the given `id` without overwriting unaddressed properties.
 router.patch('/:id', (req, res, next) => {
-  const { Artist } = req.app.get('models');
-  const data = req.body;
-  Artist.update(data, {
-    where: { id: req.params.id }
-  })
+  edit(req.params.id, req.body)
     .then(statusCode => res.send(statusCode ? 200 : 500))
     .catch(err => console.log(err));
 });

@@ -59,7 +59,18 @@ const create = data => {
       })
       .catch(err => reject(err));
   });
-}
+};
+
+// validates data and edits
+const edit = (id, data) => {
+  return new Promise((resolve, reject) => {
+    data = validate(data);
+    if (!data) return reject(400);
+    Artist.update(data, { where: { id } })
+      .then(artist => resolve(artist))
+      .catch(err => reject(err));
+  });
+};
 
 // validates then creates
 const paranoidCreate = data => {
@@ -175,12 +186,14 @@ const validate = body => {
       return false;
     }
   }
-  if (isNaN(lat) || isNaN(lng)) {
-    return false;
-    console.log('lat/lng bad');
-  } else {
-    lat = parseFloat(lat);
-    lng = parseFloat(lng);
+  if (lat && lng) {
+    if (isNaN(lat) || isNaN(lng)) {
+      return false;
+      console.log('lat/lng bad');
+    } else {
+      lat = parseFloat(lat);
+      lng = parseFloat(lng);
+    }
   }
   if (tags) {
     tags = tags.split(',').map(s => s.trim());
@@ -188,4 +201,4 @@ const validate = body => {
   return { email, name, lat, lng, insta };
 };
 
-module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby };
+module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };
