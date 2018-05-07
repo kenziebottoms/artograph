@@ -78,6 +78,14 @@ Returns a list of artists within an `allowance` by `allowance` latitude/longitud
 
 Returns a list of the tags with their `id`s associated with the provided artist.
 
+#### `GET /tags`
+
+Returns a list of all tags.
+
+#### `GET /tags/like/:q`
+
+Returns a list of tags that have a title containing `q`.
+
 ### Artist transformation
 
 #### `POST /artists`
