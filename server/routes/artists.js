@@ -99,6 +99,7 @@ router.get('/:id/tags', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { Artist } = req.app.get('models');
   const data = validate(req.body);
+  console.log(data);
   if (data) {
     let { email } = data;
     if (email) {
@@ -142,6 +143,16 @@ const validate = body => {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
     if (!emailRx.test(email)) {
+      return false;
+    }
+  }
+  if (insta) {
+    insta = insta.toLowerCase().trim();
+    if (insta.split('').reverse()[0] == '/') {
+      insta = insta.slice(0,insta.length-1);
+    }
+    let instaRx = /[a-z]{4,5}:\/\/www.instagram.com\/[\.a-z0-9_-]+/gi;
+    if (!instaRx.test(insta)) {
       return false;
     }
   }
