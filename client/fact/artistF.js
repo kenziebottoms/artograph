@@ -57,15 +57,19 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
-  const createNew = data => {
+  const create = data => {
     return $q((resolve, reject) => {
       $http.post(`/artists`, data)
         .then(response => {
-          console.log(response);
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
         })
         .catch(err => reject(err));
     });
   };
 
-  return { getAll, getAllByDistance, getPosts, getRegion, createNew };
+  return { getAll, getAllByDistance, getPosts, getRegion, create };
 });
