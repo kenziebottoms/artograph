@@ -64,17 +64,14 @@ router.post('/', (req, res, next) => {
     .then(response => {
       res.status(200).json(response);
     })
-    .catch(err => {
-      console.log('paranoidCreate err: ',err);
-      res.sendStatus(err);
-    });
+    .catch(err => next(err));
 });
 
 // Updates the artist with the given `id` without overwriting unaddressed properties.
 router.patch('/:id', (req, res, next) => {
   edit(req.params.id, req.body)
-    .then(statusCode => res.send(statusCode ? 200 : 500))
-    .catch(err => res.sendStatus(err));
+    .then(artist => res.status(200).json(artist))
+    .catch(err => next(err));
 });
 
 module.exports = router;

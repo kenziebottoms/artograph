@@ -31,7 +31,7 @@ angular.module('artograph').factory('GeoFactory', function ($q, $http, GOOGLE) {
               resolve('');
             }
           } else {
-            reject('no results or maybe you\'ve over-api\'d');
+            reject({status: 'No results or maybe you\'ve over-api\'d.'});
           }
         })
         .catch(err => reject(err));

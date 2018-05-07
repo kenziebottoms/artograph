@@ -59,9 +59,7 @@ const create = data => {
             let ids = tags.map(t => t.id);
             return artist.addTag(ids);
           })
-          .then(tagsAdded => {
-            resolve(tagsAdded);
-          })
+          .then(tagsAdded => resolve(tagsAdded))
           .catch(err => reject(err));
       })
       .catch(err => reject(err));
@@ -72,7 +70,8 @@ const create = data => {
 const edit = (id, data) => {
   return new Promise((resolve, reject) => {
     data = validate(data);
-    if (!data) return reject(400);
+    // if it's an error
+    if (data.error) return reject(data.error);
     Artist.update(data, { where: { id } })
       .then(artist => resolve(artist))
       .catch(err => reject(err));
@@ -83,17 +82,16 @@ const edit = (id, data) => {
 const paranoidCreate = data => {
   return new Promise((resolve, reject) => {
     data = validate(data);
-    // if invalid data, 400: bad request
-    if (!data) return reject(400);
+    if (data.error) return reject(data.error);
     let { email } = data;
     if (email) {
       // check for duplicate based on email
-      Artist.findAll({ where: { email } })
-        .then(artist => {
+      Artist.findAll({ where: { email }, raw: true })
+        .then(dupes => {
           // if there's already an artist with this email
-          if (artist.length > 0) {
+          if (dupes && dupes.length > 0) {
             // 409: conflict
-            return reject(409);
+            reject({ status: 409, message: 'There is already an artist in the database with this email.' });
           } else {
             create(data)
               .then(response => resolve(response))
@@ -137,7 +135,7 @@ const getNearby = data => {
     let { lat, lng, allowance } = data || null;
     if (!data || isNaN(lat) || isNaN(lng) || isNaN(allowance)) {
       // 400: bad request
-      return reject(400);
+      return reject({ status: 400, message: 'Please provide valid `lat`, `lng`, and `allowance` properties.' });
     }
     Artist.findAll({
       where: {
@@ -172,13 +170,24 @@ const sortAlphabetically = (artists) => {
 
 // validates and cleans up incoming artist post data
 const validate = body => {
+  if (!body || _.isEmpty(body)) {
+    return {
+      error: {
+        status: 400, message: 'Please send someting.'
+      }
+    };
+  }
   let { email, name, lat, lng, insta, tags } = body;
   if (email) {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
     if (!emailRx.test(email)) {
-      console.log('email bad');
-      return false;
+      return {
+        error: {
+          status: 400,
+          message: 'Please provide a valid email address.'
+        }
+      };
     }
   }
   if (insta) {
@@ -188,14 +197,22 @@ const validate = body => {
     }
     let instaRx = /[a-z]{4,5}:\/\/www.instagram.com\/[\.a-z0-9_-]+/gi;
     if (!instaRx.test(insta)) {
-      console.log('insta bad');
-      return false;
+      return {
+        error: {
+          status: 400,
+          message: 'Please provide a valid Instagram profile.'
+        }
+      };
     }
   }
   if (lat && lng) {
     if (isNaN(lat) || isNaN(lng)) {
-      return false;
-      console.log('lat/lng bad');
+      return {
+        error: {
+          status: 400,
+          message: 'Please provide a valid email latitude and longitude.'
+        }
+      };
     } else {
       lat = parseFloat(lat);
       lng = parseFloat(lng);

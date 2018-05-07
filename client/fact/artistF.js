@@ -32,7 +32,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
       let region;
       $http.get(`/artists/${id}`)
         .then(({ data }) => {
-          if (data.length) data = data[0];
+          if (Array.isArray(data)) data = data[0];
           if (!data.region) {
             let { lat, lng } = data;
             GeoFactory.reverseGeocode({ lat, lng })
