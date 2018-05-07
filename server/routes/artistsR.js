@@ -5,6 +5,7 @@ const router = Router();
 const _ = require('lodash');
 const { Op } = require('sequelize');
 const {
+  getById,
   getAllAlpha,
   getAllDistance
 } = require('../ctrl/artistC');
@@ -58,18 +59,7 @@ router.get('/nearby', (req, res, next) => {
 
 // Returns one artist by `id`.
 router.get('/:id', (req, res, next) => {
-  const models = req.app.get('models');
-  models.sequelize.query(`SELECT
-      a.*,
-      STRING_AGG(t.name,',') as Tags
-    FROM "Artists" a
-    LEFT JOIN "ArtistTags" at
-      ON at."ArtistId" = a.id
-    LEFT JOIN "Tags" t
-      ON t.id = at."TagId"
-    WHERE a.id = ${req.params.id}
-    GROUP BY a.id`,
-    { type: models.sequelize.QueryTypes.SELECT })
+  getById(req.params.id)
     .then(artist => {
       res.status(200).json(artist);
     })

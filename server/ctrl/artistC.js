@@ -5,6 +5,26 @@ const models = require('../db/models');
 
 const { Artist, Tag } = models;
 
+// get one artist by id
+const getById = id => {
+  return new Promise((resolve, reject) => {
+    models.sequelize.query(`
+      SELECT
+        a.*,
+        STRING_AGG(t.name,',') as Tags
+      FROM "Artists" a
+      LEFT JOIN "ArtistTags" at
+        ON at."ArtistId" = a.id
+      LEFT JOIN "Tags" t
+        ON t.id = at."TagId"
+      WHERE a.id = ${id}
+      GROUP BY a.id
+    `, { type: models.sequelize.QueryTypes.SELECT })
+      .then(artist => resolve(artist))
+      .catch(err => reject(err));
+  });
+};
+
 // get all artists
 const getAll = () => {
   return new Promise((resolve, reject) => {
@@ -31,7 +51,8 @@ const getAllAlpha = () => {
       .then(artists => resolve(sortAlphabetically(artists)))
       .catch(err => reject(err));
   });
-;}
+  ;
+}
 
 // get all artists sorted by distance from [`lat`, `lng`]
 const getAllDistance = ({ lat, lng }) => {
@@ -51,4 +72,4 @@ const sortAlphabetically = (artists) => {
   return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
 };
 
-module.exports = { getAllAlpha, getAllDistance };
+module.exports = { getById, getAllAlpha, getAllDistance };
