@@ -78,6 +78,16 @@ Returns a list of artists within an `allowance` by `allowance` latitude/longitud
 
 Returns a list of the tags with their `id`s associated with the provided artist.
 
+### Artist transformation
+
+#### `POST /artists`
+
+:warning: Under construction :warning:
+
+#### `PATCH /artists/:id`
+
+Updates the artist with the given `id` without overwriting unaddressed properties.
+
 ## Angular Routes
 
 | Path | Description |

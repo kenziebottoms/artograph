@@ -5,9 +5,9 @@ const router = Router();
 const _ = require('lodash');
 const { Op } = require('sequelize');
 
+// returns all artists alphabetized by last name
 router.get('/', (req, res, next) => {
   const models = req.app.get('models');
-  // returns all artists alphabetized by last name
   models.sequelize.query(`SELECT
       a.*,
       STRING_AGG(t.name,',') as Tags
@@ -31,6 +31,7 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
 router.get('/nearby', (req, res, next) => {
   const { Artist } = req.app.get('models');
   let { lat, lng, allowance } = req.query;
@@ -57,6 +58,7 @@ router.get('/nearby', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Returns one artist by `id`.
 router.get('/:id', (req, res, next) => {
   const models = req.app.get('models');
   models.sequelize.query(`SELECT
@@ -76,6 +78,7 @@ router.get('/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Returns a list of the tags with their `id`s associated with the provided artist.
 router.get('/:id/tags', (req, res, next) => {
   const models = req.app.get('models');
   models.sequelize.query(`SELECT t.name, t.id
@@ -93,6 +96,30 @@ router.get('/:id/tags', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.post('/', (req, res, next) => {
+  const { Artist } = req.app.get('models');
+  const data = validate(req.body);
+  if (data) {
+    let { email } = data;
+    if (email) {
+      Artist.findAll({ where: { email } })
+        .then(artist => {
+          if (artist.length > 0) {
+            res.sendStatus(409);
+          } else {
+            Artist.create(data)
+              .then(response => {
+                if (response) res.send(200).json(response);
+              })
+              .catch(err => next(err));
+          }
+        })
+        .catch(err => next(err));
+    }
+  }
+});
+
+// Updates the artist with the given `id` without overwriting unaddressed properties.
 router.patch('/:id', (req, res, next) => {
   const { Artist } = req.app.get('models');
   const data = req.body;
@@ -108,6 +135,17 @@ const sortByDistance = (artists, { lat, lng }) => {
 }
 const sortAlphabetically = (artists) => {
   return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
+};
+const validate = body => {
+  let { email, name, lat, lng, insta } = body;
+  if (email) {
+    email = email.toLowerCase();
+    let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
+    if (!emailRx.test(email)) {
+      return false;
+    }
+  }
+  return { email, name, lat, lng, insta };
 };
 
 module.exports = router;
