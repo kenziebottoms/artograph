@@ -96,6 +96,7 @@ router.get('/:id/tags', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist.
 router.post('/', (req, res, next) => {
   const { Artist } = req.app.get('models');
   const data = validate(req.body);

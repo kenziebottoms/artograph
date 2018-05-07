@@ -82,7 +82,7 @@ Returns a list of the tags with their `id`s associated with the provided artist.
 
 #### `POST /artists`
 
-:warning: Under construction :warning:
+Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if `lng`/`lat` aren't numbers).
 
 #### `PATCH /artists/:id`
 
