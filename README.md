@@ -90,6 +90,10 @@ Returns a list of tags that have a title containing `q` (case insensitive).
 
 Returns a list of tags whose titles match `q` (case insensitive).
 
+#### `POST /tags`
+
+Checks for an existing tag with the given `name`; if not found, validates data, and adds new tag. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if there's no `name` property in the request body).
+
 ### Artist transformation
 
 #### `POST /artists`
