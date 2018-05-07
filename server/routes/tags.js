@@ -15,6 +15,34 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.post('/', (req, res, next) => {
+  const { Tag } = req.app.get('models');
+  let data = validate(req.body);
+  if (data) {
+    Tag.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `${data.name}`
+        }
+      }
+    })
+      .then(tags => {
+        if (tags.length > 0) {
+          res.sendStatus(409);
+        } else {
+          Tag.create(data)
+            .then(response => {
+              if (response) res.status(200).json(response);
+            })
+            .catch(err => next(err));
+        }
+      })
+      .catch(err => next(err));
+  } else {
+    res.sendStatus(400);
+  }
+});
+
 // returns tags that match `q` by name
 router.get('/like/:q', (req, res, next) => {
   const { Tag } = req.app.get('models');
@@ -47,5 +75,12 @@ router.get('/match/:q', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
+const validate = data => {
+  let { name } = data;
+  if (name) {
+    return { name };
+  }
+};
 
 module.exports = router;
