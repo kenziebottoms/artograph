@@ -156,6 +156,12 @@ const validate = body => {
       return false;
     }
   }
+  if (isNaN(lat) || isNaN(lng)) {
+    return false;
+  } else {
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+  }
   return { email, name, lat, lng, insta };
 };
 
