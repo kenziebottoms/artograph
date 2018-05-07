@@ -78,6 +78,32 @@ Returns a list of artists within an `allowance` by `allowance` latitude/longitud
 
 Returns a list of the tags with their `id`s associated with the provided artist.
 
+#### `GET /tags`
+
+Returns a list of all tags.
+
+#### `GET /tags/like/:q`
+
+Returns a list of tags that have a title containing `q` (case insensitive).
+
+#### `GET /tags/match/:q`
+
+Returns a list of tags whose titles match `q` (case insensitive).
+
+#### `POST /tags`
+
+Checks for an existing tag with the given `name`; if not found, validates data, and adds new tag. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if there's no `name` property in the request body).
+
+### Artist transformation
+
+#### `POST /artists`
+
+Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if `lng`/`lat` aren't numbers).
+
+#### `PATCH /artists/:id`
+
+Updates the artist with the given `id` without overwriting unaddressed properties.
+
 ## Angular Routes
 
 | Path | Description |

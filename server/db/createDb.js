@@ -1,7 +1,7 @@
 'use strict';
 
 const models = require('./models');
-const { generateHash } = require('../ctrl/auth');
+const { generateHash } = require('../ctrl/authC');
 
 const { artists } = require('./seeders/artists');
 const { tags } = require('./seeders/tags');

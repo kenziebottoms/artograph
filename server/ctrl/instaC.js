@@ -66,6 +66,6 @@ module.exports.getUserPosts = uid => {
         });
         resolve(feed);
       })
-      .catch(err => console.log(err));
+      .catch(err => reject(err));
   });
 };

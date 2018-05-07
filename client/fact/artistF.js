@@ -32,7 +32,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
       let region;
       $http.get(`/artists/${id}`)
         .then(({ data }) => {
-          if (data.length) data = data[0];
+          if (Array.isArray(data)) data = data[0];
           if (!data.region) {
             let { lat, lng } = data;
             GeoFactory.reverseGeocode({ lat, lng })
@@ -56,5 +56,20 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
         .catch(err => reject(err));
     });
   };
-  return { getAll, getAllByDistance, getPosts, getRegion };
+
+  const create = data => {
+    return $q((resolve, reject) => {
+      $http.post(`/artists`, data)
+        .then(response => {
+          if (response.status == 200) {
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        })
+        .catch(err => reject(err));
+    });
+  };
+
+  return { getAll, getAllByDistance, getPosts, getRegion, create };
 });
