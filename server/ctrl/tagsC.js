@@ -1,7 +1,8 @@
 'use strict';
 
 const { Op } = require('sequelize');
-const { Tag } = require('../db/models');
+const models = require('../db/models');
+const { Tag, Artist } = models;
 
 // check for duplicates, validate data, create new tag
 const create = data => {
@@ -62,8 +63,27 @@ const findSimilar = q => {
     })
       .then(tags => resolve(tags))
   });
-}
+};
 
+// get all tags attached to given artist
+const getByArtist = id => {
+  return new Promise((resolve, reject) => {
+    models.sequelize.query(`
+      SELECT t.name, t.id
+        FROM "Artists" a
+      LEFT JOIN "ArtistTags" at
+        ON at."ArtistId" = a.id
+      LEFT JOIN "Tags" t
+        ON t.id = at."TagId"
+      WHERE a.id = ${id}
+      GROUP BY t.id
+    `, { type: models.sequelize.QueryTypes.SELECT })
+    .then(tags => resolve(tags))
+    .catch(err => reject(err));
+  });
+};
+
+// validate incoming tag data
 const validate = data => {
   let { name } = data;
   if (name) {
@@ -73,4 +93,4 @@ const validate = data => {
   }
 };
 
-module.exports = { getMatches, findSimilar, create };
+module.exports = { getMatches, findSimilar, getByArtist, create };

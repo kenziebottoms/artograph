@@ -9,6 +9,7 @@ const {
   getAllAlpha,
   getAllDistance
 } = require('../ctrl/artistC');
+const tags = require('../ctrl/tagsC');
 
 // returns all artists alphabetized by last name
 router.get('/', (req, res, next) => {
@@ -68,16 +69,7 @@ router.get('/:id', (req, res, next) => {
 
 // Returns a list of the tags with their `id`s associated with the provided artist.
 router.get('/:id/tags', (req, res, next) => {
-  const models = req.app.get('models');
-  models.sequelize.query(`SELECT t.name, t.id
-    FROM "Artists" a
-    LEFT JOIN "ArtistTags" at
-      ON at."ArtistId" = a.id
-    LEFT JOIN "Tags" t
-      ON t.id = at."TagId"
-    WHERE a.id = ${req.params.id}
-    GROUP BY t.id`,
-    { type: models.sequelize.QueryTypes.SELECT })
+  tags.getByArtist(req.params.id)
     .then(tags => {
       res.status(200).json(tags);
     })
