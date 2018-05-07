@@ -21,7 +21,24 @@ router.get('/like/:q', (req, res, next) => {
   Tag.findAll({
     where: {
       name: {
-        [Op.like]: `%${req.params.q}%`
+        [Op.iLike]: `%${req.params.q}%`
+      }
+    }
+  })
+    .then(tags => {
+      res.status(200).json(tags);
+    })
+    .catch(err => next(err));
+});
+
+// returns tags that match `q` more or less exactly
+router.get('/match/:q', (req, res, next) => {
+  const { Tag } = req.app.get('models');
+  console.log(req.params.q);
+  Tag.findAll({
+    where: {
+      name: {
+        [Op.iLike]: `${req.params.q}`
       }
     }
   })

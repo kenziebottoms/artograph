@@ -84,7 +84,11 @@ Returns a list of all tags.
 
 #### `GET /tags/like/:q`
 
-Returns a list of tags that have a title containing `q`.
+Returns a list of tags that have a title containing `q` (case insensitive).
+
+#### `GET /tags/match/:q`
+
+Returns a list of tags whose titles match `q` (case insensitive).
 
 ### Artist transformation
 
