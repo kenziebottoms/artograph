@@ -1,7 +1,10 @@
 <div class='body'>
   <div class='header'>
-    <div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)'>
-      <h4 class='m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
+    <a ng-click='fave(artist.id)' class='mr-1'>
+      <i class='material-icons fave' data={{fave}}>{{fave ? 'star' : 'star_outline'}}</i>
+    </a>
+    <div>
+      <h4 ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)' class='m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
         {{artist.name}}
       </h4>
       <p class='region text-muted m-0' ng-show='artist.region'>
