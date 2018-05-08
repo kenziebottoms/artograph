@@ -15,7 +15,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       let geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
-          $scope.recenterMap(geo);
+          $scope.recenterMap(geo, 8);
           $scope.artists = artists;
         })
         .catch(err => console.log(err));

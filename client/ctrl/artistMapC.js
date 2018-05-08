@@ -3,6 +3,7 @@
 angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $scope, ArtistFactory) {
 
   // $scope variables
+
   const star = {
     path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
     anchor: new google.maps.Point(130, 150),
@@ -12,7 +13,6 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     strokeColor: 'brown',
     strokeWeight: 1
   };
-
   // only one list of artists
   $scope.artists = null;
   // only one list of markers
@@ -26,14 +26,14 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // only one activeMarker that moves on clicks
   $scope.activeMarker = new google.maps.Marker({ icon: star, map: $scope.map });
 
-  // onload
+  // initialization
   ArtistFactory.getAll()
     .then(artists => {
-      drawMap(artists, { lat: 0, lng: 0 });
+      drawMap(artists, { lat: 0, lng: 0 }, 2);
     })
     .catch(err => console.log(err));
 
-  // turns artist lat/lngs into Google Map Markers(R) with listeners
+  // turns artist lat/lngs into Google Map Markers with listeners
   const getMarkers = artists => {
     return artists.map(a => {
       let marker = new google.maps.Marker({
@@ -48,13 +48,14 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     });
   };
 
-  const drawMap = (artists, { lat, lng }) => {
+  // refresh map with given artist list, centered on given coords
+  const drawMap = (artists, { lat, lng }, zoom) => {
     lat = parseFloat(lat);
     lng = parseFloat(lng);
     // refresh $scope
     $scope.artists = artists;
     // zoom in if there is a non-default epicenter
-    $scope.map.setZoom((lat == 0 && lng == 0) ? 2 : 8);
+    if (zoom) $scope.map.setZoom(zoom);
     // recenter on given epicenter
     $scope.map.setCenter({ lat, lng })
 
@@ -102,8 +103,8 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   };
 
   // waits for ArtistListCtrl to tell it to recenter the map
-  $rootScope.$on('recenterMap', (event, { lat, lng }) => {
-    drawMap($scope.artists, { lat, lng });
+  $rootScope.$on('recenterMap', (event, { lat, lng }, zoom) => {
+    drawMap($scope.artists, { lat, lng }, zoom);
   });
 
   $scope.expandArtist = (id) => {
