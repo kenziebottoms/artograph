@@ -9,6 +9,9 @@ a {
 img {
   max-width: 100%; }
 
+h5 {
+  cursor: pointer; }
+
 #home {
   height: 100vh;
   display: grid;

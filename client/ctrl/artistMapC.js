@@ -97,7 +97,6 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // interprets map clicks as artist selections
   $scope.mapClick = () => {
     if (event.target.tagName == "H5") {
-      console.log('expand artist ', event.target.dataset.id);
       $scope.expandArtist(event.target.dataset.id);
     }
   };

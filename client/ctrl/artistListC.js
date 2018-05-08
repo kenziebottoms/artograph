@@ -15,7 +15,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       let geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
-          $scope.recenterMap(geo, 8);
+          $scope.recenterMap(geo, 7);
           $scope.artists = artists;
         })
         .catch(err => console.log(err));
@@ -24,8 +24,8 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
 
   // shouters
   // tell ArtistMapCtrl to recenter the map on the selected artist
-  $scope.recenterMap = ({ lat, lng }) => {
-    $rootScope.$broadcast('recenterMap', { lat, lng });
+  $scope.recenterMap = ({ lat, lng }, zoom) => {
+    $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
   };
   // tell ArtistMapCtrl to highlight the selected artist
   $scope.selectArtist = id => {
