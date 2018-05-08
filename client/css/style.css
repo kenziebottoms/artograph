@@ -15,49 +15,48 @@ img {
   grid-template-columns: 1fr 1fr; }
 
 #map-half {
-  height: 100vh; }
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto; }
+  #map-half #featuredArtist .posts {
+    display: grid;
+    grid-gap: .5em;
+    grid-template-columns: repeat(3, 1fr); }
+    #map-half #featuredArtist .posts a {
+      opacity: 1; }
   #map-half #map {
     height: 100%; }
 
 #search-half {
   height: 100vh;
-  display: grid;
-  grid-template-rows: auto auto 1fr; }
-  #search-half #results {
-    overflow: scroll; }
-  #search-half > div .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end; }
-    #search-half > div .header h4 {
-      font-size: 1.5rem;
-      cursor: pointer;
-      flex-grow: 1; }
-    #search-half > div .header .region {
-      display: block;
-      flex-grow: 100; }
-    #search-half > div .header a {
-      display: block;
-      flex-grow: 0; }
-    #search-half > div .header img, #search-half > div .header i {
-      height: 1.5rem;
-      vertical-align: middle;
-      padding: 0 .25rem;
-      box-sizing: border-box; }
-  #search-half > div.highlight {
-    background: #FDEE96; }
-  #search-half > div .details .posts {
-    display: grid;
-    grid-gap: .5em;
-    grid-template-columns: repeat(3, 1fr); }
-    #search-half > div .details .posts a {
-      opacity: 1; }
-  #search-half > div .tags .tag {
-    font-size: .9rem;
-    font-weight: 100;
-    opacity: 1;
-    padding: .25em .5em;
-    display: inline-block; }
+  overflow: scroll; }
+
+.artist .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
+  .artist .header h4 {
+    font-size: 1.5rem;
+    cursor: pointer;
+    flex-grow: 1; }
+  .artist .header .region {
+    display: block;
+    flex-grow: 100; }
+  .artist .header a {
+    display: block;
+    flex-grow: 0; }
+  .artist .header img, .artist .header i {
+    height: 1.5rem;
+    vertical-align: middle;
+    padding: 0 .25rem;
+    box-sizing: border-box; }
+
+.artist .tags .tag {
+  font-size: .9rem;
+  font-weight: 100;
+  opacity: 1;
+  padding: .25em .5em;
+  display: inline-block; }
 
 .lds-hourglass {
   display: block;

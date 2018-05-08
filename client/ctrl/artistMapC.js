@@ -84,10 +84,15 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     $rootScope.$broadcast('resortByDistance', point);
   };
 
-  // tell ArtistListCtrl to highlight the clicked artist
-  const selectArtist = id => {
-    $rootScope.$broadcast("highlightArtist", id);
-  };
+  // listen for ArtistListCtrl to highlight the clicked artist
+  $rootScope.$on('selectArtist', (event, id) => {
+    console.log('select artist ',id);
+    if (id != null) {
+      $scope.expandArtist(id);
+    } else {
+      $scope.highlight = null;
+    }
+  });
 
   // interprets map clicks as artist selections
   $scope.mapClick = () => {
@@ -100,4 +105,26 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   $rootScope.$on('recenterMap', (event, { lat, lng }) => {
     drawMap($scope.artists, { lat, lng });
   });
+
+  $scope.expandArtist = (id) => {
+    if (!$scope.highlight || $scope.highlight.id != id) {
+      $scope.highlight = $scope.artists.find(a => a.id == id);
+      let insta = $scope.highlight.insta.split('.com/')[1].trim('/');
+      ArtistFactory.getPosts(insta)
+        .then(posts => {
+          $scope.highlight.posts = posts;
+          if (!$scope.highlight.region) {
+            ArtistFactory.getRegion(id)
+              .then(region => {
+                $scope.artists.find(a => a.id == id).region = region;
+                $scope.highlight.region = region;
+              })
+              .catch(err => console.log(err));
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      $scope.highlight = null;
+    }
+  };
 });

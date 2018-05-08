@@ -14,49 +14,46 @@ img
   grid-template-columns: 1fr 1fr
 #map-half
   height: 100vh
+  display: grid
+  grid-template-rows: 1fr auto
+  #featuredArtist
+    .posts
+      a
+        opacity: 1
+      display: grid
+      grid-gap: .5em;
+      grid-template-columns: repeat(3, 1fr)
   #map
     height: 100%
 #search-half
   height: 100vh
-  display: grid
-  grid-template-rows: auto auto 1fr
-  #results
-    overflow: scroll
-  > div
-    .header
-      display: flex
-      justify-content: space-between
-      align-items: flex-end
-      h4
-        font-size: 1.5rem
-        cursor: pointer
-        flex-grow: 1
-      .region
-        display: block
-        flex-grow: 100
-      a
-        display: block
-        flex-grow: 0
-      img, i
-        height: 1.5rem
-        vertical-align: middle
-        padding: 0 .25rem
-        box-sizing: border-box
-    &.highlight 
-      background: #FDEE96
-    .details
-      .posts
-        a
-          opacity: 1
-        display: grid
-        grid-gap: .5em;
-        grid-template-columns: repeat(3, 1fr)
-    .tags
-      .tag
-        font-size: .9rem
-        font-weight: 100
-        opacity: 1
-        padding: .25em .5em
-        display: inline-block
+  overflow: scroll
+.artist
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    h4
+      font-size: 1.5rem
+      cursor: pointer
+      flex-grow: 1
+    .region
+      display: block
+      flex-grow: 100
+    a
+      display: block
+      flex-grow: 0
+    img, i
+      height: 1.5rem
+      vertical-align: middle
+      padding: 0 .25rem
+      box-sizing: border-box
+  .tags
+    .tag
+      font-size: .9rem
+      font-weight: 100
+      opacity: 1
+      padding: .25em .5em
+      display: inline-block
 
 @import loading
