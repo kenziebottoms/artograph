@@ -2,6 +2,12 @@
 const passport = require('passport');
 const bCrypt = require('bcrypt-nodejs');
 
+module.exports.checkAuth = (req, res, next) => {
+  if (req.isAuthenticated())
+    res.status(200).json(req.user);
+  res.status(403).json({ status: 403, message: 'You are not logged in.' });
+};
+
 module.exports.register = (req, res, next) => {
   // first argument is name of the passport strategy we created in passport-strat.js
   passport.authenticate('local-signup', (err, user, msgObj) => {
