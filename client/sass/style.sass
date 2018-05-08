@@ -52,26 +52,23 @@ h5
       vertical-align: middle
       font-size: 1.75rem
 .artist
-  .header
-    display: flex
-    justify-content: space-between
-    align-items: flex-end
-    h4
-      font-size: 1.5rem
-      cursor: pointer
-      flex-grow: 1
-    .region
-      display: block
-      flex-grow: 100
-    a
-      display: block
-      flex-grow: 0
-    img, i
-      height: 1.5rem
-      vertical-align: middle
-      padding: 0 .25rem
-      box-sizing: border-box
-  .tags
+  .body
+    padding: .8em
+    .header
+      display: grid
+      grid-template-columns: 1fr auto auto
+      h4
+        font-size: 1.5rem
+        cursor: pointer
+      a
+        display: block
+        align-self: center
+      img, i
+        height: 1.75rem
+        vertical-align: middle
+        padding: 0 .25rem
+        box-sizing: border-box
+        font-size: 1.8rem
     .tag
       font-size: .9rem
       font-weight: 100

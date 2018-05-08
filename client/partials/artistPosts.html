@@ -1,0 +1,8 @@
+<!-- loading icon -->
+<div ng-show='!highlight.posts' class="lds-hourglass"></div>
+
+<div class='posts' ng-show='highlight.posts'>
+  <a target='blank' ng-repeat='post in highlight.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>
+    <img ng-src='{{post.thumb}}'>
+  </a>
+</div>

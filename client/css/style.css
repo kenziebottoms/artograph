@@ -57,32 +57,29 @@ h5 {
       vertical-align: middle;
       font-size: 1.75rem; }
 
-.artist .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end; }
-  .artist .header h4 {
-    font-size: 1.5rem;
-    cursor: pointer;
-    flex-grow: 1; }
-  .artist .header .region {
-    display: block;
-    flex-grow: 100; }
-  .artist .header a {
-    display: block;
-    flex-grow: 0; }
-  .artist .header img, .artist .header i {
-    height: 1.5rem;
-    vertical-align: middle;
-    padding: 0 .25rem;
-    box-sizing: border-box; }
-
-.artist .tags .tag {
-  font-size: .9rem;
-  font-weight: 100;
-  opacity: 1;
-  padding: .25em .5em;
-  display: inline-block; }
+.artist .body {
+  padding: .8em; }
+  .artist .body .header {
+    display: grid;
+    grid-template-columns: 1fr auto auto; }
+    .artist .body .header h4 {
+      font-size: 1.5rem;
+      cursor: pointer; }
+    .artist .body .header a {
+      display: block;
+      align-self: center; }
+    .artist .body .header img, .artist .body .header i {
+      height: 1.75rem;
+      vertical-align: middle;
+      padding: 0 .25rem;
+      box-sizing: border-box;
+      font-size: 1.8rem; }
+  .artist .body .tag {
+    font-size: .9rem;
+    font-weight: 100;
+    opacity: 1;
+    padding: .25em .5em;
+    display: inline-block; }
 
 .lds-hourglass {
   display: block;
