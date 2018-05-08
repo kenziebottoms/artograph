@@ -1,27 +1,26 @@
-<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)' class='header'>
-  <h4 class='p-2 pb-1 m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
-    {{artist.name}}
-  </h4>
-  <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
-    <i class='material-icons'>email</i>
-  </a>
-  <a target='blank' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
-    <img src='img/insta48.png' alt='{{artist.insta}}'>
-  </a>
-</div>
-<div class='details'>
-  <p class='region text-muted px-2 pb-2 m-0' ng-show='artist.region'>
-    {{artist.region}}
-  </p>
-  <div ng-show='highlight && !highlight.posts' class="lds-hourglass"></div>
-  <div class='posts' ng-show='highlight.posts'>
-    <a target='blank' ng-repeat='post in highlight.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>
-      <img ng-src='{{post.thumb}}'>
+<div class='body'>
+  <div class='header'>
+    <div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)'>
+      <h4 class='m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
+        {{artist.name}}
+      </h4>
+      <p class='region text-muted m-0' ng-show='artist.region'>
+        {{artist.region}}
+      </p>
+    </div>
+    <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
+      <i class='material-icons'>email</i>
+    </a>
+    <a target='blank' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
+      <img src='img/insta48.png' alt='{{artist.insta}}'>
+    </a>
+  </div>
+  <div ng-show='artist.tags' class='tags mt-2'>
+    <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag mr-2'>
+      {{tag}}
     </a>
   </div>
 </div>
-<div ng-show='artist.tags' class='tags m-2'>
-  <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag mr-2'>
-    {{tag}}
-  </span>
-</div>
+
+<!-- instagram posts -->
+<div ng-show='highlight' ng-include='"partials/artistPosts.html"'></div>
