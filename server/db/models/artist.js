@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Artist.belongsToMany(models.User, {
       through: 'Favorites',
-      foreignKey: 'userId'
+      foreignKey: 'artistId'
     });
   };
   return Artist;
