@@ -1,9 +1,12 @@
-<div id='search-bar'>
-  <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null'>
-  <a ng-href='/#!/new'>
-      <i class='material-icons'>add_circle_outline</i>
-  </a>
+<div id='search-bar' class='input-group p-3'>
+  <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null' class='form-control' aria-label='Search artists'>
+  <div class='input-group-append'>
+    <a href='/#!/new' class='btn btn-primary'>
+      <i class='material-icons'>add</i>
+    </a>
+  </div>
 </div>
 <div id='results' class='list-group p-0'>
-  <div data-id='{{artist.id}}' ng-include='"partials/artistCard.html"' ng-repeat='artist in artists | filter: artistSearch' class='list-group-item artist p-0'></div>
+  <div data-id='{{artist.id}}' ng-include='"partials/artistCard.html"' ng-repeat='artist in artists | filter: artistSearch'
+    class='list-group-item artist p-0'></div>
 </div>

@@ -12,7 +12,13 @@ img {
 #home {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 2fr; }
+  grid-template-columns: 1fr 1fr; }
+  @media (min-width: 50rem) {
+    #home {
+      grid-template-columns: 2fr 3fr; } }
+  @media (min-width: 65rem) {
+    #home {
+      grid-template-columns: 1fr 2fr; } }
 
 #map-half {
   height: 100vh;
@@ -38,7 +44,15 @@ img {
 
 #search-half {
   height: 100vh;
-  overflow: scroll; }
+  display: grid;
+  grid-template-rows: auto 1fr; }
+  #search-half #results {
+    overflow: scroll; }
+  #search-half a.btn {
+    padding: .25rem .5rem; }
+    #search-half a.btn i {
+      vertical-align: middle;
+      font-size: 1.75rem; }
 
 .artist .header {
   display: flex;

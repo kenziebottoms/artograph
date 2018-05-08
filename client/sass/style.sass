@@ -11,7 +11,11 @@ img
 #home
   height: 100vh
   display: grid
-  grid-template-columns: 1fr 2fr
+  grid-template-columns: 1fr 1fr
+  @media (min-width: 50rem)
+    grid-template-columns: 2fr 3fr
+  @media (min-width: 65rem)
+    grid-template-columns: 1fr 2fr
 #map-half
   height: 100vh
   display: grid
@@ -35,7 +39,15 @@ img
     height: 100%
 #search-half
   height: 100vh
-  overflow: scroll
+  display: grid
+  grid-template-rows: auto 1fr
+  #results
+    overflow: scroll
+  a.btn
+    padding: .25rem .5rem
+    i
+      vertical-align: middle
+      font-size: 1.75rem
 .artist
   .header
     display: flex
