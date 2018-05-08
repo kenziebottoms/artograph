@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     lng: DataTypes.DECIMAL
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.belongsToMany(models.Artist, {
+      through: 'Favorites',
+      foreignKey: 'artistId'
+    });
   };
   return User;
 };

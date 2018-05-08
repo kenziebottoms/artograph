@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
   Artist.associate = function(models) {
     Artist.belongsToMany(models.Tag, {
       through: 'ArtistTags',
-      foreignKey: 'ArtistId'
+      foreignKey: 'artistId'
+    });
+    Artist.belongsToMany(models.User, {
+      through: 'Favorites',
+      foreignKey: 'userId'
     });
   };
   return Artist;
