@@ -18,6 +18,8 @@ img {
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto; }
+  #map-half #featuredArtist h4 {
+    cursor: text; }
   #map-half #featuredArtist .posts {
     display: grid;
     grid-gap: .5em;
