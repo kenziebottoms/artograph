@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, ArtistFactory) {
+  $rootScope.view = 'new';
+  
   $scope.auto = new google.maps.places.Autocomplete(
     (document.getElementById("address"))
   );
@@ -11,7 +13,7 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
     $rootScope.$broadcast('recenterMap', {
       lat: $scope.newArtist.lat,
       lng: $scope.newArtist.lng
-    });
+    }, 9);
   });
   $scope.addArtist = () => {
     ArtistFactory.create($scope.newArtist)

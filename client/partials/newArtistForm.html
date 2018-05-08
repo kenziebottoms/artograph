@@ -1,8 +1,34 @@
-<div id='addArtist'>
-  <input ng-model='newArtist.name' placeholder='Name'>
-  <input ng-model='newArtist.insta' placeholder='Instagram'>
-  <input ng-model='newArtist.email' placeholder='Email'>
-  <input ng-model='newArtist.tags' placeholder='Tags'>
-  <input id='address' types='["geocode","establishment"]' ng-model='address' />
-  <button ng-click='addArtist()'>Add Artist</button>
+<div id='addArtist' class='p-3'>
+  <h3>Add new artist</h3>
+  <div class='input-group mb-3'>
+    <div class='input-group-prepend'>
+      <span class='input-group-text'>Name</span>
+    </div>
+    <input ng-model='newArtist.name' type='text' class='form-control' placeholder='Kat Von D' aria-label='Name'>
+  </div>
+  <div class='input-group mb-3'>
+    <div class='input-group-prepend'>
+      <span class='input-group-text'>instagram.com/</span>
+    </div>
+    <input ng-model='newArtist.insta' type='text' class='form-control' placeholder='thekatvond' aria-label='Instagram username'>
+  </div>
+  <div class='input-group mb-3'>
+    <div class='input-group-prepend'>
+      <span class='input-group-text'>Email</span>
+    </div>
+    <input ng-model='newArtist.email' type='email' class='form-control' placeholder='kat.von@d.com' aria-label='email'>
+  </div>
+  <div class='input-group mb-3'>
+    <div class='input-group-prepend'>
+      <span class='input-group-text'>Tags</span>
+    </div>
+    <input ng-model='newArtist.tags' type='text' class='form-control' placeholder='black and gray' aria-label='tags'>
+  </div>
+  <div class='input-group mb-3'>
+      <div class='input-group-prepend'>
+        <span class='input-group-text'>Shop</span>
+      </div>
+      <input id='address' types='["geocode","establishment"]' ng-model='newArtist.address' type='text' class='form-control' placeholder='High Voltage Tattoo' aria-label='address'>
+    </div>
+  <button class='btn btn-primary btn-block' ng-click='addArtist()'>Add Artist</button>
 </div>
