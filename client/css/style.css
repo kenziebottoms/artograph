@@ -12,7 +12,7 @@ img {
 #home {
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1fr 2fr; }
 
 #map-half {
   height: 100vh;
@@ -24,6 +24,13 @@ img {
     grid-template-columns: repeat(3, 1fr); }
     #map-half #featuredArtist .posts a {
       opacity: 1; }
+    #map-half #featuredArtist .posts a:nth-child(4) {
+      display: none; }
+    @media (min-width: 65rem) {
+      #map-half #featuredArtist .posts {
+        grid-template-columns: repeat(4, 1fr); }
+        #map-half #featuredArtist .posts a:nth-child(4) {
+          display: block; } }
   #map-half #map {
     height: 100%; }
 

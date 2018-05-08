@@ -86,7 +86,6 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // listen for ArtistListCtrl to highlight the clicked artist
   $rootScope.$on('selectArtist', (event, id) => {
-    console.log('select artist ',id);
     if (id != null) {
       $scope.expandArtist(id);
     } else {

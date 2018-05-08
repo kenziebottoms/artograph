@@ -51,13 +51,13 @@ module.exports.getMeta = user => {
   });
 }
 
-// scrape 3 most recent image URLs and post links
+// scrape 4 most recent image URLs and post links
 module.exports.getUserPosts = uid => {
   return new Promise((resolve, reject) => {
     getSharedData(uid)
       .then(data => {
         let feed = data.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges;
-        feed = feed.slice(0,3);
+        feed = feed.slice(0,4);
         feed = feed.map(f => {
           return {
             thumb: f.node.thumbnail_src,
