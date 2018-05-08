@@ -28,11 +28,6 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $scope.recenterMap = ({ lat, lng }, zoom) => {
     $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
   };
-  // tell ArtistMapCtrl to highlight the selected artist
-  $scope.selectArtist = id => {
-    $rootScope.$broadcast('selectArtist', id);
-  };
-
   // listeners
   // get updated region from details view
   $rootScope.$on('updateRegion', (event, {id, region}) => {
