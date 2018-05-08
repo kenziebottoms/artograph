@@ -35,6 +35,7 @@ An app to geographically visualize and organize tattoo artist information.
 ## Links
 - [Previous front-end-only attempt](https://github.com/kenziebottoms/inkmap)
 - [Instagram scraping practice](https://github.com/kenziebottoms/scram)
+- [Trello board](https://trello.com/b/5q1GtVnF/inkmap)
 
 # Node Endpoints
 

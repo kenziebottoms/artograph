@@ -1,10 +1,7 @@
-<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)' class='header m-2'>
-  <h4 class='my-0 mr-2' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
+<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)' class='header'>
+  <h4 class='p-2 pb-1 m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
     {{artist.name}}
   </h4>
-  <p class='region m-0 ml-1' ng-show='artist.region'>
-    {{artist.region}}
-  </p>
   <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
     <i class='material-icons'>email</i>
   </a>
@@ -12,9 +9,12 @@
     <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
   </a>
 </div>
-<div class='details' ng-show='highlight'>
-  <div ng-show='!highlight.posts' class="lds-hourglass"></div>
-  <div class='posts'>
+<div class='details'>
+  <p class='region text-muted px-2 pb-2 m-0' ng-show='artist.region'>
+    {{artist.region}}
+  </p>
+  <div ng-show='highlight && !highlight.posts' class="lds-hourglass"></div>
+  <div class='posts' ng-show='highlight.posts'>
     <a target='blank' ng-repeat='post in highlight.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>
       <img ng-src='{{post.thumb}}'>
     </a>
