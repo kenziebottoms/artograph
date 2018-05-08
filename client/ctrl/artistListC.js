@@ -39,4 +39,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   $scope.selectArtist = id => {
     $rootScope.$broadcast('selectArtist', id);
   };
+  $scope.$on('updateRegion', (event, {id, region}) => {
+    $scope.artists.find(a => a.id == id).region = region;
+  });
 });

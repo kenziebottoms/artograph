@@ -118,6 +118,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
               .then(region => {
                 $scope.artists.find(a => a.id == id).region = region;
                 $scope.highlight.region = region;
+                $rootScope.$broadcast("updateRegion", {id, region});
               })
               .catch(err => console.log(err));
           }
