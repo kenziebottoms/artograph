@@ -2,8 +2,6 @@
 
 angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory) {
 
-  let geo = { lat: null, lng: null };
-
   // grab all artists by default
   ArtistFactory.getAll()
     .then(artists => {
@@ -14,7 +12,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   // try to geolocate
   GeoFactory.geolocate()
     .then(({ lat, lng }) => {
-      geo = { lat, lng };
+      let geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
           $scope.recenterMap(geo);
@@ -24,22 +22,27 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     })
     .catch(err => console.log('No geo available'));
 
+  // shouters
+  // tell ArtistMapCtrl to recenter the map on the selected artist
+  $scope.recenterMap = ({ lat, lng }) => {
+    $rootScope.$broadcast('recenterMap', { lat, lng });
+  };
+  // tell ArtistMapCtrl to highlight the selected artist
+  $scope.selectArtist = id => {
+    $rootScope.$broadcast('selectArtist', id);
+  };
+
+  // listeners
+  // get updated region from details view
+  $rootScope.$on('updateRegion', (event, {id, region}) => {
+    $scope.artists.find(a => a.id == id).region = region;
+  });
+  // resort the artists by distance from new epicenter
   $rootScope.$on('resortByDistance', (event, { lat, lng }) => {
     ArtistFactory.getAllByDistance({ lat, lng })
       .then(artists => {
         $scope.artists = artists;
       })
       .catch(err => console.log(err));
-  });
-  $scope.recenterMap = ({ lat, lng }) => {
-    $rootScope.$broadcast('recenterMap', { lat, lng });
-  };
-
-  // tell ArtistMapCtrl to highlight the clicked artist
-  $scope.selectArtist = id => {
-    $rootScope.$broadcast('selectArtist', id);
-  };
-  $scope.$on('updateRegion', (event, {id, region}) => {
-    $scope.artists.find(a => a.id == id).region = region;
   });
 });
