@@ -69,7 +69,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // move the epicenter to clicked point
   const changeEpicenter = event => {
     // hide highlighted artist
-    selectArtist(null);
+    $scope.highlight = null;
     // close all (one) info windows
     $scope.info.close();
     // location of click
@@ -97,7 +97,8 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // interprets map clicks as artist selections
   $scope.mapClick = () => {
     if (event.target.tagName == "H5") {
-      selectArtist(event.target.dataset.id);
+      console.log('expand artist ', event.target.dataset.id);
+      $scope.expandArtist(event.target.dataset.id);
     }
   };
 
