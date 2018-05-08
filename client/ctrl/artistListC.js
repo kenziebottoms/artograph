@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory) {
+  $rootScope.view = 'home';
 
   // grab all artists by default
   ArtistFactory.getAll()

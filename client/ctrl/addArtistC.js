@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, ArtistFactory) {
+  $rootScope.view = 'new';
+  
   $scope.auto = new google.maps.places.Autocomplete(
     (document.getElementById("address"))
   );
@@ -11,15 +13,25 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
     $rootScope.$broadcast('recenterMap', {
       lat: $scope.newArtist.lat,
       lng: $scope.newArtist.lng
-    });
+    }, 9);
   });
   $scope.addArtist = () => {
-    ArtistFactory.create($scope.newArtist)
-      .then(response => {
-        $location.path('/');
-      })
-      .catch(err => {
-        console.log('there was a problem: ', err);
-      });
+    if (!$scope.newArtist) return $scope.error = 'Please enter something.';
+    let { email, lat, lng, insta, name } = $scope.newArtist;
+    if (isNaN(lat) || isNaN(lng)) {
+      $scope.error = 'Please search for a location and select it from the dropdown.';
+    } else if (!name) {
+      $scope.error = 'Please enter a name. If you don\'t know it, enter their Instagram username.';
+    } else if (!insta) {
+      $scope.error = 'I get that not all artists have an Instagram, but this app kind of depends on it.';
+    } else {
+      ArtistFactory.create($scope.newArtist)
+        .then(response => {
+          $location.path('/');
+        })
+        .catch(err => {
+          console.log('there was a problem: ', err);
+        });
+    }
   }
 });

@@ -87,11 +87,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // listen for ArtistListCtrl to highlight the clicked artist
   $rootScope.$on('selectArtist', (event, id) => {
-    if (id != null) {
-      $scope.expandArtist(id);
-    } else {
-      $scope.highlight = null;
-    }
+    $scope.expandArtist(id);
   });
 
   // interprets map clicks as artist selections
@@ -107,10 +103,9 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   });
 
   $scope.expandArtist = (id) => {
-    if (!$scope.highlight || $scope.highlight.id != id) {
+    if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
       $scope.highlight = $scope.artists.find(a => a.id == id);
-      let insta = $scope.highlight.insta.split('.com/')[1].trim('/');
-      ArtistFactory.getPosts(insta)
+      ArtistFactory.getPosts($scope.highlight.insta)
         .then(posts => {
           $scope.highlight.posts = posts;
           if (!$scope.highlight.region) {

@@ -10,14 +10,15 @@ img
 h5
   cursor: pointer
 
-#home
+#content
   height: 100vh
   display: grid
   grid-template-columns: 1fr 1fr
-  @media (min-width: 50rem)
-    grid-template-columns: 2fr 3fr
-  @media (min-width: 65rem)
-    grid-template-columns: 1fr 2fr
+  &.home
+    @media (min-width: 50rem)
+      grid-template-columns: 2fr 3fr
+    @media (min-width: 65rem)
+      grid-template-columns: 1fr 2fr
 #map-half
   height: 100vh
   display: grid

@@ -195,7 +195,7 @@ const validate = body => {
     if (insta.split('').reverse()[0] == '/') {
       insta = insta.slice(0, insta.length - 1);
     }
-    let instaRx = /[a-z]{4,5}:\/\/www.instagram.com\/[\.a-z0-9_-]+/gi;
+    let instaRx = /[a-z0-9_\.]+/gi;
     if (!instaRx.test(insta)) {
       return {
         error: {
