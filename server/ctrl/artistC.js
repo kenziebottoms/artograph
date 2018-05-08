@@ -177,7 +177,7 @@ const validate = body => {
       }
     };
   }
-  let { email, name, lat, lng, insta, tags } = body;
+  let { email, name, lat, lng, insta, tags, region } = body;
   if (email) {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
@@ -221,7 +221,8 @@ const validate = body => {
   if (tags) {
     tags = tags.split(',').map(s => s.trim());
   }
-  return { email, name, lat, lng, insta, tags };
+  if (!region) region = "";
+  return { email, name, lat, lng, insta, tags, region };
 };
 
 module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };

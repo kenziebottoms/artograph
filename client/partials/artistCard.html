@@ -1,4 +1,4 @@
-<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}); expandArtist(artist.id)' class='header m-2'>
+<div ng-click='recenterMap({lat: artist.lat, lng: artist.lng}); selectArtist(artist.id)' class='header m-2'>
   <h4 class='my-0 mr-2' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
     {{artist.name}}
   </h4>
@@ -12,7 +12,7 @@
     <img src='img/insta48.png' alt='{{artist.instaHandle}}'>
   </a>
 </div>
-<div class='details' ng-show='highlight.id == artist.id'>
+<div class='details' ng-show='highlight'>
   <div ng-show='!highlight.posts' class="lds-hourglass"></div>
   <div class='posts'>
     <a target='blank' ng-repeat='post in highlight.posts' ng-href='https://www.instagram.com/p/{{post.shortcode}}/'>

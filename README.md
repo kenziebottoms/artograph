@@ -46,7 +46,7 @@ Returns metadata on the given user scraped from Instagram.
 
 #### `GET /insta/posts/:username`
 
-Returns an object with the 3 most recent posts from Instagram. Returns an image link and a post link.
+Returns an object with the 4 most recent posts from Instagram. Returns an image link and a post link.
 
 ## Authentication
 

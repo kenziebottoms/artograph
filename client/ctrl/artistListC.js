@@ -2,8 +2,6 @@
 
 angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory) {
 
-  let geo = { lat: null, lng: null };
-
   // grab all artists by default
   ArtistFactory.getAll()
     .then(artists => {
@@ -14,23 +12,32 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   // try to geolocate
   GeoFactory.geolocate()
     .then(({ lat, lng }) => {
-      geo = { lat, lng };
+      let geo = { lat, lng };
       ArtistFactory.getAllByDistance(geo)
         .then(artists => {
-          $scope.recenterMap(geo);
+          $scope.recenterMap(geo, 8);
           $scope.artists = artists;
         })
         .catch(err => console.log(err));
     })
     .catch(err => console.log('No geo available'));
 
-  $rootScope.$on('highlightArtist', (event, artistId) => {
-    if (artistId != null) {
-      $scope.expandArtist(artistId);
-    } else {
-      $scope.highlight = null;
-    }
+  // shouters
+  // tell ArtistMapCtrl to recenter the map on the selected artist
+  $scope.recenterMap = ({ lat, lng }) => {
+    $rootScope.$broadcast('recenterMap', { lat, lng });
+  };
+  // tell ArtistMapCtrl to highlight the selected artist
+  $scope.selectArtist = id => {
+    $rootScope.$broadcast('selectArtist', id);
+  };
+
+  // listeners
+  // get updated region from details view
+  $rootScope.$on('updateRegion', (event, {id, region}) => {
+    $scope.artists.find(a => a.id == id).region = region;
   });
+  // resort the artists by distance from new epicenter
   $rootScope.$on('resortByDistance', (event, { lat, lng }) => {
     ArtistFactory.getAllByDistance({ lat, lng })
       .then(artists => {
@@ -38,28 +45,4 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       })
       .catch(err => console.log(err));
   });
-  $scope.recenterMap = ({ lat, lng }) => {
-    $rootScope.$broadcast('recenterMap', { lat, lng });
-  };
-  $scope.expandArtist = (id) => {
-    if (!$scope.highlight || $scope.highlight.id != id) {
-      $scope.highlight = $scope.artists.find(a => a.id == id);
-      let insta = $scope.highlight.insta.split('.com/')[1].trim('/');
-      ArtistFactory.getPosts(insta)
-        .then(posts => {
-          $scope.highlight.posts = posts;
-          if (!$scope.highlight.region) {
-            ArtistFactory.getRegion(id)
-              .then(region => {
-                $scope.artists.find(a => a.id == id).region = region;
-                $scope.highlight.region = region;
-              })
-              .catch(err => console.log(err));
-          }
-        })
-        .catch(err => console.log(err));
-    } else {
-      $scope.highlight = null;
-    }
-  };
 });
