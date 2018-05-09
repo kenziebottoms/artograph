@@ -46,27 +46,6 @@ const getAll = () => {
   });
 };
 
-const getAllWithFaves = uid => {
-  return new Promise((resolve, reject) => {
-    let query = `SELECT
-        a.*,
-        STRING_AGG(t.name,',') as Tags`;
-    if (!isNaN(uid)) query += `, COUNT(f.*) as Fave `;
-    query += `FROM "Artists" a
-      LEFT JOIN "ArtistTags" at
-        ON at."artistId" = a.id
-      LEFT JOIN "Tags" t
-        ON t.id = at."tagId" `;
-    if (!isNaN(uid)) query += `
-      LEFT JOIN "Favorites" f
-        ON f."userId" = ${uid} AND f."artistId" = a.id`;
-    query += ` GROUP BY a.id`;
-    models.sequelize.query(query, { type: models.sequelize.QueryTypes.SELECT })
-      .then(artists => resolve(artists))
-      .catch(err => reject(err));
-  });
-}
-
 // creates without checking anything
 const create = data => {
   return new Promise((resolve, reject) => {
@@ -246,4 +225,4 @@ const validate = body => {
   return { email, name, lat, lng, insta, tags, region };
 };
 
-module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit, getAllWithFaves };
+module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };
