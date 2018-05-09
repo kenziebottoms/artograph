@@ -4,12 +4,22 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
 
   // get currently authenticated user
   const getActiveUser = () => {
-    return $http.get(`${API.v1}/user`);
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/user`)
+        .then(({ data }) => resolve(data))
+        .catch(err => reject(err));
+    });
   };
 
   // get the ids of all the given user's favorite artists
   const getFaves = uid => {
-    return $http.get(`${API.v1}/user/${uid}/faves`);
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/user/${uid}/faves`)
+        .then(({ data }) => {
+          resolve(data.map(d => d.id));
+        })
+        .catch(err => reject(err));
+    });
   };
 
   // try to log in with given credentials

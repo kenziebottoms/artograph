@@ -29,20 +29,25 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
         .catch(err => console.log(err));
     })
     .catch(err => console.log('No geo available'));
-  
+
   UserFactory.getActiveUser()
     .then(user => {
-      console.log(user);
+      return UserFactory.getFaves(user.id);
+    })
+    .then(faves => {
+      faves.map(f => {
+        _.find($scope.artists, { 'id': f }).fave = 1;
+      });
     })
     .catch(err => console.log(err));
 
   // LISTENERS
-  
+
   // get updated region from details view
-  $rootScope.$on('updateRegion', (event, {id, region}) => {
+  $rootScope.$on('updateRegion', (event, { id, region }) => {
     $scope.artists.find(a => a.id == id).region = region;
   });
-  
+
   // resort the artists by distance from new epicenter
   $rootScope.$on('resortByDistance', (event, { lat, lng }) => {
     ArtistFactory.getAllByDistance({ lat, lng })
