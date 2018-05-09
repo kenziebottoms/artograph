@@ -25,9 +25,31 @@ router.get('/faves', (req, res, next) => {
     .then(faves => {
       res.status(200).json(faves);
     })
-    .catch(err => {
-      res.status(500).json(err);
-    });
+    .catch(err => next(err));
+});
+
+router.post('/faves', (req, res, next) => {
+  const { Artist, User } = req.app.get('models');
+  User.findById(req.user.id)
+    .then(user => {
+      return user.addArtist(req.body.artistId);
+    })
+    .then(({data}) => {
+      res.status(200).json(req.body.artistId);
+    })
+    .catch(err => next(err));
+});
+
+router.delete('/faves/:id', (req, res, next) => {
+  const { Artist, User } = req.app.get('models');
+  User.findById(req.user.id)
+    .then(user => {
+      return user.removeArtist(req.params.id);
+    })
+    .then(response => {
+      res.status(200).json(req.params.id);
+    })
+    .catch(err => next(err));
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@
 
 angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory, UserFactory) {
   $rootScope.view = 'home';
+  $scope.faves = [];
 
   // tell ArtistMapCtrl to recenter the map on the selected artist
   $scope.recenterMap = ({ lat, lng }, zoom) => {
@@ -31,15 +32,13 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     .catch(err => console.log('No geo available'));
 
   UserFactory.getActiveUser()
-    .then(user => {
-      return UserFactory.getFaves(user.id);
-    })
+    .then(user => UserFactory.getFaves(user.id))
     .then(faves => {
-      faves.map(f => {
-        _.find($scope.artists, { 'id': f }).fave = 1;
-      });
+      $scope.faves = faves;
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (err.status != 401) console.log(err);
+    });
 
   // LISTENERS
 

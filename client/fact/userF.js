@@ -22,6 +22,18 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
     });
   };
 
+  const addFave = artistId => {
+    return $http.post(`${API.v1}/user/faves`, { artistId });
+  };
+
+  const removeFave = artistId => {
+    return $q((resolve, reject) => {
+      $http.delete(`${API.v1}/user/faves/${artistId}`)
+        .then(({data}) => resolve(+data))
+        .catch(err => reject(err));
+    });
+  };
+
   // try to log in with given credentials
   const login = ({ username, password }) => {
     return $q((resolve, reject) => {
@@ -60,6 +72,8 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   return {
     getActiveUser,
     getFaves,
+    addFave,
+    removeFave,
     login,
     register
   };
