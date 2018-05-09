@@ -39,7 +39,7 @@ An app to geographically visualize and organize tattoo artist information.
 - [Instagram scraping practice](https://github.com/kenziebottoms/scram)
 - [Trello board](https://trello.com/b/5q1GtVnF/inkmap)
 
-# Node Endpoints
+# API Endpoints (all preceded by `/api/v1`)
 
 ## Instagram scraping
 

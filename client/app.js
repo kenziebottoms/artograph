@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('artograph', ['ui.router'])
-  .config(($stateProvider) => {
+  .config(($stateProvider, $urlRouterProvider) => {
+    // redirects from / to /#!/
+    $urlRouterProvider.when('', '/');
     $stateProvider
       .state('home', {
         url: '/',
@@ -59,4 +61,7 @@ angular.module('artograph', ['ui.router'])
       'self',
       'http://*.google.com/**'
     ]);
+  })
+  .constant('API', {
+    v1: '/api/v1'
   });
