@@ -27,5 +27,9 @@ models.sequelize.sync({ force: true })
   }).then((tag) => {
     return tag.addArtist([7, 8]);
   }).then(() => {
+    return models.User.findById(1);
+  }).then(user => {
+    return user.addArtist(3);
+  }).then(() => {
     process.exit();
   });

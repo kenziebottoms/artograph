@@ -5,7 +5,7 @@ const router = Router();
 const {
   register,
   login,
-  logout
+  logout,
 } = require('../ctrl/authC');
 const path = require('path');
 

@@ -68,9 +68,9 @@ const getByArtist = id => {
       SELECT t.name, t.id
         FROM "Artists" a
       LEFT JOIN "ArtistTags" at
-        ON at."ArtistId" = a.id
+        ON at."artistId" = a.id
       LEFT JOIN "Tags" t
-        ON t.id = at."TagId"
+        ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY t.id
     `, { type: models.sequelize.QueryTypes.SELECT })

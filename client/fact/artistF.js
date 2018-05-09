@@ -1,36 +1,39 @@
 'use strict';
 
-angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFactory) {
+angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFactory, API) {
+
+  // get list of all artists
   const getAll = () => {
     return $q((resolve, reject) => {
-      $http.get(`/artists`)
+      $http.get(`${API.v1}/artists`)
         .then(({ data }) => resolve(data))
         .catch(err => reject(err));
     });
   };
 
+  // get all artists ordered by distance from [lat, lng]
   const getAllByDistance = ({ lat, lng }) => {
     return $q((resolve, reject) => {
-      $http.get(`/artists?lat=${lat}&lng=${lng}`)
+      $http.get(`${API.v1}/artists?lat=${lat}&lng=${lng}`)
         .then(({ data }) => resolve(data))
         .catch(err => reject(err));
     });
   };
 
+  // get a user's recent instagram posts
   const getPosts = (insta) => {
     return $q((resolve, reject) => {
-      $http.get(`/insta/posts/${insta}`)
-        .then(({ data }) => {
-          resolve(data);
-        })
+      $http.get(`${API.v1}/insta/posts/${insta}`)
+        .then(({ data }) => resolve(data))
         .catch(err => reject(err));
     });
   };
 
+  // reverse geocode an artist's region name
   const getRegion = (id) => {
     return $q((resolve, reject) => {
       let region;
-      $http.get(`/artists/${id}`)
+      $http.get(`${API.v1}/artists/${id}`)
         .then(({ data }) => {
           if (Array.isArray(data)) data = data[0];
           if (!data.region) {
@@ -39,7 +42,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
               .then(response => {
                 if (response) {
                   region = response;
-                  $http.patch(`/artists/${id}`, { region })
+                  $http.patch(`${API.v1}/artists/${id}`, { region })
                     .then(response => {
                       resolve(region);
                     })
@@ -57,9 +60,10 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // post info to a new artist
   const create = data => {
     return $q((resolve, reject) => {
-      $http.post(`/artists`, data)
+      $http.post(`${API.v1}/artists`, data)
         .then(response => {
           if (response.status == 200) {
             resolve(response);
@@ -71,5 +75,11 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
-  return { getAll, getAllByDistance, getPosts, getRegion, create };
+  return {
+    getAll,
+    getAllByDistance,
+    getPosts,
+    getRegion,
+    create
+  };
 });

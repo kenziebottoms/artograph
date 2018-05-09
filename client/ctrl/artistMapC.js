@@ -2,7 +2,37 @@
 
 angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $scope, ArtistFactory) {
 
-  // $scope variables
+  // interprets map clicks as artist selections
+  $scope.mapClick = () => {
+    if (event.target.tagName == "H5") {
+      $scope.expandArtist(event.target.dataset.id);
+    }
+  };
+
+  // display artist in featured/highlight position under map
+  $scope.expandArtist = (id) => {
+    if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
+      $scope.highlight = $scope.artists.find(a => a.id == id);
+      ArtistFactory.getPosts($scope.highlight.insta)
+        .then(posts => {
+          $scope.highlight.posts = posts;
+          if (!$scope.highlight.region) {
+            ArtistFactory.getRegion(id)
+              .then(region => {
+                $scope.artists.find(a => a.id == id).region = region;
+                $scope.highlight.region = region;
+                $rootScope.$broadcast("updateRegion", {id, region});
+              })
+              .catch(err => console.log(err));
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      $scope.highlight = null;
+    }
+  };
+
+  // $SCOPE VARIABLES
 
   const star = {
     path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
@@ -26,7 +56,9 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // only one activeMarker that moves on clicks
   $scope.activeMarker = new google.maps.Marker({ icon: star, map: $scope.map });
 
-  // initialization
+  // IMMEDIATE ACTION
+
+  // draw map with all artists
   ArtistFactory.getAll()
     .then(artists => {
       drawMap(artists, { lat: 0, lng: 0 }, 2);
@@ -85,42 +117,15 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     $rootScope.$broadcast('resortByDistance', point);
   };
 
+  // LISTENERS
+
   // listen for ArtistListCtrl to highlight the clicked artist
   $rootScope.$on('selectArtist', (event, id) => {
     $scope.expandArtist(id);
   });
 
-  // interprets map clicks as artist selections
-  $scope.mapClick = () => {
-    if (event.target.tagName == "H5") {
-      $scope.expandArtist(event.target.dataset.id);
-    }
-  };
-
-  // waits for ArtistListCtrl to tell it to recenter the map
+  // waits for ArtistListCtrl to recenter the map
   $rootScope.$on('recenterMap', (event, { lat, lng }, zoom) => {
     drawMap($scope.artists, { lat, lng }, zoom);
   });
-
-  $scope.expandArtist = (id) => {
-    if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
-      $scope.highlight = $scope.artists.find(a => a.id == id);
-      ArtistFactory.getPosts($scope.highlight.insta)
-        .then(posts => {
-          $scope.highlight.posts = posts;
-          if (!$scope.highlight.region) {
-            ArtistFactory.getRegion(id)
-              .then(region => {
-                $scope.artists.find(a => a.id == id).region = region;
-                $scope.highlight.region = region;
-                $rootScope.$broadcast("updateRegion", {id, region});
-              })
-              .catch(err => console.log(err));
-          }
-        })
-        .catch(err => console.log(err));
-    } else {
-      $scope.highlight = null;
-    }
-  };
 });

@@ -1,20 +1,8 @@
 'use strict';
 
 angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, ArtistFactory) {
-  $rootScope.view = 'new';
-  
-  $scope.auto = new google.maps.places.Autocomplete(
-    (document.getElementById("address"))
-  );
-  $scope.auto.addListener('place_changed', function () {
-    let place = $scope.auto.getPlace();
-    $scope.newArtist.lat = place.geometry.location.lat();
-    $scope.newArtist.lng = place.geometry.location.lng();
-    $rootScope.$broadcast('recenterMap', {
-      lat: $scope.newArtist.lat,
-      lng: $scope.newArtist.lng
-    }, 9);
-  });
+
+  // posts form data to API after validating against complete idiocy
   $scope.addArtist = () => {
     if (!$scope.newArtist) return $scope.error = 'Please enter something.';
     let { email, lat, lng, insta, name } = $scope.newArtist;
@@ -26,12 +14,26 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
       $scope.error = 'I get that not all artists have an Instagram, but this app kind of depends on it.';
     } else {
       ArtistFactory.create($scope.newArtist)
-        .then(response => {
-          $location.path('/');
-        })
-        .catch(err => {
-          console.log('there was a problem: ', err);
-        });
+        .then(response => $location.path('/'))
+        .catch(err => console.log(err));
     }
   }
+
+  // $SCOPE VARIABLES
+
+  $rootScope.view = 'new';
+  // Google Places autocomplete
+  $scope.auto = new google.maps.places.Autocomplete(
+    (document.getElementById("address"))
+  );
+  // listener for above
+  $scope.auto.addListener('place_changed', function () {
+    let place = $scope.auto.getPlace();
+    $scope.newArtist.lat = place.geometry.location.lat();
+    $scope.newArtist.lng = place.geometry.location.lng();
+    $rootScope.$broadcast('recenterMap', {
+      lat: $scope.newArtist.lat,
+      lng: $scope.newArtist.lng
+    }, 9);
+  });
 });

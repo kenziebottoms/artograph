@@ -16,9 +16,9 @@ const getById = id => {
         STRING_AGG(t.name,',') as Tags
       FROM "Artists" a
       LEFT JOIN "ArtistTags" at
-        ON at."ArtistId" = a.id
+        ON at."artistId" = a.id
       LEFT JOIN "Tags" t
-        ON t.id = at."TagId"
+        ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY a.id
     `, { type: models.sequelize.QueryTypes.SELECT })
@@ -36,9 +36,9 @@ const getAll = () => {
         STRING_AGG(t.name,',') as Tags
       FROM "Artists" a
       LEFT JOIN "ArtistTags" at
-        ON at."ArtistId" = a.id
+        ON at."artistId" = a.id
       LEFT JOIN "Tags" t
-        ON t.id = at."TagId"
+        ON t.id = at."tagId"
       GROUP BY a.id
       `, { type: models.sequelize.QueryTypes.SELECT })
       .then(artists => resolve(artists))
