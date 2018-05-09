@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('artograph').factory('GeoFactory', function ($q, $http, GOOGLE) {
+
+  // get user's current location, but only wait 1.5s before bailing
   const geolocate = () => {
     return $q((resolve, reject) => {
       if ('geolocation' in navigator) {
@@ -17,6 +19,7 @@ angular.module('artograph').factory('GeoFactory', function ($q, $http, GOOGLE) {
     });
   };
 
+  // reverse geocode given location
   const reverseGeocode = ({lat, lng}) => {
     return $q((resolve, reject) => {
       $http.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE.apiKey}`)
