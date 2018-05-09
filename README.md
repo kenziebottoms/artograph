@@ -8,6 +8,45 @@ An app to geographically visualize and organize tattoo artist information.
 >
 > an illustrated map
 
+---
+
+<!-- TOC -->
+
+- [Artograph](#artograph)
+  - [Goals](#goals)
+    - [Stretch Goals](#stretch-goals)
+  - [Tech](#tech)
+  - [Links](#links)
+- [API Endpoints (all preceded by `/api/v1`)](#api-endpoints-all-preceded-by-apiv1)
+  - [Instagram scraping](#instagram-scraping)
+      - [`GET /insta/meta/:username`](#get-instametausername)
+      - [`GET /insta/posts/:username`](#get-instapostsusername)
+  - [Authentication](#authentication)
+  - [Artists](#artists)
+    - [Search](#search)
+      - [`GET /artists?lat=:lat&lng=:lng`](#get-artistslatlatlnglng)
+      - [`GET /artists/:id`](#get-artistsid)
+      - [`GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`](#get-artistsnearbylatlatlnglngallowanceallowance)
+    - [Transformation](#transformation)
+      - [`POST /artists`](#post-artists)
+      - [`PATCH /artists/:id`](#patch-artistsid)
+  - [Tags](#tags)
+      - [`GET /artists/:id/tags`](#get-artistsidtags)
+      - [`GET /tags`](#get-tags)
+      - [`GET /tags/like/:q`](#get-tagslikeq)
+      - [`GET /tags/match/:q`](#get-tagsmatchq)
+      - [`POST /tags`](#post-tags)
+  - [Users](#users)
+      - [`GET /user`](#get-user)
+    - [Favorites](#favorites)
+      - [`GET /user/:id/faves`](#get-useridfaves)
+      - [`GET /user/faves`](#get-userfaves)
+      - [`POST /user/faves/:artistId`](#post-userfavesartistid)
+      - [`DELETE /user/faves/:artistId`](#delete-userfavesartistid)
+- [Angular Routes](#angular-routes)
+
+<!-- /TOC -->
+
 ## Goals
 - [x] Users can search a list of artists by
     - [x] name,
@@ -59,7 +98,9 @@ Returns an object with the 4 most recent posts from Instagram. Returns an image 
 | `/login` | `POST` | Login |
 | `/logout` | `POST` | Logout |
 
-## Artist search
+## Artists
+
+### Search
 
 #### `GET /artists?lat=:lat&lng=:lng`
 
@@ -74,6 +115,16 @@ Returns one artist by `id`.
 #### `GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`
 
 Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
+
+### Transformation
+
+#### `POST /artists`
+
+Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if `lng`/`lat` aren't numbers).
+
+#### `PATCH /artists/:id`
+
+Updates the artist with the given `id` without overwriting unaddressed properties.
 
 ## Tags
 
@@ -97,15 +148,29 @@ Returns a list of tags whose titles match `q` (case insensitive).
 
 Checks for an existing tag with the given `name`; if not found, validates data, and adds new tag. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if there's no `name` property in the request body).
 
-## Artist transformation
+## Users
 
-#### `POST /artists`
+#### `GET /user`
 
-Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if `lng`/`lat` aren't numbers).
+Returns the currently authenticated user. Returns `401: Unauthorized` if there isn't one.
 
-#### `PATCH /artists/:id`
+### Favorites
 
-Updates the artist with the given `id` without overwriting unaddressed properties.
+#### `GET /user/:id/faves`
+
+Returns the `id`s of the given user's favorite artists.
+
+#### `GET /user/faves`
+
+Returns the `id`s of the currently authenticated user's favorite artists. Returns `401: Unauthorized` if no one's logged in.
+
+#### `POST /user/faves/:artistId`
+
+Adds the `artistId` as a favorite to the currently authenticated user. Returns `401: Unauthorized` if no one's logged in.
+
+#### `DELETE /user/faves/:artistId`
+
+Removes the `artistId` from the currently authenticated user's favorites. Returns `401: Unauthorized` if no one's logged in.
 
 # Angular Routes
 

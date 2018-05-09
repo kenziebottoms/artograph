@@ -28,14 +28,14 @@ router.get('/faves', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.post('/faves', (req, res, next) => {
+router.post('/faves/:id', (req, res, next) => {
   const { Artist, User } = req.app.get('models');
   User.findById(req.user.id)
     .then(user => {
-      return user.addArtist(req.body.artistId);
+      return user.addArtist(req.params.id);
     })
     .then(({data}) => {
-      res.status(200).json(req.body.artistId);
+      res.status(200).json(req.params.id);
     })
     .catch(err => next(err));
 });

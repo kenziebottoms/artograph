@@ -23,7 +23,7 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   };
 
   const addFave = artistId => {
-    return $http.post(`${API.v1}/user/faves`, { artistId });
+    return $http.post(`${API.v1}/user/faves/${artistId}`);
   };
 
   const removeFave = artistId => {
