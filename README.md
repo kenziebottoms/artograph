@@ -23,11 +23,9 @@ An app to geographically visualize and organize tattoo artist information.
       - [`GET /insta/posts/:username`](#get-instapostsusername)
   - [Authentication](#authentication)
   - [Artists](#artists)
-    - [Search](#search)
       - [`GET /artists?lat=:lat&lng=:lng`](#get-artistslatlatlnglng)
       - [`GET /artists/:id`](#get-artistsid)
       - [`GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`](#get-artistsnearbylatlatlnglngallowanceallowance)
-    - [Transformation](#transformation)
       - [`POST /artists`](#post-artists)
       - [`PATCH /artists/:id`](#patch-artistsid)
   - [Tags](#tags)
@@ -38,7 +36,7 @@ An app to geographically visualize and organize tattoo artist information.
       - [`POST /tags`](#post-tags)
   - [Users](#users)
       - [`GET /user`](#get-user)
-    - [Favorites](#favorites)
+  - [Favorites](#favorites)
       - [`GET /user/:id/faves`](#get-useridfaves)
       - [`GET /user/faves`](#get-userfaves)
       - [`POST /user/faves/:artistId`](#post-userfavesartistid)
@@ -55,8 +53,8 @@ An app to geographically visualize and organize tattoo artist information.
 - [x] User can select their current location and receive a filterable list of tattoo artists ordered by distance from that point.
 - [x] User can enter in tattoo artist information for other users to browse.
 - [x] Users can add tags to artists that other users can search by.
-- [ ] Users can mark artists as their favorites.
-    - [ ] User can filter and search on their favorites.
+- [x] Users can mark artists as their favorites.
+- [ ] User can filter and search on their favorites.
 
 ### Stretch Goals
 - [ ] Users can up- and downvote others’ tags.
@@ -100,8 +98,6 @@ Returns an object with the 4 most recent posts from Instagram. Returns an image 
 
 ## Artists
 
-### Search
-
 #### `GET /artists?lat=:lat&lng=:lng`
 
 _Note_: `lat` and `lng` are optional and will be ignored if they are not valid numbers.
@@ -115,8 +111,6 @@ Returns one artist by `id`.
 #### `GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`
 
 Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
-
-### Transformation
 
 #### `POST /artists`
 
@@ -154,7 +148,7 @@ Checks for an existing tag with the given `name`; if not found, validates data, 
 
 Returns the currently authenticated user. Returns `401: Unauthorized` if there isn't one.
 
-### Favorites
+## Favorites
 
 #### `GET /user/:id/faves`
 
