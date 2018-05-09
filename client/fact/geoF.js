@@ -40,5 +40,8 @@ angular.module('artograph').factory('GeoFactory', function ($q, $http, GOOGLE) {
         .catch(err => reject(err));
     });
   };
-  return { geolocate, reverseGeocode };
+  return {
+    geolocate,
+    reverseGeocode
+  };
 });
