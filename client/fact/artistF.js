@@ -81,5 +81,5 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getPosts,
     getRegion,
     create
-  }
+  };
 });

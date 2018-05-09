@@ -31,6 +31,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     })
     .catch(err => console.log('No geo available'));
 
+  // get favorites if logged in
   UserFactory.getActiveUser()
     .then(user => UserFactory.getFaves(user.id))
     .then(faves => {
