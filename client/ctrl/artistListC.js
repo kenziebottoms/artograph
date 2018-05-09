@@ -1,7 +1,14 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory) {
+angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory, UserFactory) {
   $rootScope.view = 'home';
+
+  // tell ArtistMapCtrl to recenter the map on the selected artist
+  $scope.recenterMap = ({ lat, lng }, zoom) => {
+    $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
+  };
+
+  // IMMEDIATE ACTION
 
   // grab all artists by default
   ArtistFactory.getAll()
@@ -22,17 +29,20 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
         .catch(err => console.log(err));
     })
     .catch(err => console.log('No geo available'));
+  
+  UserFactory.getActiveUser()
+    .then(user => {
+      console.log(user);
+    })
+    .catch(err => console.log(err));
 
-  // shouters
-  // tell ArtistMapCtrl to recenter the map on the selected artist
-  $scope.recenterMap = ({ lat, lng }, zoom) => {
-    $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
-  };
-  // listeners
+  // LISTENERS
+  
   // get updated region from details view
   $rootScope.$on('updateRegion', (event, {id, region}) => {
     $scope.artists.find(a => a.id == id).region = region;
   });
+  
   // resort the artists by distance from new epicenter
   $rootScope.$on('resortByDistance', (event, { lat, lng }) => {
     ArtistFactory.getAllByDistance({ lat, lng })
@@ -41,4 +51,5 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       })
       .catch(err => console.log(err));
   });
+
 });
