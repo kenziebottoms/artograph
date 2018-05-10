@@ -21,6 +21,7 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
 
   // posts form data to API after validating against complete idiocy
   $scope.addArtist = () => {
+    // TODO: refactor front-end validation
     if (!$scope.newArtist) return $scope.error = 'Please enter something.';
     let { email, lat, lng, insta, name } = $scope.newArtist;
     if (isNaN(lat) || isNaN(lng)) {
@@ -34,7 +35,24 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
         .then(response => $location.path('/'))
         .catch(err => console.log(err));
     }
-  }
+  };
+
+  $scope.saveArtist = () => {
+    // TODO: refactor front-end validation
+    if (!$scope.newArtist) return $scope.error = 'Please enter something.';
+    let { email, lat, lng, insta, name } = $scope.newArtist;
+    if (isNaN(lat) || isNaN(lng)) {
+      $scope.error = 'Please search for a location and select it from the dropdown.';
+    } else if (!name) {
+      $scope.error = 'Please enter a name. If you don\'t know it, enter their Instagram username.';
+    } else if (!insta) {
+      $scope.error = 'I get that not all artists have an Instagram, but this app kind of depends on it.';
+    } else {
+      ArtistFactory.edit($stateParams.id, $scope.newArtist)
+        .then(response => $location.path('/'))
+        .catch(err => console.log(err));
+    }
+  };
 
   // $SCOPE VARIABLES
 

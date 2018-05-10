@@ -69,6 +69,16 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  const edit = (id, data) => {
+    return $q((resolve, reject) => {      
+      $http.patch(`${API.v1}/artists/${id}`, data)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(err => reject(err));
+    });
+  };
+
   // post info to a new artist
   const create = data => {
     return $q((resolve, reject) => {
@@ -90,6 +100,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getAllByDistance,
     getPosts,
     getRegion,
+    edit,
     create
   };
 });
