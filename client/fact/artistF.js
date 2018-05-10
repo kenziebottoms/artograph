@@ -69,6 +69,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // posts data to patch artist with given id
   const edit = (id, data) => {
     return $q((resolve, reject) => {      
       $http.patch(`${API.v1}/artists/${id}`, data)

@@ -192,7 +192,7 @@ const validate = body => {
   if (!body || _.isEmpty(body)) {
     return {
       error: {
-        status: 400, message: 'Please send someting.'
+        status: 400, message: 'Please send something.'
       }
     };
   }
@@ -237,9 +237,8 @@ const validate = body => {
       lng = parseFloat(lng);
     }
   }
-  if (tags) {
-    tags = tags.split(',').map(s => s.trim());
-  }
+  // splits by , trims whitespace, removes empty strings
+  if (tags) tags = _.compact(tags.split(',').map(s => s.trim(/\s/)));
   if (!region) region = "";
   return { email, name, lat, lng, insta, tags, region };
 };

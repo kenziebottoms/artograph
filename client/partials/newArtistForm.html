@@ -31,6 +31,7 @@
       <input id='address' types='["geocode","establishment"]' ng-model='newArtist.address' type='text' class='form-control' placeholder='{{placeholder}}' aria-label='address'>
     </div>
   <div class='alert alert-danger' ng-show='error'>{{error}}</div>
-  <button ng-show='mode == "new"' class='btn btn-primary btn-block' ng-click='addArtist()'>Add Artist</button>
-  <button ng-show='mode == "edit"' class='btn btn-primary btn-block' ng-click='saveArtist()'>Save Changes</button>
+  <button class='btn btn-primary btn-block' ng-click='submit()'>
+    {{mode == new ? "Add Artist" : "Save Changes"}}
+  </button>
 </div>
