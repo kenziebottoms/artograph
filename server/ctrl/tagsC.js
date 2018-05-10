@@ -100,7 +100,8 @@ const validate = data => {
   } else {
     return {
       error: {
-        status: 409,
+        // 400: bad request
+        status: 400,
         message: 'Please provide a valid `name` property.'
       }
     };

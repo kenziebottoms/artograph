@@ -21,8 +21,9 @@ const getById = id => {
         ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY a.id
+      LIMIT 1
     `, { type: models.sequelize.QueryTypes.SELECT })
-      .then(artist => resolve(artist))
+      .then(artist => resolve(artist[0]))
       .catch(err => reject(err));
   });
 };
@@ -70,10 +71,28 @@ const create = data => {
 const edit = (id, data) => {
   return new Promise((resolve, reject) => {
     data = validate(data);
-    // if it's an error
     if (data.error) return reject(data.error);
-    Artist.update(data, { where: { id } })
-      .then(artist => resolve(artist))
+    Artist.update(data, {
+      where: { id },
+      returning: true
+    })
+      .then(response => {
+        if (!data.tags) return resolve(data);
+        let artist;
+        Artist.findById(id)
+          .then(a => {
+            artist = a;
+            return Promise.all(data.tags.map(t => tags.findOrCreate(t)));
+          })
+          .then(tags => {
+            // add all tags to that artist
+            let ids = tags.map(t => t.id);
+            return artist.addTag(ids);
+          })
+          .then(tagsAdded => resolve(artist))
+          .catch(err => reject(err));
+        // find or create each tag name as object
+      })
       .catch(err => reject(err));
   });
 };
@@ -173,7 +192,7 @@ const validate = body => {
   if (!body || _.isEmpty(body)) {
     return {
       error: {
-        status: 400, message: 'Please send someting.'
+        status: 400, message: 'Please send something.'
       }
     };
   }
@@ -218,9 +237,8 @@ const validate = body => {
       lng = parseFloat(lng);
     }
   }
-  if (tags) {
-    tags = tags.split(',').map(s => s.trim());
-  }
+  // splits by , trims whitespace, removes empty strings
+  if (tags) tags = _.compact(tags.split(',').map(s => s.trim(/\s/)));
   if (!region) region = "";
   return { email, name, lat, lng, insta, tags, region };
 };

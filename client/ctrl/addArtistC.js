@@ -1,9 +1,24 @@
 'use strict';
 
-angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, ArtistFactory) {
+angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, $stateParams, ArtistFactory) {
+
+  $rootScope.mode = 'new';
+
+  // if editing, grab artist info
+  if (!isNaN($stateParams.id)) {
+    $scope.mode = 'edit';
+    ArtistFactory.getOne(+$stateParams.id)
+      .then(artist => {
+        $scope.newArtist = artist;
+        let { lat, lng } = artist;
+        $rootScope.$broadcast('recenterMap', {lat, lng}, 8);
+      })
+      .catch(err => console.log(err));
+  }
 
   // posts form data to API after validating against complete idiocy
-  $scope.addArtist = () => {
+  $scope.submit = () => {
+    // front-end validation
     if (!$scope.newArtist) return $scope.error = 'Please enter something.';
     let { email, lat, lng, insta, name } = $scope.newArtist;
     if (isNaN(lat) || isNaN(lng)) {
@@ -13,11 +28,18 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
     } else if (!insta) {
       $scope.error = 'I get that not all artists have an Instagram, but this app kind of depends on it.';
     } else {
-      ArtistFactory.create($scope.newArtist)
-        .then(response => $location.path('/'))
-        .catch(err => console.log(err));
+      // submits data to create or edit artist
+      if ($scope.mode == 'edit') {
+        ArtistFactory.edit($stateParams.id, $scope.newArtist)
+          .then(response => $location.path('/'))
+          .catch(err => console.log(err));
+      } else if ($scope.mode == 'new') {
+        ArtistFactory.create($scope.newArtist)
+          .then(response => $location.path('/'))
+          .catch(err => console.log(err));
+      }
     }
-  }
+  };
 
   // $SCOPE VARIABLES
 

@@ -12,6 +12,9 @@ img {
 h5 {
   cursor: pointer; }
 
+.form-control {
+  color: #1c1f21; }
+
 #content {
   height: 100vh;
   display: grid;
@@ -26,9 +29,11 @@ h5 {
 #map-half {
   height: 100vh;
   display: grid;
-  grid-template-rows: 1fr auto; }
+  grid-template-rows: 1fr auto auto; }
   #map-half #featuredArtist h4 {
     cursor: text; }
+  #map-half #featuredArtist .header {
+    grid-template-columns: 1fr auto auto auto; }
   #map-half #featuredArtist .posts {
     display: grid;
     grid-gap: .5em;
@@ -78,7 +83,6 @@ h5 {
       font-size: 1.8rem; }
   .artist .body .tag {
     font-size: .9rem;
-    font-weight: 100;
     opacity: 1;
     padding: .25em .5em;
     display: inline-block; }

@@ -11,6 +11,15 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // get one artist by id
+  const getOne = id => {
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/artists/${id}`)
+        .then(({ data }) => resolve(data))
+        .catch(err => reject(err));
+    });
+  };
+
   // get all artists ordered by distance from [lat, lng]
   const getAllByDistance = ({ lat, lng }) => {
     return $q((resolve, reject) => {
@@ -60,6 +69,17 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // posts data to patch artist with given id
+  const edit = (id, data) => {
+    return $q((resolve, reject) => {      
+      $http.patch(`${API.v1}/artists/${id}`, data)
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch(err => reject(err));
+    });
+  };
+
   // post info to a new artist
   const create = data => {
     return $q((resolve, reject) => {
@@ -77,9 +97,11 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
 
   return {
     getAll,
+    getOne,
     getAllByDistance,
     getPosts,
     getRegion,
+    edit,
     create
   };
 });

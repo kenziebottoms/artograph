@@ -1,5 +1,7 @@
 <div id='addArtist' class='p-3'>
-  <h3>Add new artist</h3>
+  <h3>
+    {{mode == "new" ? "Add new artist" : "Edit "+newArtist.name}}
+  </h3>
   <div class='input-group mb-3'>
     <div class='input-group-prepend'>
       <span class='input-group-text'>Name</span>
@@ -28,8 +30,10 @@
       <div class='input-group-prepend'>
         <span class='input-group-text'>Shop</span>
       </div>
-      <input id='address' types='["geocode","establishment"]' ng-model='newArtist.address' type='text' class='form-control' placeholder='High Voltage Tattoo' aria-label='address'>
+      <input id='address' types='["geocode","establishment"]' ng-model='newArtist.address' type='text' class='form-control' placeholder='{{mode == "new" ? "High Voltage Tattoo" : "Leave blank if unchanged"}}' aria-label='address'>
     </div>
   <div class='alert alert-danger' ng-show='error'>{{error}}</div>
-  <button class='btn btn-primary btn-block' ng-click='addArtist()'>Add Artist</button>
+  <button class='btn btn-primary btn-block' ng-click='submit()'>
+    {{mode == new ? "Add Artist" : "Save Changes"}}
+  </button>
 </div>

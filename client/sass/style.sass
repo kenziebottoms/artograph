@@ -10,6 +10,9 @@ img
 h5
   cursor: pointer
 
+.form-control
+  color: #1c1f21
+
 #content
   height: 100vh
   display: grid
@@ -22,10 +25,12 @@ h5
 #map-half
   height: 100vh
   display: grid
-  grid-template-rows: 1fr auto
+  grid-template-rows: 1fr auto auto
   #featuredArtist
     h4
-      cursor: text      
+      cursor: text
+    .header
+      grid-template-columns: 1fr auto auto auto
     .posts
       a
         opacity: 1
@@ -73,7 +78,6 @@ h5
         font-size: 1.8rem
     .tag
       font-size: .9rem
-      font-weight: 100
       opacity: 1
       padding: .25em .5em
       display: inline-block
