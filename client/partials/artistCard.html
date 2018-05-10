@@ -17,6 +17,9 @@
     <a target='blank' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
       <img src='img/insta48.png' alt='{{artist.insta}}'>
     </a>
+    <a ng-show='highlight' href='/#!/edit/{{artist.id}}'>
+      <i class='material-icons'>edit</i>
+    </a>
   </div>
   <div ng-show='artist.tags' class='tags mt-2'>
     <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag mr-2'>
