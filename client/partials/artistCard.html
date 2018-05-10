@@ -21,8 +21,8 @@
       <i class='material-icons'>edit</i>
     </a>
   </div>
-  <div ng-show='artist.tags' class='tags mt-2'>
-    <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag mr-2'>
+  <div ng-show='artist.tags' class='tags'>
+    <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='btn btn-outline-primary tag'>
       {{tag}}
     </a>
   </div>
