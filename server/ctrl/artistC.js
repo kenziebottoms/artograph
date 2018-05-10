@@ -21,8 +21,9 @@ const getById = id => {
         ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY a.id
+      LIMIT 1
     `, { type: models.sequelize.QueryTypes.SELECT })
-      .then(artist => resolve(artist))
+      .then(artist => resolve(artist[0]))
       .catch(err => reject(err));
   });
 };
@@ -70,7 +71,6 @@ const create = data => {
 const edit = (id, data) => {
   return new Promise((resolve, reject) => {
     data = validate(data);
-    // if it's an error
     if (data.error) return reject(data.error);
     Artist.update(data, { where: { id } })
       .then(artist => resolve(artist))

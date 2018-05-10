@@ -1,6 +1,23 @@
 'use strict';
 
-angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, ArtistFactory) {
+angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, $stateParams, ArtistFactory) {
+
+  $rootScope.mode = 'new';
+  $scope.title = `Add new artist`;
+  $scope.placeholder = 'High Voltage Tattoo';
+
+  if (!isNaN($stateParams.id)) {
+    $scope.mode = 'edit';
+    ArtistFactory.getOne(+$stateParams.id)
+      .then(artist => {
+        $scope.title = `Edit ${artist.name}`
+        $scope.placeholder = 'Leave blank if unchanged';
+        $scope.newArtist = artist;
+        let { lat, lng } = artist;
+        $rootScope.$broadcast('recenterMap', {lat, lng}, 8);
+      })
+      .catch(err => console.log(err));
+  }
 
   // posts form data to API after validating against complete idiocy
   $scope.addArtist = () => {

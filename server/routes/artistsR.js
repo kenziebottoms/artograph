@@ -43,9 +43,7 @@ router.get('/nearby', (req, res, next) => {
 // Returns one artist by `id`.
 router.get('/:id', (req, res, next) => {
   getById(req.params.id)
-    .then(artist => {
-      res.status(200).json(artist);
-    })
+    .then(artist =>  res.status(200).json(artist))
     .catch(err => next(err));
 });
 
