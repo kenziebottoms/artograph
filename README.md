@@ -57,11 +57,12 @@ An app to geographically visualize and organize tattoo artist information.
 - [ ] User can filter and search on their favorites.
 
 ### Stretch Goals
+- [x] App will automatically geolocate user.
+- [x] App will scrape instagram to show recent tattoos.
+- [x] App will reverse-geocode latitude and longitude and infer a region name.
+- [x] Users can edit artist information and tags.
 - [ ] Users can up- and downvote others’ tags.
 - [ ] Users can look up an Instagram account and the app will try and guess/scrape the artist’s information and location.
-- [x] App will scrape instagram to show recent tattoos.
-- [x] App will automatically geolocate user.
-- [x] App will reverse-geocode latitude and longitude and infer a region name.
 
 ## Tech
 - [Geolocation](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation), MDN
