@@ -172,5 +172,6 @@ Removes the `artistId` from the currently authenticated user's favorites. Return
 | ---- | ----------- |
 | `/#!/` | Homepage |
 | `/#!/new` | Add new artist form |
+| `/#!/edit/:id` | Edit artist form |
 | `/#!/login` | Login form |
 | `/#!/register` | Registration form |
