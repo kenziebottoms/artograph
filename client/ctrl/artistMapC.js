@@ -129,6 +129,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     if ($scope.artists) {
       drawMap($scope.artists, { lat, lng }, zoom);
     } else {
+      // eliminates race condition if editing
       ArtistFactory.getAll()
         .then(artists => {
           $scope.artists = artists;

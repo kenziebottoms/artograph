@@ -3,15 +3,12 @@
 angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $scope, $location, $stateParams, ArtistFactory) {
 
   $rootScope.mode = 'new';
-  $scope.title = `Add new artist`;
-  $scope.placeholder = 'High Voltage Tattoo';
 
+  // if editing, grab artist info
   if (!isNaN($stateParams.id)) {
     $scope.mode = 'edit';
     ArtistFactory.getOne(+$stateParams.id)
       .then(artist => {
-        $scope.title = `Edit ${artist.name}`
-        $scope.placeholder = 'Leave blank if unchanged';
         $scope.newArtist = artist;
         let { lat, lng } = artist;
         $rootScope.$broadcast('recenterMap', {lat, lng}, 8);
