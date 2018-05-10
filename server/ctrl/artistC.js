@@ -72,8 +72,27 @@ const edit = (id, data) => {
   return new Promise((resolve, reject) => {
     data = validate(data);
     if (data.error) return reject(data.error);
-    Artist.update(data, { where: { id } })
-      .then(artist => resolve(artist))
+    Artist.update(data, {
+      where: { id },
+      returning: true
+    })
+      .then(response => {
+        if (!data.tags) return resolve(data);
+        let artist;
+        Artist.findById(id)
+          .then(a => {
+            artist = a;
+            return Promise.all(data.tags.map(t => tags.findOrCreate(t)));
+          })
+          .then(tags => {
+            // add all tags to that artist
+            let ids = tags.map(t => t.id);
+            return artist.addTag(ids);
+          })
+          .then(tagsAdded => resolve(artist))
+          .catch(err => reject(err));
+        // find or create each tag name as object
+      })
       .catch(err => reject(err));
   });
 };
