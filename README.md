@@ -1,5 +1,12 @@
 # Artograph
 
+![](https://img.shields.io/badge/data-postgres-blue.svg)
+![](https://img.shields.io/badge/modularity-node-61BC62.svg)
+![](https://img.shields.io/badge/data-instagram-cc006c.svg)
+![](https://img.shields.io/badge/mvp-working-green.svg)
+![](https://img.shields.io/badge/stretch-wip-yellow.svg)
+![](https://img.shields.io/badge/css_framework-bootstrap-5F2C7C.svg)
+
 An app to geographically visualize and organize tattoo artist information.
 
 > ### `car·to·graph`
@@ -8,11 +15,29 @@ An app to geographically visualize and organize tattoo artist information.
 >
 > an illustrated map
 
+## Run Locally
+
+```bash
+git clone git@github.com:kenziebottoms/artograph.git
+cd artograph
+npm install
+npm run db:reset
+npm start
+```
+
+## Database ops
+
+- `npm run db:regen`: generate database from `server/db/seeders`
+- `npm run db:save`: save current database to `server/db/export.sql`
+- `npm run db:reset`: reset database to last saved
+
 ---
 
 <!-- TOC -->
 
 - [Artograph](#artograph)
+  - [Run Locally](#run-locally)
+  - [Database ops](#database-ops)
   - [Goals](#goals)
     - [Stretch Goals](#stretch-goals)
   - [Tech](#tech)
