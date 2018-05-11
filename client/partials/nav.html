@@ -1,0 +1,10 @@
+{{mode}}
+<div ng-show='mode != "new"' id='search-bar' class='input-group p-3'>
+  <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null' class='form-control'
+    aria-label='Search artists'>
+  <div class='input-group-append'>
+    <a href='/#!/new' class='btn btn-primary'>
+      <i class='material-icons'>add</i>
+    </a>
+  </div>
+</div>
