@@ -19,9 +19,12 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
           // update region
           ArtistFactory.getRegion(id)
             .then(region => {
-              $scope.artists.find(a => a.id == id).region = region;
-              $scope.highlight.region = region;
-              $rootScope.$broadcast("updateRegion", { id, region });
+              $rootScope.$broadcast("updateArtist", { id, region });
+            })
+            .catch(err => console.log(err));
+          ArtistFactory.getMeta(id, $scope.highlight.insta)
+            .then(({followers}) => {
+              $rootScope.$broadcast("updateArtist", {id, followers});
             })
             .catch(err => console.log(err));
         })
