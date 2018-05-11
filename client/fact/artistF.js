@@ -61,26 +61,25 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
       $http.get(`${API.v1}/artists/${id}`)
         .then(({ data }) => {
           if (Array.isArray(data)) data = data[0];
-          if (!data.region) {
-            let { lat, lng } = data;
-            GeoFactory.reverseGeocode({ lat, lng })
-              .then(response => {
-                if (response) {
-                  region = response;
+          let { lat, lng } = data;
+          GeoFactory.reverseGeocode({ lat, lng })
+            .then(response => {
+              if (response) {
+                region = response;
+                // if region has been changed
+                if (data.region != region) {
                   // update stored region
                   $http.patch(`${API.v1}/artists/${id}`, { region })
                     .then(response => {
                       resolve(region);
                     })
                     .catch(err => reject(err));
-                } else {
-                  resolve('');
                 }
-              })
-              .catch(err => reject(err));
-          } else {
-            resolve(data.region);
-          }
+              } else {
+                reject(response);
+              }
+            })
+            .catch(err => reject(err));
         })
         .catch(err => reject(err));
     });
@@ -89,7 +88,6 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
   // posts data to patch artist with given id
   const edit = (id, data) => {
     return $q((resolve, reject) => {
-      console.log('patching', data);
       $http.patch(`${API.v1}/artists/${id}`, data)
         .then(({ data }) => resolve(data))
         .catch(err => reject(err));
