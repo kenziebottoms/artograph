@@ -89,7 +89,7 @@ const edit = (id, data) => {
           .then(tags => {
             // add all tags to that artist
             let ids = tags.map(t => t.id);
-            return artist.addTag(ids);
+            return artist.setTags(ids);
           })
           .then(tagsAdded => resolve(artist))
           .catch(err => reject(err));
