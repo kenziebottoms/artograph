@@ -154,6 +154,7 @@ const getNearby = data => {
     let { lat, lng, allowance } = data || null;
     if (!data || isNaN(lat) || isNaN(lng) || isNaN(allowance)) {
       // 400: bad request
+      // 400: bad request
       return reject({ status: 400, message: 'Please provide valid `lat`, `lng`, and `allowance` properties.' });
     }
     Artist.findAll({
@@ -192,17 +193,19 @@ const validate = body => {
   if (!body || _.isEmpty(body)) {
     return {
       error: {
+        // 400: bad request
         status: 400, message: 'Please send something.'
       }
     };
   }
-  let { email, name, lat, lng, insta, tags, region } = body;
+  let { email, name, lat, lng, insta, tags, region, followers } = body;
   if (email) {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
     if (!emailRx.test(email)) {
       return {
         error: {
+          // 400: bad request
           status: 400,
           message: 'Please provide a valid email address.'
         }
@@ -218,8 +221,21 @@ const validate = body => {
     if (!instaRx.test(insta)) {
       return {
         error: {
+          // 400: bad request
           status: 400,
           message: 'Please provide a valid Instagram profile.'
+        }
+      };
+    }
+  }
+  if (followers) {
+    let followerRx = /[0-9]+/gi;
+    if (!followerRx.test(followers)) {
+      return {
+        error: {
+          // 400: bad request
+          status: 400,
+          message: 'Please provide a valid follower count.'
         }
       };
     }
@@ -228,6 +244,7 @@ const validate = body => {
     if (isNaN(lat) || isNaN(lng)) {
       return {
         error: {
+          // 400: bad request
           status: 400,
           message: 'Please provide a valid email latitude and longitude.'
         }
@@ -240,7 +257,7 @@ const validate = body => {
   // splits by , trims whitespace, removes empty strings
   if (tags) tags = _.compact(tags.split(',').map(s => s.trim(/\s/)));
   if (!region) region = "";
-  return { email, name, lat, lng, insta, tags, region };
+  return { email, name, lat, lng, insta, tags, region, followers };
 };
 
 module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };

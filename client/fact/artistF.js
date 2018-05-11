@@ -39,10 +39,17 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
   };
 
   // get instagram metadata
-  const getMeta = insta => {
+  const getMeta = (id, insta) => {
     return $q((resolve, reject) => {
+      let meta;
       $http.get(`${API.v1}/insta/meta/${insta}`)
-        .then(({ data }) => resolve(data))
+        .then(({ data }) => {
+          meta = data;
+          let { followers } = data;
+          // update stored follower count
+          return $http.patch(`${API.v1}/artists/${id}`, { followers });
+        })
+        .then(artist => resolve(meta))
         .catch(err => reject(err));
     });
   };
@@ -60,6 +67,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
               .then(response => {
                 if (response) {
                   region = response;
+                  // update stored region
                   $http.patch(`${API.v1}/artists/${id}`, { region })
                     .then(response => {
                       resolve(region);

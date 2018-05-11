@@ -16,19 +16,19 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
       ArtistFactory.getPosts($scope.highlight.insta)
         .then(posts => {
           $scope.highlight.posts = posts;
-          if (!$scope.highlight.region) {
-            ArtistFactory.getRegion(id)
-              .then(region => {
-                $scope.artists.find(a => a.id == id).region = region;
-                $scope.highlight.region = region;
-                $rootScope.$broadcast("updateRegion", { id, region });
-              })
-              .catch(err => console.log(err));
-          }
+          // update region
+          ArtistFactory.getRegion(id)
+            .then(region => {
+              $scope.artists.find(a => a.id == id).region = region;
+              $scope.highlight.region = region;
+              $rootScope.$broadcast("updateRegion", { id, region });
+            })
+            .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
-      ArtistFactory.getMeta($scope.highlight.insta)
-        .then(({followers}) => $scope.highlight.followers = followers)
+      // update followers
+      ArtistFactory.getMeta(id, $scope.highlight.insta)
+        .then(({ followers }) => $scope.highlight.followers = followers)
         .catch(err => console.log(err));
     } else {
       $scope.highlight = null;
