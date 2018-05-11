@@ -38,6 +38,22 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // get instagram metadata
+  const getMeta = (id, insta) => {
+    return $q((resolve, reject) => {
+      let meta;
+      $http.get(`${API.v1}/insta/meta/${insta}`)
+        .then(({ data }) => {
+          meta = data;
+          let { followers } = data;
+          // update stored follower count
+          return $http.patch(`${API.v1}/artists/${id}`, { followers });
+        })
+        .then(artist => resolve(meta))
+        .catch(err => reject(err));
+    });
+  };
+
   // reverse geocode an artist's region name
   const getRegion = (id) => {
     return $q((resolve, reject) => {
@@ -45,25 +61,25 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
       $http.get(`${API.v1}/artists/${id}`)
         .then(({ data }) => {
           if (Array.isArray(data)) data = data[0];
-          if (!data.region) {
-            let { lat, lng } = data;
-            GeoFactory.reverseGeocode({ lat, lng })
-              .then(response => {
-                if (response) {
-                  region = response;
+          let { lat, lng } = data;
+          GeoFactory.reverseGeocode({ lat, lng })
+            .then(response => {
+              if (response) {
+                region = response;
+                // if region has been changed
+                if (data.region != region) {
+                  // update stored region
                   $http.patch(`${API.v1}/artists/${id}`, { region })
                     .then(response => {
                       resolve(region);
                     })
                     .catch(err => reject(err));
-                } else {
-                  resolve('');
                 }
-              })
-              .catch(err => reject(err));
-          } else {
-            resolve(data.region);
-          }
+              } else {
+                reject(response);
+              }
+            })
+            .catch(err => reject(err));
         })
         .catch(err => reject(err));
     });
@@ -71,11 +87,9 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
 
   // posts data to patch artist with given id
   const edit = (id, data) => {
-    return $q((resolve, reject) => {      
+    return $q((resolve, reject) => {
       $http.patch(`${API.v1}/artists/${id}`, data)
-        .then(({ data }) => {
-          resolve(data);
-        })
+        .then(({ data }) => resolve(data))
         .catch(err => reject(err));
     });
   };
@@ -85,11 +99,14 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     return $q((resolve, reject) => {
       $http.post(`${API.v1}/artists`, data)
         .then(response => {
-          if (response.status == 200) {
-            resolve(response);
-          } else {
-            reject(response);
-          }
+          if (response.status != 200) return reject(response);
+          let artist = response.data;
+          Promise.all([
+            getMeta(artist.id, artist.insta),
+            getRegion(artist.id)
+          ])
+            .then(responses => resolve(artist))
+            .catch(err => console.log(err));
         })
         .catch(err => reject(err));
     });
@@ -100,6 +117,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getOne,
     getAllByDistance,
     getPosts,
+    getMeta,
     getRegion,
     edit,
     create

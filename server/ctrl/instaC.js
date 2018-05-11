@@ -12,6 +12,7 @@ const getSharedData = user => {
       if (err) return reject(err);
       let $ = cheerio.load(body);
       let data = $('script').eq(2).html();
+      if (!data) return reject(response);
       data = data.split(' = ')[1].slice(0, -1);
       resolve(JSON.parse(data));
     });

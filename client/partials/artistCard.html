@@ -3,13 +3,16 @@
     <a ng-show='!highlight' ng-click='fave(faves.indexOf(artist.id) == -1 ? 1 : 0, artist.id)' class='mr-1'>
       <i class='material-icons fave'>{{faves.indexOf(artist.id) == -1 ? 'star_outline' : 'star'}}</i>
     </a>
-    <div>
+    <div class='text'>
       <h4 ng-click='recenterMap({lat: artist.lat, lng: artist.lng}, 7); selectArtist(artist.id)' class='m-0' data-lat='{{artist.lat}}' data-lng='{{artist.lng}}'>
         {{artist.name}}
       </h4>
-      <p class='region text-muted m-0' ng-show='artist.region'>
+      <span class='region' ng-show='artist.region'>
         {{artist.region}}
-      </p>
+      </span>
+      <span ng-show='artist.followers'>
+        {{artist.followers}} followers
+      </span>
     </div>
     <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
       <i class='material-icons'>email</i>
