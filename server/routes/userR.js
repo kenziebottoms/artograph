@@ -32,10 +32,13 @@ router.post('/faves/:id', (req, res, next) => {
   const { Artist, User } = req.app.get('models');
   User.findById(req.user.id)
     .then(user => {
-      return user.addArtist(req.params.id);
+      return user.addArtist(req.params.id, { returning: true });
     })
-    .then(({data}) => {
-      res.status(200).json(req.params.id);
+    .then(response => {
+      // comes back as [[{ favorite }]]
+      if (response.length > 0) response = response[0];
+      if (response.length > 0) response = response[0];
+      res.status(200).json(response);
     })
     .catch(err => next(err));
 });
@@ -43,12 +46,8 @@ router.post('/faves/:id', (req, res, next) => {
 router.delete('/faves/:id', (req, res, next) => {
   const { Artist, User } = req.app.get('models');
   User.findById(req.user.id)
-    .then(user => {
-      return user.removeArtist(req.params.id);
-    })
-    .then(response => {
-      res.status(200).json(req.params.id);
-    })
+    .then(user => user.removeArtist(req.params.id, { returning: true }))
+    .then(response => res.status(200).json(1))
     .catch(err => next(err));
 });
 

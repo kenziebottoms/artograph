@@ -6,7 +6,7 @@ module.exports.getAuthUser = (req, res, next) => {
   if (req.isAuthenticated()) {
     res.status(200).json(req.user);
   } else {
-    res.status(200).json({ user: null });
+    res.status(200).json(null);
   }
 };
 
@@ -14,7 +14,7 @@ module.exports.checkAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(200).json({ user: null });
+    res.status(200).json(null);    
   }
 };
 

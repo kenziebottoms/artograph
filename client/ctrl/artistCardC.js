@@ -11,16 +11,18 @@ angular.module('artograph').controller('ArtistCardCtrl', function ($rootScope, $
   $scope.fave = (faveValue, artistId) => {
     if (faveValue) {
       UserFactory.addFave(artistId)
-        .then(response => {
-          $scope.faves.push(+artistId);
-        })
-        .catch(err => $location.path('/login'));
+        .then(response => $scope.faves.push(+artistId))
+        .catch(err => {
+          (err == null) ? $location.path('/login') : console.log(err);
+        });
     } else {
       UserFactory.removeFave(artistId)
         .then(response => {
-          $scope.faves = _.pull($scope.faves, +response);
+          $scope.faves = _.pull($scope.faves, artistId);
         })
-        .catch(err => $location.path('/login'));
+        .catch(err => {
+          (err == null) ? $location.path('/login') : console.log(err);
+        });
     }
   };
 });

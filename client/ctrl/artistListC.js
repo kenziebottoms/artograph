@@ -33,12 +33,15 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
 
   // get favorites if logged in
   UserFactory.getActiveUser()
-    .then(user => UserFactory.getFaves(user.id))
-    .then(faves => {
-      $scope.faves = faves;
+    .then(user => {
+      if (user) {
+        UserFactory.getFaves(user.id)
+          .then(faves => $scope.faves = faves)
+          .catch(err => console.log(err));
+      }
     })
     .catch(err => {
-      if (err.status !== 401) console.log(err);
+      if (err.status != 401) console.log(err);
     });
 
   // LISTENERS
