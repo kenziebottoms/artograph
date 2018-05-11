@@ -38,7 +38,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       $scope.faves = faves;
     })
     .catch(err => {
-      if (err.status != 401) console.log(err);
+      if (err.status !== 401) console.log(err);
     });
 
   // LISTENERS

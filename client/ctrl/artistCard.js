@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistCardCtrl', function ($rootScope, $scope, UserFactory) {
+angular.module('artograph').controller('ArtistCardCtrl', function ($rootScope, $scope, $location, UserFactory) {
 
   // tell ArtistMapCtrl to highlight the selected artist
   $scope.selectArtist = id => {
@@ -14,13 +14,13 @@ angular.module('artograph').controller('ArtistCardCtrl', function ($rootScope, $
         .then(response => {
           $scope.faves.push(+artistId);
         })
-        .catch(err => console.log(err));
+        .catch(err => $location.path('/login'));
     } else {
       UserFactory.removeFave(artistId)
         .then(response => {
           $scope.faves = _.pull($scope.faves, +response);
         })
-        .catch(err => console.log(err));
+        .catch(err => $location.path('/login'));
     }
   };
 });

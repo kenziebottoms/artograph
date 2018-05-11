@@ -5,9 +5,10 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   // get currently authenticated user
   const getActiveUser = () => {
     return $q((resolve, reject) => {
+      let notLoggedIn = { status: 401, message: 'You are not logged in.' };
       $http.get(`${API.v1}/user`)
-        .then(({ data }) => resolve(data))
-        .catch(err => reject(err));
+        .then(({ data: { user } }) => user ? resolve(user) : reject(notLoggedIn))
+        .catch(err => reject(notLoggedIn));
     });
   };
 
@@ -23,13 +24,21 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   };
 
   const addFave = artistId => {
-    return $http.post(`${API.v1}/user/faves/${artistId}`);
+    return $q((resolve, reject) => {
+      $http.post(`${API.v1}/user/faves/${artistId}`)
+        .then(({ data }) => {
+          data.user ? resolve(data) : reject(data);
+        })
+        .catch(err => reject(err));
+    });
   };
 
   const removeFave = artistId => {
     return $q((resolve, reject) => {
       $http.delete(`${API.v1}/user/faves/${artistId}`)
-        .then(({data}) => resolve(+data))
+        .then(({ data }) => {
+          data.user ? resolve(+data) : reject(data);
+        })
         .catch(err => reject(err));
     });
   };
