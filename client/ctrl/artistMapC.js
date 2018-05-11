@@ -27,6 +27,9 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
           }
         })
         .catch(err => console.log(err));
+      ArtistFactory.getMeta($scope.highlight.insta)
+        .then(({followers}) => $scope.highlight.followers = followers)
+        .catch(err => console.log(err));
     } else {
       $scope.highlight = null;
     }

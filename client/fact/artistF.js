@@ -38,6 +38,15 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // get instagram metadata
+  const getMeta = insta => {
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/insta/meta/${insta}`)
+        .then(({ data }) => resolve(data))
+        .catch(err => reject(err));
+    });
+  };
+
   // reverse geocode an artist's region name
   const getRegion = (id) => {
     return $q((resolve, reject) => {
@@ -100,6 +109,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getOne,
     getAllByDistance,
     getPosts,
+    getMeta,
     getRegion,
     edit,
     create
