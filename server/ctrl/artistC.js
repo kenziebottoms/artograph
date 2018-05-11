@@ -50,8 +50,10 @@ const getAll = () => {
 // creates without checking anything
 const create = data => {
   return new Promise((resolve, reject) => {
-    Artist.create(data)
-      .then(artist => {
+    let artist;
+    Artist.create(data, { returning: true })
+      .then(a => {
+        artist = a;
         if (!data.tags) return resolve(artist);
         // find or create each tag name as object
         Promise.all(data.tags.map(t => tags.findOrCreate(t)))
@@ -60,7 +62,7 @@ const create = data => {
             let ids = tags.map(t => t.id);
             return artist.addTag(ids);
           })
-          .then(tagsAdded => resolve(tagsAdded))
+          .then(tagsAdded => resolve(artist))
           .catch(err => reject(err));
       })
       .catch(err => reject(err));
@@ -256,7 +258,6 @@ const validate = body => {
   }
   // splits by , trims whitespace, removes empty strings
   if (tags) tags = _.compact(tags.split(',').map(s => s.trim(/\s/)));
-  if (!region) region = "";
   return { email, name, lat, lng, insta, tags, region, followers };
 };
 

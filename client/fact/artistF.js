@@ -88,11 +88,10 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
 
   // posts data to patch artist with given id
   const edit = (id, data) => {
-    return $q((resolve, reject) => {      
+    return $q((resolve, reject) => {
+      console.log('patching', data);
       $http.patch(`${API.v1}/artists/${id}`, data)
-        .then(({ data }) => {
-          resolve(data);
-        })
+        .then(({ data }) => resolve(data))
         .catch(err => reject(err));
     });
   };
@@ -102,11 +101,14 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     return $q((resolve, reject) => {
       $http.post(`${API.v1}/artists`, data)
         .then(response => {
-          if (response.status == 200) {
-            resolve(response);
-          } else {
-            reject(response);
-          }
+          if (response.status != 200) return reject(response);
+          let artist = response.data;
+          Promise.all([
+            getMeta(artist.id, artist.insta),
+            getRegion(artist.id)
+          ])
+            .then(responses => resolve(artist))
+            .catch(err => console.log(err));
         })
         .catch(err => reject(err));
     });
