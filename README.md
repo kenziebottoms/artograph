@@ -1,11 +1,12 @@
 # Artograph
 
 ![](https://img.shields.io/badge/data-postgres-blue.svg)
-![](https://img.shields.io/badge/modularity-node-61BC62.svg)
 ![](https://img.shields.io/badge/data-instagram-cc006c.svg)
+![](https://img.shields.io/badge/modularity-node+express-61BC62.svg)
+![](https://img.shields.io/badge/css_framework-bootstrap-5F2C7C.svg)
+![](https://img.shields.io/badge/css_preprocessor-sass-DC4497.svg)
 ![](https://img.shields.io/badge/mvp-working-green.svg)
 ![](https://img.shields.io/badge/stretch-wip-yellow.svg)
-![](https://img.shields.io/badge/css_framework-bootstrap-5F2C7C.svg)
 
 An app to geographically visualize and organize tattoo artist information.
 
