@@ -156,7 +156,6 @@ const getNearby = data => {
     let { lat, lng, allowance } = data || null;
     if (!data || isNaN(lat) || isNaN(lng) || isNaN(allowance)) {
       // 400: bad request
-      // 400: bad request
       return reject({ status: 400, message: 'Please provide valid `lat`, `lng`, and `allowance` properties.' });
     }
     Artist.findAll({
