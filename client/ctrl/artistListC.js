@@ -68,5 +68,9 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
 
   // check the active user again
   $rootScope.$on('logout', event => $scope.faves = []);
+  
+  $rootScope.$on('search', (event, term) => {
+    $scope.artistSearch = term;
+  });
 
 });
