@@ -1,27 +1,12 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, UserFactory) {
+angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory) {
   $rootScope.view = 'home';
   $scope.faves = [];
 
   // tell ArtistMapCtrl to recenter the map on the selected artist
   $scope.recenterMap = ({ lat, lng }, zoom) => {
     $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
-  };
-
-  // check active user
-  $scope.refreshUser = () => {
-    UserFactory.getActiveUser()
-      .then(user => {
-        if (user) {
-          UserFactory.getFaves(user.id)
-            .then(faves => $scope.faves = faves)
-            .catch(err => console.log(err));
-        }
-      })
-      .catch(err => {
-        if (err.status != 401) console.log(err);
-      });
   };
 
   // LISTENERS

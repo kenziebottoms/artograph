@@ -24,13 +24,10 @@ const RegistrationStrategy = new Strategy(
       where: { email } // remember, this is object literal shorthand. Same as { email: email}
     }).then(user => {
       if (user) {
-        console.log("user found, oops");
-
         return done(null, false, {
           message: "That email is already taken"
         });
       } else {
-        console.log("in the else");
         const userPassword = generateHash(password);
         const data =
           // values come from the req.body, added by body-parser when register form request is submitted
@@ -63,8 +60,6 @@ const LoginStrategy = new Strategy(
     User = req.app.get("models").User;
 
     const isValidPassword = (userpass, password) => {
-      console.log('isValidPassword', userpass, password);
-
       // hashes the passed-in password and then compares it to the hashed password fetched from the db
       return bCrypt.compareSync(password, userpass);
     };
@@ -80,15 +75,12 @@ const LoginStrategy = new Strategy(
           });
         }
         if (!isValidPassword(user.password, password)) {
-          console.log('WRONG PASSWORD!!!');
-
           return done(null, false, { message: "Incorrect password." });
         }
         const userinfo = user.get(); // get returns the data about the object, separate from the rest of the instance Sequelize gives us after calling 'findOne()' above. Could also have added {raw: true} to the query to achieve the same thing
         return done(null, userinfo);
       })
       .catch(err => {
-        console.log("Error:", err);
         return done(null, false, { message: "Something went wrong with your sign in" });
       });
   }
@@ -96,7 +88,6 @@ const LoginStrategy = new Strategy(
 
 //serialize. In this function, we will be saving the user id to the session in req.session.passport.user
 passport.serializeUser((user, done) => {
-  console.log("hello, serialize", user);
   // This saves the whole user obj into the session cookie, but typically you will see just user.id passed in.
   done(null, user);
 });
@@ -104,9 +95,7 @@ passport.serializeUser((user, done) => {
 // deserialize user
 // We use Sequelize's findById to get the user. Then we use the Sequelize getter function, user.get(), to pass the user data to the 'done' function as an object, stripped of the sequelize instance methods, etc.
 passport.deserializeUser(({ id }, done) => {
-  console.log("user arg", id);
   User.findById(id).then(user => {
-    console.log("Found User in deserielize method", user.get());
     if (user) {
       done(null, user.get());
     } else {
