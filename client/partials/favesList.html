@@ -1,3 +1,4 @@
 <div class='list-group p-0'>
-    <div data-id='{{artist.id}}' ng-controller='ArtistCardCtrl' ng-include='"partials/artistCard.html"' ng-repeat='artist in artists | filter: artistSearch' class='list-group-item artist p-0' ng-show='faves.indexOf(artist.id) > -1'></div>
-  </div>
+  <div data-id='{{artist.id}}' ng-controller='ArtistCardCtrl' ng-include='"partials/artistCard.html"' ng-repeat='artist in artists | filter: artistSearch'
+    class='list-group-item artist p-0' ng-show='faves.indexOf(artist.id) > -1'></div>
+</div>

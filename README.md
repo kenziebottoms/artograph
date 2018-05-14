@@ -64,6 +64,7 @@ npm start
       - [`GET /user`](#get-user)
   - [Favorites](#favorites)
       - [`GET /user/:id/faves`](#get-useridfaves)
+        - [`&verbose=true`](#verbosetrue)
       - [`GET /user/faves`](#get-userfaves)
       - [`POST /user/faves/:artistId`](#post-userfavesartistid)
       - [`DELETE /user/faves/:artistId`](#delete-userfavesartistid)
@@ -180,6 +181,10 @@ Returns the currently authenticated user. Returns `401: Unauthorized` if there i
 #### `GET /user/:id/faves`
 
 Returns the `id`s of the given user's favorite artists.
+
+##### `&verbose=true`
+
+Returns full artist info for all the given user's favorite artists.
 
 #### `GET /user/faves`
 
