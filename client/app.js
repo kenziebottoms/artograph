@@ -16,7 +16,7 @@ angular.module('artograph', ['ui.router'])
             templateUrl: 'partials/artistMap.html'
           },
           'search@home': {
-            controller: 'ArtistListCtrl',
+            controller: 'FullListCtrl',
             templateUrl: 'partials/artistList.html'
           }
         }

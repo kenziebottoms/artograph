@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, GeoFactory, UserFactory) {
+angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $scope, ArtistFactory, UserFactory) {
   $rootScope.view = 'home';
   $scope.faves = [];
 
@@ -10,7 +10,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   };
 
   // check active user
-  const refreshUser = () => {
+  $scope.refreshUser = () => {
     UserFactory.getActiveUser()
       .then(user => {
         if (user) {
@@ -23,30 +23,6 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
         if (err.status != 401) console.log(err);
       });
   };
-
-  // IMMEDIATE ACTION
-
-  // grab all artists by default
-  ArtistFactory.getAll()
-    .then(artists => {
-      $scope.artists = artists;
-    })
-    .catch(err => console.log(err));
-
-  // try to geolocate
-  GeoFactory.geolocate()
-    .then(({ lat, lng }) => {
-      let geo = { lat, lng };
-      ArtistFactory.getAllByDistance(geo)
-        .then(artists => {
-          $scope.recenterMap(geo, 7);
-          $scope.artists = artists;
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log('No geo available'));
-
-    refreshUser();
 
   // LISTENERS
 
@@ -68,7 +44,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
 
   // check the active user again
   $rootScope.$on('logout', event => $scope.faves = []);
-  
+
   $rootScope.$on('search', (event, term) => {
     $scope.artistSearch = term;
   });

@@ -238,6 +238,7 @@ COPY public."ArtistTags" ("createdAt", "updatedAt", "artistId", "tagId") FROM st
 2018-05-14 11:17:11.982-05	2018-05-14 11:17:11.982-05	54	3
 2018-05-14 11:17:11.982-05	2018-05-14 11:17:11.982-05	54	33
 2018-05-14 11:18:05.212-05	2018-05-14 11:18:05.212-05	54	17
+2018-05-14 12:39:31.13-05	2018-05-14 12:39:31.13-05	48	3
 \.
 
 
@@ -334,7 +335,6 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 94	Murray Sell	murrayftw@gmail.com	35.925885	-86.87273979999998	murraysell	Tennessee, United States	9482	2018-05-11 11:55:42.162-05	2018-05-14 11:12:55.765-05
 97	Zack Deaton	zackdeatontattoo@gmail.com	36.176546	-86.75082099999997	zackdeaton	Tennessee, United States	6599	2018-05-11 11:55:42.162-05	2018-05-11 14:57:43.121-05
 25	Mitch Hoggard	mitchhoggardtattoos@yahoo.com	32.529524	-92.6424097	mitchhoggardtattoos	Louisiana, United States	1408	2018-05-11 11:55:42.162-05	2018-05-14 11:16:46.592-05
-48	Mitchell Allenden	sneakymitchtattoo@hotmail.com	53.793713	-1.5392795000000206	sneakymitch	England, United Kingdom	268791	2018-05-11 11:55:42.162-05	2018-05-11 14:57:51.471-05
 75	Samantha Ford	DESIGNS4SAM@YAHOO.CO.UK	53.353077	-2.855109999999968	sam_ford_tattoos	England, United Kingdom	63990	2018-05-11 11:55:42.162-05	2018-05-14 11:13:04.568-05
 69	Zane Pendergast	zanependergast@gmail.com	36.1884944	-86.72888369999998	zanependergast_tattoo	Tennessee, United States	7325	2018-05-11 11:55:42.162-05	2018-05-11 14:58:41.953-05
 44	Aaron Ashworth	\N	-31.9307198	115.85960219999993	aj_tattoo	Western Australia, Australia	43963	2018-05-11 11:55:42.162-05	2018-05-14 10:06:11.11-05
@@ -346,6 +346,7 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 84	Jeff Barnard	goldenyeti@ymail.com	35.925885	-86.87273979999998	golden_yeti	Tennessee, United States	3496	2018-05-11 11:55:42.162-05	2018-05-14 11:13:55.764-05
 98	Debbie Jones	Debbiejonestattoos@gmail.com	51.6186698	-3.9474663999999393	debbiejonestattoos	Wales, United Kingdom	7595	2018-05-11 11:55:42.162-05	2018-05-14 11:16:14.887-05
 54	Jonathan Penchoff	jonathan.earthgrasper@gmail.com	39.7631459	-104.9797423	earthgrasper	Colorado, United States	64989	2018-05-11 11:55:42.162-05	2018-05-14 11:18:05.186-05
+48	Mitchell Allenden	sneakymitchtattoo@hotmail.com	53.793713	-1.5392795000000206	sneakymitch	England, United Kingdom	269096	2018-05-11 11:55:42.162-05	2018-05-14 12:39:31.102-05
 \.
 
 
@@ -370,6 +371,7 @@ COPY public."Favorites" ("createdAt", "updatedAt", "artistId", "userId") FROM st
 2018-05-14 10:31:48.379-05	2018-05-14 10:31:48.379-05	85	1
 2018-05-14 11:09:16.502-05	2018-05-14 11:09:16.502-05	63	1
 2018-05-14 11:28:47.86-05	2018-05-14 11:28:47.86-05	44	1
+2018-05-14 12:39:22.273-05	2018-05-14 12:39:22.273-05	48	1
 \.
 
 
