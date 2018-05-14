@@ -18,7 +18,6 @@ const RegistrationStrategy = new Strategy(
   },
   // arg2 callback, handle storing a user's details.
   (req, email, password, done) => {
-    console.log("local strat reg callback: password", password);
     User = req.app.get("models").User;
 
     User.findOne({

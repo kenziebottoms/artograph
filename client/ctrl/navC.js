@@ -19,6 +19,10 @@ angular.module('artograph').controller('NavCtrl', function ($rootScope, $scope, 
       .catch(err => console.log(err));
   };
 
+  $scope.search = (term) => {
+    $rootScope.$broadcast('search', term);
+  };
+
   // IMMEDIATE ACTION
 
   refreshUser();

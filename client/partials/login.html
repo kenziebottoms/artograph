@@ -10,7 +10,7 @@
       <input type='password' class='form-control' ng-model='password' id='password' placeholder='Password'>
     </div>
     <div class='col-12 col-md-6 mb-3'>
-      <input type='password' class='form-control' id='confirmation' ng-model='confirmation' placeholder='Password again, please'>
+      <input ng-enter='login()' type='password' class='form-control' id='confirmation' ng-model='confirmation' placeholder='Password again, please'>
     </div>
   </div>
   <div ng-show='error' class="alert alert-danger" role="alert">
