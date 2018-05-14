@@ -1,4 +1,4 @@
-a
+a:not(.btn)
   color: inherit
   opacity: .6
   &:hover
@@ -18,7 +18,9 @@ body
   position: static
   display: flex
   flex-direction: column
+  background: #eee
 #nav
+  background: #fff
   #search-bar
     width: auto
     .input-group-append
@@ -94,5 +96,10 @@ body
       padding: .25em .5em
       display: inline-block
       margin: .5rem .5rem 0 0
-
+.form
+  margin: 3rem auto
+  background: #fff
+  grid-column: 1 / span 2
+  align-self: start
+  padding: 1rem
 @import loading

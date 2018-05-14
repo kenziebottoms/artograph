@@ -76,12 +76,22 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
     });
   };
 
+  // post to logout
+  const logout = () => {
+    return $q((resolve, reject) => {
+      $http.post(`${API.v1}/logout`)
+        .then(response => resolve(response))
+        .catch(err => reject(err));
+    });
+  };
+
   return {
     getActiveUser,
     getFaves,
     addFave,
     removeFave,
     login,
-    register
+    register,
+    logout
   };
 });

@@ -10,6 +10,15 @@ angular.module('artograph').controller('NavCtrl', function ($rootScope, $scope, 
       });
   };
 
+  $scope.logout = () => {
+    UserFactory.logout()
+      .then(response => {
+        $rootScope.$broadcast('logout');
+        $scope.user = null;
+      })
+      .catch(err => console.log(err));
+  };
+
   // IMMEDIATE ACTION
 
   refreshUser();
