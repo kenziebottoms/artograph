@@ -24,8 +24,12 @@ body {
 
 #nav {
   background: #fff; }
+  #nav .navbar > * {
+    margin: 0 .25rem; }
   #nav #search-bar {
-    width: auto; }
+    flex-grow: 2;
+    width: auto;
+    margin: 0 2rem; }
     #nav #search-bar .input-group-append .btn {
       padding: 0.25rem 0.5rem 0 0.5rem; }
 

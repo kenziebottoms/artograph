@@ -1,4 +1,4 @@
-<div class='navbar p-3'>
+<div class='navbar py-3 px-4'>
   <a class="navbar-brand" href="/#!/">Artograph</a>
   <div id='search-bar' class='input-group form-inline'>
     <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null' class='form-control'
@@ -11,4 +11,5 @@
   </div>
   <a ng-click='logout()' href='#' ng-show='user' class='btn btn-primary'>Logout</a>
   <a href='/#!/login' ng-show='!user' class='btn btn-primary'>Login</a>
+  <a href='/#!/register' ng-show='!user' class='btn btn-primary'>Register</a>
 </div>
