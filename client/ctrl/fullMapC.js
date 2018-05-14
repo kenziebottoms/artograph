@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('FullMapCtrl', function ($rootScope, $scope, $controller, ArtistFactory) {
+angular.module('artograph').controller('FullMapCtrl', function ($scope, $controller, ArtistFactory) {
 
   $controller('ArtistMapCtrl', { $scope: $scope });
 

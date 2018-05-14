@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('FullListCtrl', function ($scope, $controller, ArtistFactory, GeoFactory, UserFactory) {
+angular.module('artograph').controller('FullListCtrl', function ($scope, $controller, UserFactory) {
 
   $scope.view = 'all';
 

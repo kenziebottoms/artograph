@@ -86,7 +86,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
           if (response.status != 200) return reject(response);
           let artist = response.data;
           Promise.all([
-            getMeta(artist.id, artist.insta),
+            getInsta(artist.insta),
             getRegion(artist.id)
           ])
             .then(responses => resolve(artist))

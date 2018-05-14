@@ -12,7 +12,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // display artist in featured/highlight position under map
   $scope.expandArtist = (id) => {
     if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
-      $scope.highlight = $scope.artists.find(a => a.id == id);
+      $scope.highlight = _.find($scope.artists, ['id', id]);
       // get instagram data
       ArtistFactory.getInsta($scope.highlight.insta)
         .then(data => {
