@@ -12,7 +12,7 @@ angular.module('artograph', ['ui.router'])
               templateUrl: 'partials/home.html'
           },
           'map@home': {
-            controller: 'ArtistMapCtrl',
+            controller: 'FullMapCtrl',
             templateUrl: 'partials/artistMap.html'
           },
           'search@home': {
@@ -44,12 +44,12 @@ angular.module('artograph', ['ui.router'])
             templateUrl: 'partials/home.html'
           },
           'map@faves': {
-            controller: 'ArtistMapCtrl',
+            controller: 'FavesMapCtrl',
             templateUrl: 'partials/artistMap.html'
           },
           'search@faves': {
             controller: 'FavesListCtrl',
-            templateUrl: 'partials/artistList.html'
+            templateUrl: 'partials/favesList.html'
           }
         }
       })
