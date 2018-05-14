@@ -1,12 +1,14 @@
-<a class="navbar-brand" href="/#!/">Artograph</a>
-<div id='search-bar' class='input-group form-inline'>
-  <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null' class='form-control'
-    aria-label='Search artists'>
-  <div class='input-group-append'>
-    <a href='/#!/new' class='btn btn-primary'>
-      <i class='material-icons'>add</i>
-    </a>
+<div class='navbar p-3'>
+  <a class="navbar-brand" href="/#!/">Artograph</a>
+  <div id='search-bar' class='input-group form-inline'>
+    <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-click='focusedArtist = null' class='form-control'
+      aria-label='Search artists'>
+    <div class='input-group-append'>
+      <a href='/#!/new' class='btn btn-primary'>
+        <i class='material-icons'>add</i>
+      </a>
+    </div>
   </div>
+  <a ng-show='user' class='btn btn-primary'>Logout</a>
+  <a href='/#!/login' ng-show='!user' class='btn btn-primary'>Login</a>
 </div>
-<a ng-show='user' class='btn btn-primary'>Logout</a>
-<a href='/#!/login' ng-show='!user' class='btn btn-primary'>Login</a>

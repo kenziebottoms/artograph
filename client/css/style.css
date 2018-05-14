@@ -17,19 +17,16 @@ h5 {
 
 body {
   height: 100vh;
-  box-sizing: border-box;
-  overflow: hidden; }
+  position: static;
+  display: flex;
+  flex-direction: column; }
 
-#nav {
-  position: static; }
-  #nav #search-bar {
-    width: auto; }
-    #nav #search-bar .input-group-append .btn {
-      padding: 0.25rem 0.5rem 0 0.5rem; }
+#nav #search-bar {
+  width: auto; }
+  #nav #search-bar .input-group-append .btn {
+    padding: 0.25rem 0.5rem 0 0.5rem; }
 
 #content {
-  box-sizing: border-box;
-  position: static;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr; }
@@ -41,7 +38,6 @@ body {
       grid-template-columns: 1fr 2fr; } }
   #content #map-half {
     position: static;
-    height: 100vh;
     display: grid;
     grid-template-rows: 1fr auto auto; }
     #content #map-half #featuredArtist h4 {
@@ -63,15 +59,11 @@ body {
             display: block; } }
     #content #map-half #map {
       height: 100%; }
-  #content #search-half {
-    height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr; }
-    #content #search-half #results {
-      overflow: scroll; }
-    #content #search-half a.btn {
+  #content #search-results {
+    overflow-y: scroll; }
+    #content #search-results a.btn {
       padding: .25rem .5rem; }
-      #content #search-half a.btn i {
+      #content #search-results a.btn i {
         vertical-align: middle;
         font-size: 1.75rem; }
 
