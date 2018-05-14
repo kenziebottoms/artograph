@@ -9,6 +9,21 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     $rootScope.$broadcast('recenterMap', { lat, lng }, zoom);
   };
 
+  // check active user
+  const refreshUser = () => {
+    UserFactory.getActiveUser()
+      .then(user => {
+        if (user) {
+          UserFactory.getFaves(user.id)
+            .then(faves => $scope.faves = faves)
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => {
+        if (err.status != 401) console.log(err);
+      });
+  };
+
   // IMMEDIATE ACTION
 
   // grab all artists by default
@@ -31,18 +46,7 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
     })
     .catch(err => console.log('No geo available'));
 
-  // get favorites if logged in
-  UserFactory.getActiveUser()
-    .then(user => {
-      if (user) {
-        UserFactory.getFaves(user.id)
-          .then(faves => $scope.faves = faves)
-          .catch(err => console.log(err));
-      }
-    })
-    .catch(err => {
-      if (err.status != 401) console.log(err);
-    });
+    refreshUser();
 
   // LISTENERS
 
@@ -61,5 +65,8 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
       })
       .catch(err => console.log(err));
   });
+
+  // check the active user again
+  $rootScope.$on('logout', event => $scope.faves = []);
 
 });

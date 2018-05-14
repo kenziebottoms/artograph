@@ -11,7 +11,7 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
       .then(artist => {
         $scope.newArtist = artist;
         let { lat, lng } = artist;
-        $rootScope.$broadcast('recenterMap', {lat, lng}, 8);
+        $rootScope.$broadcast('recenterMap', { lat, lng }, 8);
       })
       .catch(err => console.log(err));
   }
@@ -31,11 +31,17 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
       // submits data to create or edit artist
       if ($scope.mode == 'edit') {
         ArtistFactory.edit($stateParams.id, $scope.newArtist)
-          .then(response => $location.path('/'))
+          .then(response => {
+            $rootScope.view = 'home';
+            $location.path('/');
+          })
           .catch(err => console.log(err));
       } else if ($scope.mode == 'new') {
         ArtistFactory.create($scope.newArtist)
-          .then(response => $location.path('/'))
+          .then(response => {
+            $rootScope.view = 'home';
+            $location.path('/');
+          })
           .catch(err => console.log(err));
       }
     }

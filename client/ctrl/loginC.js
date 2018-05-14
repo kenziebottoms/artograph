@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('LoginCtrl', function ($scope, $http, $location, UserFactory) {
+angular.module('artograph').controller('LoginCtrl', function ($rootScope, $scope, $http, $location, UserFactory) {
 
   // post form info to /api/register
   $scope.register = () => {
@@ -8,7 +8,10 @@ angular.module('artograph').controller('LoginCtrl', function ($scope, $http, $lo
     if (confirmation == password) {
       $scope.error = null;
       UserFactory.register({ password, username, email })
-        .then(response => $location.path('/'))
+        .then(response => {
+          $rootScope.$broadcast('user change');
+          $location.path('/');
+        })
         .catch(err => $scope.error = err.data.message);
     } else {
       $scope.error = 'Your passwords don\'t match.';
@@ -23,6 +26,7 @@ angular.module('artograph').controller('LoginCtrl', function ($scope, $http, $lo
       UserFactory.login({ username, password })
         .then(response => {
           $scope.error = null;
+          $rootScope.$broadcast('user change');
           $location.path('/');
         })
         .catch(err => $scope.error = err.data.message);

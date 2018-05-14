@@ -1,4 +1,4 @@
-a
+a:not(.btn)
   color: inherit
   opacity: .6
   &:hover
@@ -13,8 +13,21 @@ h5
 .form-control
   color: #1c1f21
 
-#content
+body
   height: 100vh
+  position: static
+  display: flex
+  flex-direction: column
+  background: #eee
+#nav
+  background: #fff
+  #search-bar
+    width: auto
+    .input-group-append
+      .btn
+        padding: 0.25rem 0.5rem 0 0.5rem
+#content
+  height: 100%
   display: grid
   grid-template-columns: 1fr 1fr
   &.home
@@ -22,40 +35,36 @@ h5
       grid-template-columns: 2fr 3fr
     @media (min-width: 65rem)
       grid-template-columns: 1fr 2fr
-#map-half
-  height: 100vh
-  display: grid
-  grid-template-rows: 1fr auto auto
-  #featuredArtist
-    h4
-      cursor: text
-    .header
-      grid-template-columns: 1fr auto auto auto
-    .posts
-      a
-        opacity: 1
-      display: grid
-      grid-gap: .5em;
-      grid-template-columns: repeat(3, 1fr)
-      a:nth-child(4)
-        display: none
-      @media (min-width: 65rem)
-        grid-template-columns: repeat(4, 1fr)
+  #map-half
+    position: static
+    display: grid
+    grid-template-rows: 1fr auto auto
+    #featuredArtist
+      h4
+        cursor: text
+      .header
+        grid-template-columns: 1fr auto auto auto
+      .posts
+        a
+          opacity: 1
+        display: grid
+        grid-gap: .5em
+        grid-template-columns: repeat(3, 1fr)
         a:nth-child(4)
-          display: block
-  #map
-    height: 100%
-#search-half
-  height: 100vh
-  display: grid
-  grid-template-rows: auto 1fr
-  #results
-    overflow: scroll
-  a.btn
-    padding: .25rem .5rem
-    i
-      vertical-align: middle
-      font-size: 1.75rem
+          display: none
+        @media (min-width: 65rem)
+          grid-template-columns: repeat(4, 1fr)
+          a:nth-child(4)
+            display: block
+    #map
+      height: 100%
+  #search-results
+    overflow-y: scroll
+    a.btn
+      padding: .25rem .5rem
+      i
+        vertical-align: middle
+        font-size: 1.75rem
 .artist
   .body
     padding: .8em
@@ -86,6 +95,11 @@ h5
       opacity: 1
       padding: .25em .5em
       display: inline-block
-      margin: .5rem .5rem 0 0;
-
+      margin: .5rem .5rem 0 0
+.form
+  margin: 3rem auto
+  background: #fff
+  grid-column: 1 / span 2
+  align-self: start
+  padding: 1rem
 @import loading

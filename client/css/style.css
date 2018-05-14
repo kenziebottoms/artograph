@@ -1,7 +1,7 @@
-a {
+a:not(.btn) {
   color: inherit;
   opacity: .6; }
-  a:hover {
+  a:not(.btn):hover {
     color: inherit;
     text-decoration: none;
     opacity: .3; }
@@ -15,8 +15,22 @@ h5 {
 .form-control {
   color: #1c1f21; }
 
-#content {
+body {
   height: 100vh;
+  position: static;
+  display: flex;
+  flex-direction: column;
+  background: #eee; }
+
+#nav {
+  background: #fff; }
+  #nav #search-bar {
+    width: auto; }
+    #nav #search-bar .input-group-append .btn {
+      padding: 0.25rem 0.5rem 0 0.5rem; }
+
+#content {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr; }
   @media (min-width: 50rem) {
@@ -25,42 +39,36 @@ h5 {
   @media (min-width: 65rem) {
     #content.home {
       grid-template-columns: 1fr 2fr; } }
-
-#map-half {
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr auto auto; }
-  #map-half #featuredArtist h4 {
-    cursor: text; }
-  #map-half #featuredArtist .header {
-    grid-template-columns: 1fr auto auto auto; }
-  #map-half #featuredArtist .posts {
+  #content #map-half {
+    position: static;
     display: grid;
-    grid-gap: .5em;
-    grid-template-columns: repeat(3, 1fr); }
-    #map-half #featuredArtist .posts a {
-      opacity: 1; }
-    #map-half #featuredArtist .posts a:nth-child(4) {
-      display: none; }
-    @media (min-width: 65rem) {
-      #map-half #featuredArtist .posts {
-        grid-template-columns: repeat(4, 1fr); }
-        #map-half #featuredArtist .posts a:nth-child(4) {
-          display: block; } }
-  #map-half #map {
-    height: 100%; }
-
-#search-half {
-  height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr; }
-  #search-half #results {
-    overflow: scroll; }
-  #search-half a.btn {
-    padding: .25rem .5rem; }
-    #search-half a.btn i {
-      vertical-align: middle;
-      font-size: 1.75rem; }
+    grid-template-rows: 1fr auto auto; }
+    #content #map-half #featuredArtist h4 {
+      cursor: text; }
+    #content #map-half #featuredArtist .header {
+      grid-template-columns: 1fr auto auto auto; }
+    #content #map-half #featuredArtist .posts {
+      display: grid;
+      grid-gap: .5em;
+      grid-template-columns: repeat(3, 1fr); }
+      #content #map-half #featuredArtist .posts a {
+        opacity: 1; }
+      #content #map-half #featuredArtist .posts a:nth-child(4) {
+        display: none; }
+      @media (min-width: 65rem) {
+        #content #map-half #featuredArtist .posts {
+          grid-template-columns: repeat(4, 1fr); }
+          #content #map-half #featuredArtist .posts a:nth-child(4) {
+            display: block; } }
+    #content #map-half #map {
+      height: 100%; }
+  #content #search-results {
+    overflow-y: scroll; }
+    #content #search-results a.btn {
+      padding: .25rem .5rem; }
+      #content #search-results a.btn i {
+        vertical-align: middle;
+        font-size: 1.75rem; }
 
 .artist .body {
   padding: .8em; }
@@ -91,6 +99,13 @@ h5 {
     padding: .25em .5em;
     display: inline-block;
     margin: .5rem .5rem 0 0; }
+
+.form {
+  margin: 3rem auto;
+  background: #fff;
+  grid-column: 1 / span 2;
+  align-self: start;
+  padding: 1rem; }
 
 .lds-hourglass {
   display: block;
