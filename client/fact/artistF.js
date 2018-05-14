@@ -30,26 +30,10 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
   };
 
   // get a user's recent instagram posts
-  const getPosts = (insta) => {
+  const getInsta = (insta) => {
     return $q((resolve, reject) => {
-      $http.get(`${API.v1}/insta/posts/${insta}`)
+      $http.get(`${API.v1}/insta/${insta}`)
         .then(({ data }) => resolve(data))
-        .catch(err => reject(err));
-    });
-  };
-
-  // get instagram metadata
-  const getMeta = (id, insta) => {
-    return $q((resolve, reject) => {
-      let meta;
-      $http.get(`${API.v1}/insta/meta/${insta}`)
-        .then(({ data }) => {
-          meta = data;
-          let { followers } = data;
-          // update stored follower count
-          return $http.patch(`${API.v1}/artists/${id}`, { followers });
-        })
-        .then(artist => resolve(meta))
         .catch(err => reject(err));
     });
   };
@@ -102,7 +86,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
           if (response.status != 200) return reject(response);
           let artist = response.data;
           Promise.all([
-            getMeta(artist.id, artist.insta),
+            getInsta(artist.insta),
             getRegion(artist.id)
           ])
             .then(responses => resolve(artist))
@@ -116,8 +100,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getAll,
     getOne,
     getAllByDistance,
-    getPosts,
-    getMeta,
+    getInsta,
     getRegion,
     edit,
     create

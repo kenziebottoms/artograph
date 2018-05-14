@@ -12,23 +12,21 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // display artist in featured/highlight position under map
   $scope.expandArtist = (id) => {
     if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
-      $scope.highlight = $scope.artists.find(a => a.id == id);
-      ArtistFactory.getPosts($scope.highlight.insta)
-        .then(posts => {
-          $scope.highlight.posts = posts;
-        })
-        .catch(err => console.log(err));
-      // update followers
-      ArtistFactory.getMeta(id, $scope.highlight.insta)
-        .then(({ followers }) => {
+      $scope.highlight = _.find($scope.artists, ['id', +id]);
+      // get instagram data
+      ArtistFactory.getInsta($scope.highlight.insta)
+        .then(data => {
+          let { followers, posts } = data;
           $scope.highlight.followers = followers;
+          $scope.highlight.posts = posts;
+          // update follower count in db
           $rootScope.$broadcast("updateArtist", { id, followers });
         })
         .catch(err => console.log(err));
-      // update region
       ArtistFactory.getRegion(id)
         .then(region => {
           $scope.highlight.region = region;
+          // update region in db
           $rootScope.$broadcast("updateArtist", { id, region });
         })
         .catch(err => console.log(err));
@@ -38,7 +36,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   };
 
   // refresh map with given artist list, centered on given coords
-  const drawMap = (artists, { lat, lng }, zoom) => {
+  $scope.drawMap = (artists, { lat, lng }, zoom) => {
     lat = parseFloat(lat);
     lng = parseFloat(lng);
     // refresh $scope
@@ -48,16 +46,16 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
     // recenter on given epicenter
     $scope.map.setCenter({ lat, lng })
 
-    $scope.markers = getMarkers(artists);
+    $scope.markers = $scope.getMarkers(artists);
 
     // clusterize the whole thing
     $scope.markerCluster = new MarkerClusterer($scope.map, $scope.markers, { imagePath: 'img/m' });
     // listen for non-marker clicks
-    google.maps.event.addListener($scope.map, 'click', changeEpicenter);
+    google.maps.event.addListener($scope.map, 'click', $scope.changeEpicenter);
   };
 
   // move the epicenter to clicked point
-  const changeEpicenter = event => {
+  $scope.changeEpicenter = event => {
     // hide highlighted artist
     $scope.highlight = null;
     // close all (one) info windows
@@ -76,7 +74,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // $SCOPE VARIABLES
 
-  const star = {
+  $scope.star = {
     path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
     anchor: new google.maps.Point(130, 150),
     fillColor: 'red',
@@ -96,19 +94,10 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // one info window that moves to whatever point is clicked
   $scope.info = new google.maps.InfoWindow();
   // only one activeMarker that moves on clicks
-  $scope.activeMarker = new google.maps.Marker({ icon: star, map: $scope.map });
-
-  // IMMEDIATE ACTION
-
-  // draw map with all artists
-  ArtistFactory.getAll()
-    .then(artists => {
-      drawMap(artists, { lat: 0, lng: 0 }, 2);
-    })
-    .catch(err => console.log(err));
+  $scope.activeMarker = new google.maps.Marker({ icon: $scope.star, map: $scope.map });
 
   // turns artist lat/lngs into Google Map Markers with listeners
-  const getMarkers = artists => {
+  $scope.getMarkers = artists => {
     return artists.map(a => {
       let marker = new google.maps.Marker({
         position: { lat: parseFloat(a.lat), lng: parseFloat(a.lng) }
@@ -132,13 +121,13 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
   // waits for ArtistListCtrl to recenter the map
   $rootScope.$on('recenterMap', (event, { lat, lng }, zoom) => {
     if ($scope.artists) {
-      drawMap($scope.artists, { lat, lng }, zoom);
+      $scope.drawMap($scope.artists, { lat, lng }, zoom);
     } else {
       // eliminates race condition if editing
       ArtistFactory.getAll()
         .then(artists => {
           $scope.artists = artists;
-          drawMap($scope.artists, { lat, lng }, zoom);
+          $scope.drawMap($scope.artists, { lat, lng }, zoom);
         })
         .catch(err => console.log(err));
     }

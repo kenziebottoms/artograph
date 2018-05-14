@@ -23,6 +23,15 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
     });
   };
 
+  // get the info of all the given user's favorite artists
+  const getFavoriteArtists = () => {
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/user/faves?verbose=true`)
+        .then(({ data }) => resolve(data))
+        .catch(err => reject(notLoggedIn));
+    });
+  };
+
   const addFave = artistId => {
     return $q((resolve, reject) => {
       $http.post(`${API.v1}/user/faves/${artistId}`)
@@ -88,6 +97,7 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   return {
     getActiveUser,
     getFaves,
+    getFavoriteArtists,
     addFave,
     removeFave,
     login,

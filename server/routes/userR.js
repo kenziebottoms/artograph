@@ -6,7 +6,10 @@ const {
   checkAuth,
   getAuthUser
 } = require('../ctrl/authC');
-const { getFaves } = require('../ctrl/userC');
+const {
+  getFaves,
+  getFavoriteArtists
+} = require('../ctrl/userC');
 const path = require('path');
 
 router.get('/', getAuthUser);
@@ -21,10 +24,18 @@ router.get('/:id/faves', (req, res, next) => {
 router.use(checkAuth);
 
 router.get('/faves', (req, res, next) => {
+  if (req.query.verbose) return next();
   getFaves(req.user.id)
     .then(faves => {
       res.status(200).json(faves);
     })
+    .catch(err => next(err));
+});
+
+// /faves?verbose=true
+router.get('/faves', (req, res, next) => {
+  getFavoriteArtists(req.user.id)
+    .then(faves => res.status(200).json(faves))
     .catch(err => next(err));
 });
 
