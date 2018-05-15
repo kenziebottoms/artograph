@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('artograph').controller('TagListCtrl', function ($scope, $controller, $location, $stateParams, ArtistFactory, GeoFactory, UserFactory) {
+angular.module('artograph').controller('TagListCtrl', function ($scope, $controller, $location, $stateParams, ArtistFactory, GeoFactory) {
 
   $scope.view = 'tags';
   $scope.tag = $stateParams.tag;
