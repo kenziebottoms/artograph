@@ -108,4 +108,10 @@ const validate = data => {
   }
 };
 
-module.exports = { getMatch, findSimilar, getByArtist, paranoidCreate, findOrCreate };
+module.exports = {
+  getMatch,
+  findSimilar,
+  getByArtist,
+  paranoidCreate,
+  findOrCreate
+};

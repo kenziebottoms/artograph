@@ -86,6 +86,22 @@ angular.module('artograph', ['ui.router'])
             templateUrl: 'partials/login.html'
           }
         }
+      })
+      .state('tag', {
+        url: '/tags/:tag',
+        views: {
+          '': {
+            templateUrl: 'partials/home.html'
+          },
+          'map@tag': {
+            controller: 'TagMapCtrl',
+            templateUrl: 'partials/artistMap.html'
+          },
+          'search@tag': {
+            controller: 'TagListCtrl',
+            templateUrl: 'partials/artistList.html'
+          }
+        }
       });
   })
   .config($sceDelegateProvider => {

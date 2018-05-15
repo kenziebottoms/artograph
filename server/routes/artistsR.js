@@ -9,7 +9,8 @@ const {
   getAllDistance,
   getNearby,
   paranoidCreate,
-  edit
+  edit,
+  getByTag
 } = require('../ctrl/artistC');
 const tags = require('../ctrl/tagsC');
 
@@ -69,6 +70,12 @@ router.post('/', (req, res, next) => {
 router.patch('/:id', (req, res, next) => {
   edit(req.params.id, req.body)
     .then(artist => res.status(200).json(artist))
+    .catch(err => next(err));
+});
+
+router.get('/tagged/:tag', (req, res, next) => {
+  getByTag(req.params.tag)
+    .then(artists => res.status(200).json(artists))
     .catch(err => next(err));
 });
 

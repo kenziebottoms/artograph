@@ -96,6 +96,15 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
+  // get all artists that have been tagged with tag
+  const getByTag = tag => {
+    return $q((resolve, reject) => {
+      $http.get(`${API.v1}/artists/tagged/${tag}`)
+        .then(({data}) => resolve(data))
+        .catch(err => reject(err));
+    });
+  }
+
   return {
     getAll,
     getOne,
@@ -103,6 +112,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getInsta,
     getRegion,
     edit,
-    create
+    create,
+    getByTag
   };
 });

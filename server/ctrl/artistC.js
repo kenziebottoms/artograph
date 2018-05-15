@@ -260,4 +260,23 @@ const validate = body => {
   return { email, name, lat, lng, insta, tags, region, followers };
 };
 
-module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };
+const getByTag = tag => {
+  return new Promise((resolve, reject) => {
+    Tag.find({
+      where: { name: tag },
+    })
+      .then(tag => tag.getArtists())
+      .then(artists => resolve(artists))
+      .catch(err => reject(err));
+  });
+};
+
+module.exports = {
+  paranoidCreate,
+  getById,
+  getAllAlpha,
+  getAllDistance,
+  getNearby,
+  edit,
+  getByTag
+};
