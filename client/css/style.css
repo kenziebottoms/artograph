@@ -23,6 +23,9 @@ a {
     color: #ffffff;
     background: #3D6BC8; }
 
+.large-button {
+  font-size: 1.2em; }
+
 img {
   max-width: 100%; }
 
