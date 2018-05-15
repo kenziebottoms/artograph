@@ -2,37 +2,79 @@ $skyblue:   #A3D7FF
 $green:     #ADDDB2
 $green-hl:  #C1EBBC
 
-$bg1:       #F3F2EE
-$bg2:       #E8E8E8
+$bg1:       #ffffff
+$bg2:       #f5f5f5
+$bg3:       #E4E3DE
 
+$gray:      #909090
+$black:     #333
 $blue:      #3D6BC8
+$blue-hl:   saturate(lighten($blue, 10%), 30%)
 $red:       #E64B5C
-$yellow:    #F8DF76
-$yellow-hl: #FDF8AB
+$yellow:    #FFC300
+$yellow-hl: #F8DF76
 
-a:not(.btn)
-  color: inherit
-  opacity: .6
+// general
+a
+  color: $blue
   &:hover
-    color: inherit
+    color: $blue-hl
     text-decoration: none
-    opacity: .3
+.button, .chill-button, button, input[type=submit]
+  padding: .375rem .75rem
+  border-radius: .18rem
+  border: 1px solid $blue
+  transition: .15s
+.button, button, input[type=submit]
+  background: $blue
+  color: $bg1
+  &:hover, &:active
+    background: transparent
+    color: $blue
+.chill-button
+  background: transparent
+  &:hover, &:active
+    color: $bg1
+    background: $blue
 img
   max-width: 100%
 h5
   cursor: pointer
+i
+  color: inherit
+  vertical-align: bottom
+input
+  color: $black
+  border-color: $gray
+  &::placeholder
+    color: fade-out($gray, .2) !important
+body
+  color: $black
 
+// bootstrap overrides
+.input-group-text
+  background: $bg3
 .form-control
-  color: #1c1f21
+  color: $black
+.input-group-append
+  .button
+    border-top-left-radius: 0
+    border-bottom-left-radius: 0
+    &:hover
+      background: $blue-hl
+      color: $bg1
+.input-group-text, .form-control
+  border-color: fade-out($gray, .5)
 
+// specific
 body
   height: 100vh
   position: static
   display: flex
   flex-direction: column
-  background: #eee
+  background: $bg2
 #nav
-  background: #fff
+  background: $bg1
   .navbar
     & > *
       margin: 0 .25rem
@@ -44,6 +86,7 @@ body
       .btn
         padding: 0.25rem 0.5rem 0 0.5rem
 #content
+  background: $bg2;
   height: 100%
   display: grid
   grid-template-columns: 1fr 1fr
@@ -57,6 +100,7 @@ body
     display: grid
     grid-template-rows: 1fr auto auto
     #featuredArtist
+      background: $bg1
       h4
         cursor: text
       .header
@@ -83,10 +127,14 @@ body
         vertical-align: middle
         font-size: 1.75rem
 .artist
+  border-top: .5px solid fade-out($gray, .25)
   .body
     padding: .8em
     .fave
       cursor: pointer
+      color: $yellow
+      &:hover
+        color: $yellow-hl
     .header
       display: grid
       grid-template-columns: auto 1fr auto auto
@@ -105,7 +153,7 @@ body
       .text
         span
           display: inline-block
-          color: #888
+          color: $gray
           margin-right: .5rem
       .tag
         font-size: .9rem
@@ -116,7 +164,7 @@ body
   margin: .5rem .5rem 0 0
 .form
   margin: 3rem auto
-  background: #fff
+  background: $bg1
   grid-column: 1 / span 2
   align-self: start
   padding: 1rem
