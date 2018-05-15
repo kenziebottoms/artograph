@@ -9,7 +9,7 @@ angular.module('artograph').controller('FavesListCtrl', function ($scope, $contr
   // IMMEDIATE ACTION
 
   // grab all artists by default
-  ArtistFactory.getFaves()
+  UserFactory.getFavoriteArtists()
     .then(artists => {
       $scope.artists = artists;
       // try to geolocate

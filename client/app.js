@@ -49,7 +49,7 @@ angular.module('artograph', ['ui.router'])
           },
           'search@faves': {
             controller: 'FavesListCtrl',
-            templateUrl: 'partials/favesList.html'
+            templateUrl: 'partials/artistList.html'
           }
         }
       })
