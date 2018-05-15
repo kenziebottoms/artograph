@@ -11,7 +11,6 @@ router.use('/user', require('./userR'));
 
 // error handling
 router.use((err, req, res, next) => {
-  console.log("errorssss", err);
   if (err) res.status(err.status).json(err);
 });
 

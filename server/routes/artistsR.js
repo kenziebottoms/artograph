@@ -2,12 +2,10 @@
 
 const { Router } = require('express');
 const router = Router();
-const _ = require('lodash'); 
+const _ = require('lodash');
 const {
   getById,
   getAll,
-  getAllAlpha,
-  getAllDistance,
   getNearby,
   paranoidCreate,
   edit,
@@ -67,10 +65,14 @@ router.patch('/:id', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// returns all artists tagged with the given tag
 router.get('/tagged/:tag', (req, res, next) => {
   getByTag(req.params.tag)
-    .then(artists => res.status(200).json(artists))
+    .then(artists => {
+      req.artists = artists;
+      next();
+    })
     .catch(err => next(err));
-});
+}, sortWare);
 
 module.exports = router;

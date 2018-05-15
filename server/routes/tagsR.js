@@ -50,7 +50,7 @@ router.get('/like/:q', (req, res, next) => {
 });
 
 // returns tags whose names match `q` exactly (case-insensitive)
-router.get('/match/:q', (req, res, next) => {
+router.get('/matching/:q', (req, res, next) => {
   getMatch(req.params.q)
     .then(tags => res.status(200).json(tags))
     .catch(err => next(err));

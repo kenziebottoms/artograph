@@ -13,9 +13,12 @@ const paranoidCreate = data => {
     getMatch(name)
       .then(dupes => {
         // if a tag like this already exists
-        if (dupes && dupes.length > 0) {
+        if (dupes) {
           // 409: conflict
-          reject({ status: 409, message: 'A tag with a similar name already exists.' });
+          reject({
+            status: 409,
+            message: 'A tag with a similar name already exists.'
+          });
         } else {
           create(data)
             .then(response => resolve(response))
@@ -26,7 +29,7 @@ const paranoidCreate = data => {
   });
 };
 
-// doesn't validate or chekc anything
+// doesn't validate or check anything, returns new tag
 const create = data => {
   return new Promise((resolve, reject) => {
     Tag.create(data)
@@ -41,7 +44,8 @@ const getMatch = q => {
     Tag.findOne({
       where: {
         name: { [Op.iLike]: `${q}` }
-      }
+      },
+      order: ['id']
     })
       .then(tags => resolve(tags))
       .catch(err => reject(err));
@@ -54,7 +58,8 @@ const findSimilar = q => {
     Tag.findAll({
       where: {
         name: { [Op.iLike]: `%${q}%` }
-      }
+      },
+      order: ['id']
     })
       .then(tags => resolve(tags))
       .catch(err => reject(err));

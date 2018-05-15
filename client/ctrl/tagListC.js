@@ -3,7 +3,6 @@
 angular.module('artograph').controller('TagListCtrl', function ($scope, $controller, $location, $stateParams, ArtistFactory, GeoFactory, UserFactory) {
 
   $scope.view = 'tags';
-  console.log($stateParams.tag);
 
   $controller('ArtistListCtrl', { $scope: $scope });
 
