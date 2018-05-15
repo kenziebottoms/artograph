@@ -3,13 +3,13 @@
   <div id='search-bar' class='input-group form-inline'>
     <input placeholder='Search artists' type='text' ng-model='artistSearch' ng-change='search(artistSearch)' ng-click='focusedArtist = null' class='form-control' aria-label='Search artists'>
     <div class='input-group-append'>
-      <a href='/#!/new' class='btn btn-primary'>
+      <a href='/#!/new' class='button'>
         <i class='material-icons'>add</i>
       </a>
     </div>
   </div>
-  <a href='/#!/faves' ng-show='user' class='btn btn-primary'>Favorites</a>
-  <a ng-click='logout()' href='#' ng-show='user' class='btn btn-primary'>Logout</a>
-  <a href='/#!/login' ng-show='!user' class='btn btn-primary'>Login</a>
-  <a href='/#!/register' ng-show='!user' class='btn btn-primary'>Register</a>
+  <a href='/#!/faves' ng-show='user' class='button'>Favorites</a>
+  <a ng-click='logout()' href='#' ng-show='user' class='button'>Logout</a>
+  <a href='/#!/login' ng-show='!user' class='button'>Login</a>
+  <a href='/#!/register' ng-show='!user' class='button'>Register</a>
 </div>
