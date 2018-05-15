@@ -230,7 +230,7 @@ Removes the `artistId` from the currently authenticated user's favorites. Return
 | `/#!/` | Homepage |
 | `/#!/new` | Add new artist form |
 | `/#!/faves` | Authenticated user's faves |
-| `/#!/tag/:tag` | Artists listed with the given tag |
+| `/#!/tags/:tag` | Artists listed with the given tag |
 | `/#!/edit/:id` | Edit artist form |
 | `/#!/login` | Login form |
 | `/#!/register` | Registration form |
