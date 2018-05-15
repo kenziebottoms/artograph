@@ -279,6 +279,25 @@ COPY public."ArtistTags" ("createdAt", "updatedAt", "artistId", "tagId") FROM st
 2018-05-15 09:26:46.566-05	2018-05-15 09:26:46.566-05	85	34
 2018-05-15 09:26:46.566-05	2018-05-15 09:26:46.566-05	85	3
 2018-05-15 09:26:46.566-05	2018-05-15 09:26:46.566-05	85	11
+2018-05-15 13:42:33.211-05	2018-05-15 13:42:33.211-05	3	2
+2018-05-15 13:42:44.46-05	2018-05-15 13:42:44.46-05	4	1
+2018-05-15 13:43:58.118-05	2018-05-15 13:43:58.118-05	10	11
+2018-05-15 13:43:58.118-05	2018-05-15 13:43:58.118-05	10	7
+2018-05-15 13:43:58.118-05	2018-05-15 13:43:58.118-05	10	5
+2018-05-15 13:43:58.118-05	2018-05-15 13:43:58.118-05	10	23
+2018-05-15 13:43:58.118-05	2018-05-15 13:43:58.118-05	10	21
+2018-05-15 13:44:14.711-05	2018-05-15 13:44:14.711-05	10	42
+2018-05-15 13:45:29.081-05	2018-05-15 13:45:29.081-05	21	2
+2018-05-15 13:45:29.081-05	2018-05-15 13:45:29.081-05	21	7
+2018-05-15 13:45:29.081-05	2018-05-15 13:45:29.081-05	21	16
+2018-05-15 13:45:29.081-05	2018-05-15 13:45:29.081-05	21	31
+2018-05-15 13:46:19.097-05	2018-05-15 13:46:19.097-05	11	2
+2018-05-15 13:46:19.097-05	2018-05-15 13:46:19.097-05	11	33
+2018-05-15 13:47:32.94-05	2018-05-15 13:47:32.94-05	1	32
+2018-05-15 13:47:32.94-05	2018-05-15 13:47:32.94-05	1	21
+2018-05-15 13:47:32.94-05	2018-05-15 13:47:32.94-05	1	5
+2018-05-15 13:47:32.94-05	2018-05-15 13:47:32.94-05	1	43
+2018-05-15 13:47:32.94-05	2018-05-15 13:47:32.94-05	1	13
 \.
 
 
@@ -288,19 +307,12 @@ COPY public."ArtistTags" ("createdAt", "updatedAt", "artistId", "tagId") FROM st
 
 COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "createdAt", "updatedAt") FROM stdin;
 2	Dean Kalcoff	dean.kalcoff@gmail.com	-37.9712304	144.4913101	deankalcoff	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-3	Dani Queipo	daniqueipotattoo@hotmail.com	51.5285578	0.242025	daniqueipo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-4	Chris Wielk	CJWTATTOOS@GMAIL.COM	37.7251452	-122.4648061	chriswielk	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-6	Dale Winter	dale.tattoo@gmail.com	-27.461636	153.004461	dvlewintertvttoos	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-7	Matt Webb	mattwebbtattoo@gmail.com	53.7435634	-0.3464867	mattwebbtattoo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-8	Brad Leander	bradleandertattoo@gmail.com	53.4021816	-1.5038851	bradleandertattoo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-9	Sam Kane	samkane2@hotmail.com	-34.033982	151.10118	samkanetattoo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 13	Chris Stockings	Chrisstockingstattoo@gmail.com	52.084287	0.4373729999999796	chrisstockings	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 16	Joe Frost	Joefrosttattoo@gmail.com	53.38112899999999	-1.47008500000004	hellomynamesjoe	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 17	Iain Sellar	Iain@longfox.co.uk	51.454513	-2.5879099999999653	iainsellar	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 18	Kelly Violet	Kellyviolettattoo@gmail.com	51.5073509	-0.12775829999998223	kellyviolence	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 19	Camilo Pino Maciel		-33.4378305	-70.65044920000003	camilo.pino.maciel	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 20	Jonny Farq	jonnyfarq@gmail.com	-27.454654	153.02981799999998	jon_ftw	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-21	Miss Quartz	missquartztattoo@hotmail.com	-37.857438	145.02947560000007	missquartz	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 26	Eto Nastasya	\N	53.2415041	50.22124629999996	hellonastasya	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 34	Jeroen Gardenier	Jeroengardenier@Gmail.com	52.3682585	4.87538219999999	jeroengardenier	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 35	Claudia De Sabe	Sabeontheroad@gmail.com	51.5073509	-0.12775829999998223	claudiadesabe	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
@@ -338,16 +350,19 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 33	Dalmiro Dalmont	\N	51.5073509	-0.12775829999998223	dalmirodalmont	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:24:28.413-05
 66	Monika Vanasse	\N	43.6602101	-79.41545389999999	monikadarling	Ontario, Canada	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:22.203-05
 22	Cody Dresser	CodyDresserTattoos@gmail.com	32.5631924	-97.14167680000003	codydresser	Texas, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:23.565-05
-10	Stefani Stipple	\N	39.9588226	-75.6058243	stefanistipple.tattoos	Pennsylvania, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:25.216-05
 41	Nate Burns	revoltingworshiptattoos@gmail.com	40.01799099999999	-82.87238500000001	revoltingworship	Ohio, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 17:04:35.315-05
 37	Phil Hatchet-Yau	\N	32.7150263	-117.16045459999998	philhatchetyau	California, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 17:02:20.826-05
 60	Henry Gassner	henrytattoosme@gmail.com	35.5778197	-82.58051999999998	henrytattoos	North Carolina, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 17:03:43.468-05
-1	Pari Corbitt	pari.corbitt@gmail.com	-37.7460575	144.963964	pari_corbitt	Victoria, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:24:03.903-05
 5	Jon Larson	\N	42.2461445	-83.6120432	shitwishtattoos	Michigan, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:24:45.272-05
 23	Maggie Gosselar	\N	44.268207	-88.47094500000003	block_ness	Wisconsin, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:25:20.934-05
 73	Fabio Nembo	Nembotattoo@gmail.com	41.87779150000001	12.523409300000026	fabio_nembo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 74	Gianluca Artico	\N	41.7712882	12.227009599999974	gianluca_artico	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 76	Marco Giovanni	marcofgiovanni@gmail.com	52.6308859	1.2973550000000387	thehallowedharetattoo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
+6	Dale Winter	dale.tattoo@gmail.com	-27.461636	153.004461	dvlewintertvttoos	Queensland, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:42:52.869-05
+8	Brad Leander	bradleandertattoo@gmail.com	53.4021816	-1.5038851	bradleandertattoo	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:04.535-05
+1	Pari Corbitt	pari.corbitt@gmail.com	-37.7460575	144.963964	pari_corbitt	Victoria, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:47:32.879-05
+10	Stefani Stipple	\N	39.9588226	-75.6058243	stefanistipple.tattoos	Pennsylvania, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:44:14.662-05
+21	Miss Quartz	missquartztattoo@hotmail.com	-37.857438	145.02947560000007	missquartz	Victoria, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:45:29.024-05
 79	Lauren Marie Sutton	lo.marie.tattoo@gmail.com	53.4835718	-2.2314062	lo_marie_s	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 80	Horikoi Young-jin Jeon	\N	35.17955429999999	129.07564160000004	horikoii	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 81	Matt Renshaw	Mrenshawtattoos@gmail.com	53.43043400000001	-1.3573140999999396	mattylaboosh_hgtc	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
@@ -375,7 +390,6 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 98	Debbie Jones	Debbiejonestattoos@gmail.com	51.6186698	-3.9474663999999393	debbiejonestattoos	Wales, United Kingdom	7595	2018-05-11 11:55:42.162-05	2018-05-14 11:16:14.887-05
 54	Jonathan Penchoff	jonathan.earthgrasper@gmail.com	39.7631459	-104.9797423	earthgrasper	Colorado, United States	64989	2018-05-11 11:55:42.162-05	2018-05-14 11:18:05.186-05
 48	Mitchell Allenden	sneakymitchtattoo@hotmail.com	53.793713	-1.5392795000000206	sneakymitch	England, United Kingdom	269096	2018-05-11 11:55:42.162-05	2018-05-14 12:39:31.102-05
-11	Max Kelling	\N	51.3995287	7.4300481999999874	kelling_btl	Nordrhein-Westfalen, Germany	\N	2018-05-11 11:55:42.162-05	2018-05-14 15:59:41.886-05
 32	Squire Strahan	\N	27.894302	-82.33030610000003	squirestrahan	Florida, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:19.891-05
 77	Rich Wren	Therichwren@gmail.com	40.211702	-75.139905	therichwren	Pennsylvania, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:36.587-05
 99	Betty Rose	bettyrosetattoos@gmail.com	40.6781784	-73.9441579	bettyrosetattoos	New York, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:41.403-05
@@ -392,6 +406,11 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 78	Von Toma	vontomatattoo@gmail.com	42.3600825	-71.05888010000001	vontoma	Massachusetts, United States	\N	2018-05-11 11:55:42.162-05	2018-05-14 17:02:17.8-05
 85	Muriel Zao	zaoink@gmail.com	33.4483771	-112.07403729999999	murielzaotattoo	Arizona, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:26:46.519-05
 92	Heath Clifford		-46.411449	168.35057660000007	HeathClifford	Southland, New Zealand	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:23:53.966-05
+3	Dani Queipo	daniqueipotattoo@hotmail.com	51.5285578	0.242025	daniqueipo	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:42:33.165-05
+4	Chris Wielk	cjwtattoos@gmail.com	37.7251452	-122.4648061	chriswielk	California, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:42:44.436-05
+9	Sam Kane	samkane2@hotmail.com	-34.033982	151.10118	samkanetattoo	New South Wales, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:01.187-05
+7	Matt Webb	mattwebbtattoo@gmail.com	53.7435634	-0.3464867	mattwebbtattoo	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:06.748-05
+11	Max Kelling	\N	51.3995287	7.4300481999999874	kelling_btl	Nordrhein-Westfalen, Germany	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:46:19.06-05
 \.
 
 
@@ -470,6 +489,8 @@ COPY public."Tags" (id, name, "createdAt", "updatedAt") FROM stdin;
 18	Star Wars	2018-05-11 11:55:42.189-05	2018-05-15 11:07:34.359-05
 29	Hannya	2018-05-11 13:36:17.586-05	2018-05-15 11:09:01.496-05
 30	Pokemon	2018-05-11 13:36:49.645-05	2018-05-15 11:09:11.864-05
+42	scars	2018-05-15 13:44:14.701-05	2018-05-15 13:44:14.701-05
+43	insects	2018-05-15 13:47:32.932-05	2018-05-15 13:47:32.932-05
 \.
 
 
@@ -477,7 +498,7 @@ COPY public."Tags" (id, name, "createdAt", "updatedAt") FROM stdin;
 -- Name: Tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kenzie
 --
 
-SELECT pg_catalog.setval('public."Tags_id_seq"', 41, true);
+SELECT pg_catalog.setval('public."Tags_id_seq"', 43, true);
 
 
 --
