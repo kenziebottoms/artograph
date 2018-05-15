@@ -97,12 +97,14 @@ body {
       display: inline-block;
       color: #888;
       margin-right: .5rem; }
-  .artist .body .tag {
-    font-size: .9rem;
-    opacity: 1;
-    padding: .25em .5em;
-    display: inline-block;
-    margin: .5rem .5rem 0 0; }
+    .artist .body .header .tag {
+      font-size: .9rem; }
+
+.tag {
+  opacity: 1;
+  padding: .25em .5em;
+  display: inline-block;
+  margin: .5rem .5rem 0 0; }
 
 .form {
   margin: 3rem auto;

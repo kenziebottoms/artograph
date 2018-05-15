@@ -103,7 +103,12 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
         .then(({data}) => resolve(data))
         .catch(err => reject(err));
     });
-  }
+  };
+
+  // sorts artist list by distance from [lat, lng]
+  const sortByDistance = (artists, { lat, lng }) => {
+    return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
+  };
 
   return {
     getAll,
@@ -113,6 +118,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getRegion,
     edit,
     create,
-    getByTag
+    getByTag,
+    sortByDistance
   };
 });
