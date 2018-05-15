@@ -72,6 +72,7 @@ npm start
 - [Angular Routes](#angular-routes)
 
 <!-- /TOC -->
+---
 
 ## Goals
 - [x] Users can search a list of artists by
@@ -104,6 +105,8 @@ npm start
 - [Previous front-end-only attempt](https://github.com/kenziebottoms/inkmap)
 - [Instagram scraping practice](https://github.com/kenziebottoms/scram)
 - [Trello board](https://trello.com/b/5q1GtVnF/inkmap)
+
+---
 
 # API Endpoints (all preceded by `/api/v1`)
 
