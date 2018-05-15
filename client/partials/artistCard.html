@@ -17,8 +17,8 @@
     <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
       <i class='material-icons'>email</i>
     </a>
-    <a target='blank' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
-      <img src='img/insta48.png' alt='{{artist.insta}}'>
+    <a target='blank' class='insta' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
+      <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33"><g transform="matrix(.8519 0 0 .8519 .327 -9.922)"><path d="M26.103 12.031H11.865C5.313 12.031 0 17.345 0 23.897v14.238C0 44.687 5.313 50 11.865 50h14.238c6.552 0 11.866-5.313 11.866-11.865V23.897c0-6.552-5.314-11.866-11.866-11.866zm8.306 26.104c0 4.58-3.726 8.305-8.306 8.305H11.865c-4.58 0-8.305-3.725-8.305-8.305V23.897c0-4.58 3.725-8.306 8.305-8.306h14.238c4.58 0 8.306 3.726 8.306 8.306v14.238z"/><path d="M18.984 21.524a9.493 9.493 0 1 0 .001 18.985 9.493 9.493 0 0 0 0-18.985zm0 15.424a5.94 5.94 0 0 1-5.932-5.932 5.94 5.94 0 0 1 5.932-5.933 5.94 5.94 0 0 1 5.933 5.933 5.94 5.94 0 0 1-5.933 5.932z"/><circle r="1.265" cy="20.812" cx="29.188"/></g></svg>
     </a>
     <a ng-show='highlight' href='/#!/edit/{{artist.id}}'>
       <i class='material-icons'>edit</i>

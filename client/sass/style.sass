@@ -120,9 +120,10 @@ body
     overflow-y: scroll
     a.btn
       padding: .25rem .5rem
-      i
-        vertical-align: middle
-        font-size: 1.75rem
+      svg
+        path
+          height: 1.5rem
+          width: 1.5rem
 .artist
   border-top: .5px solid fade-out($gray, .25)
   .body
@@ -141,6 +142,14 @@ body
       a
         display: block
         align-self: center
+        padding: 0 .1em
+        &.insta
+          padding-top: .2em
+          svg g *
+            fill: $blue
+          &:hover
+            svg g *
+              fill: $blue-hl
       img, i
         height: 1.75rem
         vertical-align: middle

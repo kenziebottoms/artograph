@@ -119,9 +119,9 @@ body {
     overflow-y: scroll; }
     #content #search-results a.btn {
       padding: .25rem .5rem; }
-      #content #search-results a.btn i {
-        vertical-align: middle;
-        font-size: 1.75rem; }
+      #content #search-results a.btn svg path {
+        height: 1.5rem;
+        width: 1.5rem; }
 
 .artist {
   border-top: 0.5px solid rgba(144, 144, 144, 0.75); }
@@ -140,7 +140,14 @@ body {
         cursor: pointer; }
       .artist .body .header a {
         display: block;
-        align-self: center; }
+        align-self: center;
+        padding: 0 .1em; }
+        .artist .body .header a.insta {
+          padding-top: .2em; }
+          .artist .body .header a.insta svg g * {
+            fill: #3D6BC8; }
+          .artist .body .header a.insta:hover svg g * {
+            fill: #477ff1; }
       .artist .body .header img, .artist .body .header i {
         height: 1.75rem;
         vertical-align: middle;
