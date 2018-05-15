@@ -49,7 +49,7 @@ npm start
       - [`GET /insta/posts/:username`](#get-instapostsusername)
   - [Authentication](#authentication)
   - [Artists](#artists)
-      - [`GET /artists](#get-artists)
+      - [`GET /artists`](#get-artists)
       - [`POST /artists`](#post-artists)
       - [`GET /artists/:id`](#get-artistsid)
       - [`PATCH /artists/:id`](#patch-artistsid)
@@ -82,7 +82,7 @@ npm start
 - [x] User can enter in tattoo artist information for other users to browse.
 - [x] Users can add tags to artists that other users can search by.
 - [x] Users can mark artists as their favorites.
-- [ ] User can filter and search on their favorites.
+- [x] User can filter and search on their favorites.
 
 ### Stretch Goals
 - [x] App will automatically geolocate user.
@@ -127,7 +127,7 @@ Returns an object with the 4 most recent posts from Instagram. Returns an image 
 
 ## Artists
 
-#### `GET /artists
+#### `GET /artists`
 
 Returns a list of all artists.
 
