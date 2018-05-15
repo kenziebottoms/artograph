@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('artograph').controller('FavesListCtrl', function ($scope, $controller, $location, ArtistFactory, GeoFactory, UserFactory) {
+angular.module('artograph').controller('TagListCtrl', function ($scope, $controller, $location, $stateParams, ArtistFactory, GeoFactory) {
 
-  $scope.view = 'faves';
+  $scope.view = 'tags';
+  $scope.tag = $stateParams.tag;
 
   $controller('ArtistListCtrl', { $scope: $scope });
 
   // IMMEDIATE ACTION
 
-  // grab all artists by default
-  UserFactory.getFavoriteArtists()
+  ArtistFactory.getByTag($stateParams.tag)
     .then(artists => {
       $scope.artists = artists;
       // try to geolocate
@@ -28,4 +28,5 @@ angular.module('artograph').controller('FavesListCtrl', function ($scope, $contr
     .catch(err => console.log(err));
 
   $scope.refreshUser();
+
 });

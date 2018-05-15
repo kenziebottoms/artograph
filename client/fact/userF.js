@@ -2,10 +2,11 @@
 
 angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
 
+  let notLoggedIn = { status: 401, message: 'You are not logged in.' };
+  
   // get currently authenticated user
   const getActiveUser = () => {
     return $q((resolve, reject) => {
-      let notLoggedIn = { status: 401, message: 'You are not logged in.' };
       $http.get(`${API.v1}/user`)
         .then(({ data }) => data ? resolve(data) : reject(notLoggedIn))
         .catch(err => reject(notLoggedIn));
@@ -15,11 +16,19 @@ angular.module('artograph').factory('UserFactory', function ($q, $http, API) {
   // get the ids of all the given user's favorite artists
   const getFaves = uid => {
     return $q((resolve, reject) => {
-      $http.get(`${API.v1}/user/${uid}/faves`)
-        .then(({ data }) => {
-          data ? resolve(data.map(d => d.id)) : resolve([]);
-        })
-        .catch(err => reject(notLoggedIn));
+      if (!isNaN(uid)) {
+        $http.get(`${API.v1}/user/${uid}/faves`)
+          .then(({ data }) => {
+            data ? resolve(data.map(d => d.id)) : resolve([]);
+          })
+          .catch(err => reject(notLoggedIn));
+      } else {
+        $http.get(`${API.v1}/user/faves`)
+          .then(({ data }) => {
+            data ? resolve(data.map(d => d.id)) : resolve([]);
+          })
+          .catch(err => reject(notLoggedIn));
+      }
     });
   };
 

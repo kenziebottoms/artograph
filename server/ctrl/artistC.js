@@ -41,6 +41,7 @@ const getAll = () => {
       LEFT JOIN "Tags" t
         ON t.id = at."tagId"
       GROUP BY a.id
+      ORDER BY a.id
       `, { type: models.sequelize.QueryTypes.SELECT })
       .then(artists => resolve(artists))
       .catch(err => reject(err));
@@ -128,27 +129,6 @@ const paranoidCreate = data => {
   });
 };
 
-// get all artists sorted by last name
-const getAllAlpha = () => {
-  return new Promise((resolve, reject) => {
-    getAll()
-      .then(artists => resolve(sortAlphabetically(artists)))
-      .catch(err => reject(err));
-  });
-  ;
-}
-
-// get all artists sorted by distance from [`lat`, `lng`]
-const getAllDistance = ({ lat, lng }) => {
-  return new Promise((resolve, reject) => {
-    getAll()
-      .then(artists => {
-        resolve(sortByDistance(artists, { lat, lng }));
-      })
-      .catch(err => reject(err));
-  });
-};
-
 // Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
 const getNearby = data => {
   return new Promise((resolve, reject) => {
@@ -174,19 +154,23 @@ const getNearby = data => {
             [Op.lt]: parseFloat(lng) + parseFloat(allowance)
           }
         }
-      },
-      raw: true
+      }
     })
       .then(artists => resolve(artists))
       .catch(err => reject(err));
   });
-}
+};
 
-const sortByDistance = (artists, { lat, lng }) => {
-  return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
-}
-const sortAlphabetically = (artists) => {
-  return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
+// returns all artists associated with given tag
+const getByTag = tag => {
+  return new Promise((resolve, reject) => {
+    Tag.find({
+      where: { name: tag },
+    })
+      .then(tag => tag.getArtists())
+      .then(artists => resolve(artists))
+      .catch(err => reject(err));
+  });
 };
 
 // validates and cleans up incoming artist post data
@@ -260,4 +244,11 @@ const validate = body => {
   return { email, name, lat, lng, insta, tags, region, followers };
 };
 
-module.exports = { paranoidCreate, getById, getAllAlpha, getAllDistance, getNearby, edit };
+module.exports = {
+  paranoidCreate,
+  getAll,
+  getById,
+  getNearby,
+  edit,
+  getByTag
+};

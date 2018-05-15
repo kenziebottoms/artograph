@@ -49,7 +49,7 @@ angular.module('artograph', ['ui.router'])
           },
           'search@faves': {
             controller: 'FavesListCtrl',
-            templateUrl: 'partials/favesList.html'
+            templateUrl: 'partials/artistList.html'
           }
         }
       })
@@ -84,6 +84,22 @@ angular.module('artograph', ['ui.router'])
           '': {
             controller: 'LoginCtrl',
             templateUrl: 'partials/login.html'
+          }
+        }
+      })
+      .state('tag', {
+        url: '/tags/:tag',
+        views: {
+          '': {
+            templateUrl: 'partials/home.html'
+          },
+          'map@tag': {
+            controller: 'TagMapCtrl',
+            templateUrl: 'partials/artistMap.html'
+          },
+          'search@tag': {
+            controller: 'TagListCtrl',
+            templateUrl: 'partials/artistList.html'
           }
         }
       });

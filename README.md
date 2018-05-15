@@ -49,22 +49,23 @@ npm start
       - [`GET /insta/posts/:username`](#get-instapostsusername)
   - [Authentication](#authentication)
   - [Artists](#artists)
-      - [`GET /artists?lat=:lat&lng=:lng`](#get-artistslatlatlnglng)
-      - [`GET /artists/:id`](#get-artistsid)
-      - [`GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`](#get-artistsnearbylatlatlnglngallowanceallowance)
+      - [`GET /artists](#get-artists)
       - [`POST /artists`](#post-artists)
+      - [`GET /artists/:id`](#get-artistsid)
       - [`PATCH /artists/:id`](#patch-artistsid)
+      - [`GET /artists/tagged/:tag`](#get-artiststaggedtag)
+      - [`GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`](#get-artistsnearbylatlatlnglngallowanceallowance)
   - [Tags](#tags)
-      - [`GET /artists/:id/tags`](#get-artistsidtags)
       - [`GET /tags`](#get-tags)
-      - [`GET /tags/like/:q`](#get-tagslikeq)
-      - [`GET /tags/match/:q`](#get-tagsmatchq)
       - [`POST /tags`](#post-tags)
+      - [`GET /tags/:id`](#get-tagsid)
+      - [`GET /artists/:id/tags`](#get-artistsidtags)
+      - [`GET /tags/like/:q`](#get-tagslikeq)
+      - [`GET /tags/matching/:q`](#get-tagsmatchingq)
   - [Users](#users)
       - [`GET /user`](#get-user)
   - [Favorites](#favorites)
       - [`GET /user/:id/faves`](#get-useridfaves)
-        - [`&verbose=true`](#verbosetrue)
       - [`GET /user/faves`](#get-userfaves)
       - [`POST /user/faves/:artistId`](#post-userfavesartistid)
       - [`DELETE /user/faves/:artistId`](#delete-userfavesartistid)
@@ -126,55 +127,75 @@ Returns an object with the 4 most recent posts from Instagram. Returns an image 
 
 ## Artists
 
-#### `GET /artists?lat=:lat&lng=:lng`
+#### `GET /artists
 
-_Note_: `lat` and `lng` are optional and will be ignored if they are not valid numbers.
+Returns a list of all artists.
 
-Returns a list of artist sorted by their geometric distance from the given `[lat, lng]`. If either query parameter is invalid or not supplied, artists are returned in alphabetical order by last name.
+| Query string | Effect |
+| ------------ | ------ |
+| [none] | Sorts artists by `id`. |
+| `sort=alpha` | Sorts artists alphabetically by last name. |
+| `lat=:lat&lng=:lng` | Sorts artists by distance from `[lat, lng]`. |
 
-#### `GET /artists/:id`
-
-Returns one artist by `id`.
-
-#### `GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`
-
-Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`.
+_Note_: `lat` and `lng` will be ignored if they are not valid numbers.
 
 #### `POST /artists`
 
 Checks for an existing artist with the given `email`; if not found, validates data, and adds new artist. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if `lng`/`lat` aren't numbers).
 
+#### `GET /artists/:id`
+
+Returns one artist by `id`.
+
 #### `PATCH /artists/:id`
 
 Updates the artist with the given `id` without overwriting unaddressed properties.
 
+#### `GET /artists/tagged/:tag`
+
+Returns a list of all artists associated with the given tag.
+
+| Query string | Effect |
+| ------------ | ------ |
+| [none] | Sorts artists by `id`. |
+| `sort=alpha` | Sorts artists alphabetically by last name. |
+| `lat=:lat&lng=:lng` | Sorts artists by distance from `[lat, lng]`. |
+
+#### `GET /artists/nearby?lat=:lat&lng=:lng&allowance=:allowance`
+
+Returns a list of artists within an `allowance` by `allowance` latitude/longitude point square of the given `[lat, lng]`. `lat`, `lng`, and `allowance` are all required and this endpoint will return `400: Bad Request` if they are invalid or not supplied.
+
 ## Tags
-
-#### `GET /artists/:id/tags`
-
-Returns a list of the tags with their `id`s associated with the provided artist.
 
 #### `GET /tags`
 
 Returns a list of all tags.
 
-#### `GET /tags/like/:q`
-
-Returns a list of tags that have a title containing `q` (case insensitive).
-
-#### `GET /tags/match/:q`
-
-Returns a list of tags whose titles match `q` (case insensitive).
-
 #### `POST /tags`
 
 Checks for an existing tag with the given `name`; if not found, validates data, and adds new tag. Returns `409: Conflict` if there is a duplicate and `400: Bad Request` if the data doesn't validate (for example, if there's no `name` property in the request body).
+
+#### `GET /tags/:id`
+
+Returns one tag by `id`.
+
+#### `GET /artists/:id/tags`
+
+Returns a list of the tags associated with the provided artist.
+
+#### `GET /tags/like/:q`
+
+Returns a list of tags whose titles contain `q` (case-insensitive).
+
+#### `GET /tags/matching/:q`
+
+Returns a list of tags whose titles match `q` (case-insensitive).
 
 ## Users
 
 #### `GET /user`
 
-Returns the currently authenticated user. Returns `401: Unauthorized` if there isn't one.
+Returns the currently authenticated user. Returns `{ user: null }` if there isn't one.
 
 ## Favorites
 
@@ -182,13 +203,17 @@ Returns the currently authenticated user. Returns `401: Unauthorized` if there i
 
 Returns the `id`s of the given user's favorite artists.
 
-##### `&verbose=true`
-
-Returns full artist info for all the given user's favorite artists.
+| Query string | Effect |
+| ------------ | ------ |
+| `verbose=true` | Returns the full artist object for each favorite. |
 
 #### `GET /user/faves`
 
 Returns the `id`s of the currently authenticated user's favorite artists. Returns `401: Unauthorized` if no one's logged in.
+
+| Query string | Effect |
+| ------------ | ------ |
+| `verbose=true` | Returns the full artist object for each favorite. |
 
 #### `POST /user/faves/:artistId`
 
@@ -198,12 +223,16 @@ Adds the `artistId` as a favorite to the currently authenticated user. Returns `
 
 Removes the `artistId` from the currently authenticated user's favorites. Returns `401: Unauthorized` if no one's logged in.
 
+---
+
 # Angular Routes
 
 | Path | Description |
 | ---- | ----------- |
 | `/#!/` | Homepage |
 | `/#!/new` | Add new artist form |
+| `/#!/faves` | Authenticated user's faves |
+| `/#!/tag/:tag` | Artists listed with the given tag |
 | `/#!/edit/:id` | Edit artist form |
 | `/#!/login` | Login form |
 | `/#!/register` | Registration form |

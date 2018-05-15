@@ -1,3 +1,10 @@
+<div class='p-3 text-center' ng-show='tag'>
+  <a href='#' class='btn btn-lg btn-outline-primary m-auto'>{{tag}}</a>
+  <a class='btn btn-lg btn-outline-primary m-auto' href='/#!/'>x</a>
+</div>
+<h3 class='p-3 m-0' ng-show='view == "faves"'>
+  Your favorite artists
+</h3>
 <div class='list-group p-0'>
   <div data-id='{{artist.id}}' ng-controller='ArtistCardCtrl' ng-include='"partials/artistCard.html"' ng-repeat='artist in artists | filter: artistSearch' class='list-group-item artist p-0'></div>
 </div>

@@ -13,9 +13,12 @@ const paranoidCreate = data => {
     getMatch(name)
       .then(dupes => {
         // if a tag like this already exists
-        if (dupes && dupes.length > 0) {
+        if (dupes) {
           // 409: conflict
-          reject({ status: 409, message: 'A tag with a similar name already exists.' });
+          reject({
+            status: 409,
+            message: 'A tag with a similar name already exists.'
+          });
         } else {
           create(data)
             .then(response => resolve(response))
@@ -26,7 +29,7 @@ const paranoidCreate = data => {
   });
 };
 
-// doesn't validate or chekc anything
+// doesn't validate or check anything, returns new tag
 const create = data => {
   return new Promise((resolve, reject) => {
     Tag.create(data)
@@ -41,7 +44,8 @@ const getMatch = q => {
     Tag.findOne({
       where: {
         name: { [Op.iLike]: `${q}` }
-      }
+      },
+      order: ['id']
     })
       .then(tags => resolve(tags))
       .catch(err => reject(err));
@@ -54,7 +58,8 @@ const findSimilar = q => {
     Tag.findAll({
       where: {
         name: { [Op.iLike]: `%${q}%` }
-      }
+      },
+      order: ['id']
     })
       .then(tags => resolve(tags))
       .catch(err => reject(err));
@@ -67,9 +72,9 @@ const getByArtist = id => {
     models.sequelize.query(`
       SELECT t.name, t.id
         FROM "Artists" a
-      LEFT JOIN "ArtistTags" at
+      JOIN "ArtistTags" at
         ON at."artistId" = a.id
-      LEFT JOIN "Tags" t
+      JOIN "Tags" t
         ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY t.id
@@ -92,6 +97,20 @@ const findOrCreate = name => {
   });
 };
 
+// validates data and edits
+const edit = (id, data) => {
+  return new Promise((resolve, reject) => {
+    data = validate(data);
+    if (data.error) return reject(data.error);
+    Tag.update(data, {
+      where: { id },
+      returning: true
+    })
+      .then(response => resolve(response))
+      .catch(err => reject(err));
+  });
+};
+
 // validate incoming tag data
 const validate = data => {
   let { name } = data;
@@ -108,4 +127,11 @@ const validate = data => {
   }
 };
 
-module.exports = { getMatch, findSimilar, getByArtist, paranoidCreate, findOrCreate };
+module.exports = {
+  getMatch,
+  findSimilar,
+  edit,
+  getByArtist,
+  paranoidCreate,
+  findOrCreate
+};

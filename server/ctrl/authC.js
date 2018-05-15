@@ -2,6 +2,7 @@
 const passport = require('passport');
 const bCrypt = require('bcrypt-nodejs');
 
+// return the currently authenticated user
 module.exports.getAuthUser = (req, res, next) => {
   if (req.isAuthenticated()) {
     res.status(200).json(req.user);
@@ -10,14 +11,22 @@ module.exports.getAuthUser = (req, res, next) => {
   }
 };
 
-module.exports.checkAuth = (req, res, next) => {
+// attaches authenticated user to the req
+// if there isn't one, return error
+module.exports.checkAuthStrict = (req, res, next) => {
   if (req.isAuthenticated()) {
+    // req.user is accessible hereafter
     next();
   } else {
-    res.status(200).json(null);    
+    res.status(401).json({
+      // 401: Unauthorized
+      status: 401,
+      message: 'You are not logged in.'
+    });
   }
 };
 
+// registers and, if successful, logs in
 module.exports.register = (req, res, next) => {
   passport.authenticate('local-signup', (err, user, msgObj) => {
     if (err) return next(err);
@@ -32,6 +41,7 @@ module.exports.register = (req, res, next) => {
   })(req, res, next);
 };
 
+// authenticates user
 module.exports.login = (req, res, next) => {
   passport.authenticate('local-signin', (err, user, msgObj) => {
     if (err) return next(err);
@@ -44,7 +54,7 @@ module.exports.login = (req, res, next) => {
   })(req, res, next);
 };
 
-// logging out
+// destroys session
 module.exports.logout = (req, res, next) => {
   req.session.destroy(function (err) {
     if (err) return next(err);
@@ -52,4 +62,5 @@ module.exports.logout = (req, res, next) => {
   });
 };
 
+// passwordifies password
 module.exports.generateHash = password => bCrypt.hashSync(password, bCrypt.genSaltSync(8));
