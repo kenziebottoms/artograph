@@ -45,8 +45,7 @@ npm start
   - [Links](#links)
 - [API Endpoints (all preceded by `/api/v1`)](#api-endpoints-all-preceded-by-apiv1)
   - [Instagram scraping](#instagram-scraping)
-      - [`GET /insta/meta/:username`](#get-instametausername)
-      - [`GET /insta/posts/:username`](#get-instapostsusername)
+      - [`GET /insta/:username`](#get-instausername)
   - [Authentication](#authentication)
   - [Artists](#artists)
       - [`GET /artists`](#get-artists)
@@ -112,13 +111,9 @@ npm start
 
 ## Instagram scraping
 
-#### `GET /insta/meta/:username`
+#### `GET /insta/:username`
 
-Returns metadata on the given user scraped from Instagram.
-
-#### `GET /insta/posts/:username`
-
-Returns an object with the 4 most recent posts from Instagram. Returns an image link and a post link.
+Returns metadata on the given user scraped from Instagram, and a 4-post feed with image and post links.
 
 ## Authentication
 
