@@ -67,9 +67,9 @@ const getByArtist = id => {
     models.sequelize.query(`
       SELECT t.name, t.id
         FROM "Artists" a
-      LEFT JOIN "ArtistTags" at
+      JOIN "ArtistTags" at
         ON at."artistId" = a.id
-      LEFT JOIN "Tags" t
+      JOIN "Tags" t
         ON t.id = at."tagId"
       WHERE a.id = ${id}
       GROUP BY t.id
@@ -92,6 +92,20 @@ const findOrCreate = name => {
   });
 };
 
+// validates data and edits
+const edit = (id, data) => {
+  return new Promise((resolve, reject) => {
+    data = validate(data);
+    if (data.error) return reject(data.error);
+    Tag.update(data, {
+      where: { id },
+      returning: true
+    })
+      .then(response => resolve(response))
+      .catch(err => reject(err));
+  });
+};
+
 // validate incoming tag data
 const validate = data => {
   let { name } = data;
@@ -111,6 +125,7 @@ const validate = data => {
 module.exports = {
   getMatch,
   findSimilar,
+  edit,
   getByArtist,
   paranoidCreate,
   findOrCreate

@@ -41,6 +41,7 @@ const getAll = () => {
       LEFT JOIN "Tags" t
         ON t.id = at."tagId"
       GROUP BY a.id
+      ORDER BY a.id
       `, { type: models.sequelize.QueryTypes.SELECT })
       .then(artists => resolve(artists))
       .catch(err => reject(err));
@@ -174,20 +175,12 @@ const getNearby = data => {
             [Op.lt]: parseFloat(lng) + parseFloat(allowance)
           }
         }
-      },
-      raw: true
+      }
     })
       .then(artists => resolve(artists))
       .catch(err => reject(err));
   });
 }
-
-const sortByDistance = (artists, { lat, lng }) => {
-  return _.sortBy(artists, a => Math.sqrt(Math.pow(lat - a.lat, 2) + Math.pow(lng - a.lng, 2)));
-}
-const sortAlphabetically = (artists) => {
-  return _.sortBy(artists, [a => a.name.split(' ').reverse().join(' ')]);
-};
 
 // validates and cleans up incoming artist post data
 const validate = body => {
@@ -273,6 +266,7 @@ const getByTag = tag => {
 
 module.exports = {
   paranoidCreate,
+  getAll,
   getById,
   getAllAlpha,
   getAllDistance,

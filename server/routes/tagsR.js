@@ -6,13 +6,14 @@ const router = Router();
 const {
   getMatch,
   findSimilar,
-  paranoidCreate
+  paranoidCreate,
+  edit
 } = require('../ctrl/tagsC.js');
 
 // returns all tags
 router.get('/', (req, res, next) => {
   const { Tag } = req.app.get('models');
-  Tag.findAll()
+  Tag.findAll({ order: ['id'] })
     .then(tags => res.status(200).json(tags))
     .catch(err => next(err));
 });
@@ -24,7 +25,22 @@ router.post('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// returns tags that match `q` by name
+// returns all tags
+router.get('/:id', (req, res, next) => {
+  const { Tag } = req.app.get('models');
+  Tag.findById(req.params.id)
+    .then(tags => res.status(200).json(tags))
+    .catch(err => next(err));
+});
+
+router.patch('/:id', (req, res, next) => {
+  const { Tag } = req.app.get('models');
+  edit(req.params.id, req.body)
+    .then(response => res.status(200).json(response))
+    .catch(err => next(err));
+})
+
+// returns tags whose names contain `q`
 router.get('/like/:q', (req, res, next) => {
   findSimilar(req.params.q)
     .then(tags => {
@@ -33,7 +49,7 @@ router.get('/like/:q', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// returns tags that match `q` more or less exactly
+// returns tags whose names match `q` exactly (case-insensitive)
 router.get('/match/:q', (req, res, next) => {
   getMatch(req.params.q)
     .then(tags => res.status(200).json(tags))
