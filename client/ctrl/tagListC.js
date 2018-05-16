@@ -11,7 +11,7 @@ angular.module('artograph').controller('TagListCtrl', function ($scope, $control
 
   ArtistFactory.getByTag($stateParams.tag)
     .then(artists => {
-      $scope.artists = artists;
+      $scope.artists = ArtistFactory.sortAlphabetically(artists);
       // try to geolocate
       GeoFactory.geolocate()
         .then(({ lat, lng }) => {

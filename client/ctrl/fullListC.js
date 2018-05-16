@@ -11,7 +11,7 @@ angular.module('artograph').controller('FullListCtrl', function ($scope, $contro
   // grab all artists by default
   ArtistFactory.getAll()
     .then(artists => {
-      $scope.artists = artists;
+      $scope.artists = ArtistFactory.sortAlphabetically(artists);
       // try to geolocate
       GeoFactory.geolocate()
         .then(({ lat, lng }) => {

@@ -11,7 +11,7 @@ angular.module('artograph').controller('FavesListCtrl', function ($scope, $contr
   // grab all artists by default
   UserFactory.getFavoriteArtists()
     .then(artists => {
-      $scope.artists = artists;
+      $scope.artists = ArtistFactory.sortAlphabetically(artists);
       // try to geolocate
       GeoFactory.geolocate()
         .then(({ lat, lng }) => {

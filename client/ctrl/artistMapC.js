@@ -15,7 +15,7 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
       $scope.highlight = null;
       $scope.highlight = _.find($scope.artists, ['id', +id]);
       // get instagram data
-      ArtistFactory.getInsta($scope.highlight.insta)
+      ArtistFactory.getInsta(id, $scope.highlight.insta)
         .then(data => {
           let { followers, posts } = data;
           $scope.highlight.followers = followers;
