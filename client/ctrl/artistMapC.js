@@ -11,29 +11,29 @@ angular.module('artograph').controller('ArtistMapCtrl', function ($rootScope, $s
 
   // display artist in featured/highlight position under map
   $scope.expandArtist = (id) => {
-    if (isNaN(id) || !$scope.highlight || $scope.highlight.id != id) {
-      $scope.highlight = null;
-      $scope.highlight = _.find($scope.artists, ['id', +id]);
-      // get instagram data
-      ArtistFactory.getInsta(id, $scope.highlight.insta)
-        .then(data => {
-          let { followers, posts } = data;
-          $scope.highlight.followers = followers;
-          $scope.highlight.posts = posts;
-          // update follower count in db
-          $rootScope.$broadcast("updateArtist", { id, followers });
-        })
-        .catch(err => console.log(err));
-      ArtistFactory.getRegion(id)
-        .then(region => {
-          $scope.highlight.region = region;
-          // update region in db
-          $rootScope.$broadcast("updateArtist", { id, region });
-        })
-        .catch(err => console.log(err));
-    } else {
-      $scope.highlight = null;
-    }
+    // ignore if you click the featured artist title
+    if ($scope.highlight && $scope.highlight.id == id) return;
+    // if id is valid
+    if (isNaN(id)) return $scope.highlight = null;
+    $scope.highlight = null;
+    $scope.highlight = _.find($scope.artists, ['id', +id]);
+    // get instagram data
+    ArtistFactory.getInsta(id, $scope.highlight.insta)
+      .then(data => {
+        let { followers, posts } = data;
+        $scope.highlight.followers = followers;
+        $scope.highlight.posts = posts;
+        // update follower count in db
+        $rootScope.$broadcast("updateArtist", { id, followers });
+      })
+      .catch(err => console.log(err));
+    ArtistFactory.getRegion(id)
+      .then(region => {
+        $scope.highlight.region = region;
+        // update region in db
+        $rootScope.$broadcast("updateArtist", { id, region });
+      })
+      .catch(err => console.log(err));
   };
 
   // refresh map with given artist list, centered on given coords
