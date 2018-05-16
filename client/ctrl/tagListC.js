@@ -23,7 +23,7 @@ angular.module('artograph').controller('TagListCtrl', function ($scope, $control
             })
             .catch(err => console.log(err));
         })
-        .catch(err => console.log('No geo available'));
+        .catch(err => {});
     })
     .catch(err => console.log(err));
 

@@ -23,7 +23,7 @@ angular.module('artograph').controller('FullListCtrl', function ($scope, $contro
             })
             .catch(err => console.log(err));
         })
-        .catch(err => console.log('No geo available'));
+        .catch(err => {});
     })
     .catch(err => console.log(err));
 
