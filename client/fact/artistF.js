@@ -62,7 +62,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
                 .then(response => resolve(region))
                 .catch(err => reject(err));
             })
-            .catch(err => reject(err));
+            .catch(err => resolve(''));
         })
         .catch(err => reject(err));
     });

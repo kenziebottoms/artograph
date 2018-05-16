@@ -49,6 +49,10 @@ a {
     background: #E64B5C;
     color: #ffffff; }
 
+.block.button {
+  display: block;
+  width: 100%; }
+
 img {
   max-width: 100%; }
 
