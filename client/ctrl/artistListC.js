@@ -31,8 +31,10 @@ angular.module('artograph').controller('ArtistListCtrl', function ($rootScope, $
   // get updated region from details view
   $rootScope.$on('updateArtist', (event, data) => {
     let artist = _.find($scope.artists, ['id', +data.id]);
-    if (data.region) artist.region = data.region;
-    if (data.followers) artist.followers = data.followers;
+    if (artist) {
+      if (data.region) artist.region = data.region;
+      if (data.followers) artist.followers = data.followers;
+    }
   });
 
   // resort the artists by distance from new epicenter

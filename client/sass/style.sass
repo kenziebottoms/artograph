@@ -4,6 +4,7 @@ $bg3:       #E4E3DE
 
 $gray:      #909090
 $black:     #333
+$red:       #E64B5C
 $blue:      #3D6BC8
 $blue-hl:   saturate(lighten($blue, 10%), 30%)
 $yellow:    #FFC300
@@ -47,6 +48,8 @@ input
     color: fade-out($gray, .2) !important
 body
   color: $black
+.error
+  color: $red
 
 // bootstrap overrides
 .input-group-text

@@ -45,6 +45,9 @@ input {
 body {
   color: #333; }
 
+.error {
+  color: #E64B5C; }
+
 .input-group-text {
   background: #E4E3DE; }
 

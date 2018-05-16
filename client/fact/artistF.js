@@ -39,9 +39,7 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
           let { followers } = data;
           return $http.patch(`${API.v1}/artists/${id}`, { followers });
         })
-        .then(({ data }) => {
-          resolve(instaData);
-        })
+        .then(({ data }) => resolve(instaData))
         .catch(err => reject(err));
     });
   };
