@@ -371,6 +371,37 @@ COPY public."ArtistTags" ("createdAt", "updatedAt", "artistId", "tagId") FROM st
 2018-05-16 11:20:47.527-05	2018-05-16 11:20:47.527-05	59	3
 2018-05-16 11:20:47.527-05	2018-05-16 11:20:47.527-05	59	6
 2018-05-16 11:20:47.527-05	2018-05-16 11:20:47.527-05	59	37
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	5
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	21
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	7
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	11
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	28
+2018-05-16 14:46:09.545-05	2018-05-16 14:46:09.545-05	106	17
+2018-05-16 14:48:18.969-05	2018-05-16 14:48:18.969-05	107	5
+2018-05-16 14:48:18.969-05	2018-05-16 14:48:18.969-05	107	21
+2018-05-16 14:48:18.969-05	2018-05-16 14:48:18.969-05	107	23
+2018-05-16 14:48:18.969-05	2018-05-16 14:48:18.969-05	107	2
+2018-05-16 14:50:09.665-05	2018-05-16 14:50:09.665-05	108	1
+2018-05-16 14:54:59.307-05	2018-05-16 14:54:59.307-05	110	2
+2018-05-16 14:56:08.751-05	2018-05-16 14:56:08.751-05	111	2
+2018-05-16 14:58:00.58-05	2018-05-16 14:58:00.58-05	112	2
+2018-05-16 15:00:36.439-05	2018-05-16 15:00:36.439-05	82	3
+2018-05-16 15:00:36.439-05	2018-05-16 15:00:36.439-05	82	2
+2018-05-16 15:00:36.439-05	2018-05-16 15:00:36.439-05	82	7
+2018-05-16 15:00:36.439-05	2018-05-16 15:00:36.439-05	82	11
+2018-05-16 15:00:36.439-05	2018-05-16 15:00:36.439-05	82	15
+2018-05-16 15:03:01.099-05	2018-05-16 15:03:01.099-05	113	3
+2018-05-16 15:03:01.099-05	2018-05-16 15:03:01.099-05	113	15
+2018-05-16 15:03:01.099-05	2018-05-16 15:03:01.099-05	113	7
+2018-05-16 15:03:01.099-05	2018-05-16 15:03:01.099-05	113	32
+2018-05-16 15:05:52.59-05	2018-05-16 15:05:52.59-05	114	2
+2018-05-16 15:05:52.59-05	2018-05-16 15:05:52.59-05	114	1
+2018-05-16 15:08:44.766-05	2018-05-16 15:08:44.766-05	115	21
+2018-05-16 15:08:44.766-05	2018-05-16 15:08:44.766-05	115	41
+2018-05-16 15:08:44.766-05	2018-05-16 15:08:44.766-05	115	22
+2018-05-16 15:08:44.766-05	2018-05-16 15:08:44.766-05	115	23
+2018-05-16 15:12:38.499-05	2018-05-16 15:12:38.499-05	116	3
+2018-05-16 15:12:38.499-05	2018-05-16 15:12:38.499-05	116	15
 \.
 
 
@@ -391,7 +422,6 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 33	Dalmiro Dalmont	\N	51.5073509	-0.12775829999998223	dalmirodalmont	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 09:24:28.413-05
 66	Monika Vanasse	\N	43.6602101	-79.41545389999999	monikadarling	Ontario, Canada	\N	2018-05-11 11:55:42.162-05	2018-05-14 16:48:22.203-05
 73	Fabio Nembo	Nembotattoo@gmail.com	41.87779150000001	12.523409300000026	fabio_nembo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
-76	Marco Giovanni	marcofgiovanni@gmail.com	52.6308859	1.2973550000000387	thehallowedharetattoo	\N	\N	2018-05-11 11:55:42.162-05	2018-05-11 11:55:42.162-05
 8	Brad Leander	bradleandertattoo@gmail.com	53.4021816	-1.5038851	bradleandertattoo	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:04.535-05
 10	Stefani Stipple	\N	39.9588226	-75.6058243	stefanistipple.tattoos	Pennsylvania, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:44:14.662-05
 21	Miss Quartz	missquartztattoo@hotmail.com	-37.857438	145.02947560000007	missquartz	Victoria, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:45:29.024-05
@@ -435,7 +465,6 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 59	Katie Shocrylas		49.2827291	-123.12073750000002	kshocs	British Columbia, Canada	97991	2018-05-11 11:55:42.162-05	2018-05-16 11:20:47.503-05
 69	Zane Pendergast	zanependergast@gmail.com	36.1884944	-86.72888369999998	zanependergast_tattoo	Tennessee, United States	7325	2018-05-11 11:55:42.162-05	2018-05-11 14:58:41.953-05
 72	Fabio Onorini	\N	45.0573607	7.671222400000033	fabioonorini	Piemonte, Italy	34837	2018-05-11 11:55:42.162-05	2018-05-14 11:13:07.915-05
-82	Lauren Harper	Harpertattoos@gmail.com	53.4837261	-2.2324212999999418	laurenharpertattoo	England, United Kingdom	7395	2018-05-11 11:55:42.162-05	2018-05-14 10:31:56.509-05
 43	Dan Fletcher	danfletchertattoos@gmail.com	49.86187400000001	-97.10879699999998	blindvulture	Manitoba, Canada	50088	2018-05-11 11:55:42.162-05	2018-05-14 11:16:52.002-05
 84	Jeff Barnard	goldenyeti@ymail.com	35.925885	-86.87273979999998	golden_yeti	Tennessee, United States	3496	2018-05-11 11:55:42.162-05	2018-05-14 11:13:55.764-05
 98	Debbie Jones	Debbiejonestattoos@gmail.com	51.6186698	-3.9474663999999393	debbiejonestattoos	Wales, United Kingdom	7595	2018-05-11 11:55:42.162-05	2018-05-14 11:16:14.887-05
@@ -449,7 +478,6 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 4	Chris Wielk	cjwtattoos@gmail.com	37.7251452	-122.4648061	chriswielk	California, United States	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:42:44.436-05
 9	Sam Kane	samkane2@hotmail.com	-34.033982	151.10118	samkanetattoo	New South Wales, Australia	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:01.187-05
 7	Matt Webb	mattwebbtattoo@gmail.com	53.7435634	-0.3464867	mattwebbtattoo	England, United Kingdom	\N	2018-05-11 11:55:42.162-05	2018-05-15 13:43:06.748-05
-44	Aaron Ashworth	\N	-31.9307198	115.85960219999993	aj_tattoo	Western Australia, Australia	43963	2018-05-11 11:55:42.162-05	2018-05-15 20:24:42.158-05
 48	Mitchell Allenden	sneakymitchtattoo@hotmail.com	53.793713	-1.5392795000000206	sneakymitch	England, United Kingdom	269249	2018-05-11 11:55:42.162-05	2018-05-16 10:27:37.715-05
 29	Ulysses Blair	ulyss.blair@gmail.com	34.8031405	-87.67685689999996	ulyss_blair	Alabama, United States	35539	2018-05-11 11:55:42.162-05	2018-05-16 10:08:40.546-05
 101	Jess Baker	jessbakerbookings@gmail.com	39.9588226	-75.6058243	jessbakertattoo	Pennsylvania, United States	17107	2018-05-14 16:50:07.151-05	2018-05-16 10:08:31.937-05
@@ -466,13 +494,11 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 3	Dani Queipo	daniqueipotattoo@hotmail.com	51.5285578	0.242025	daniqueipo	England, United Kingdom	140379	2018-05-11 11:55:42.162-05	2018-05-16 10:48:22.187-05
 19	Camilo Pino Maciel		-33.4378305	-70.65044920000003	camilo.pino.maciel	Región Metropolitana, Chile	8722	2018-05-11 11:55:42.162-05	2018-05-16 10:54:23.151-05
 103	Valentin Hirsch	\N	52.4407709	13.44450710000001	valentinhirschtattoo	Berlin, Germany	78121	2018-05-14 16:55:48.645-05	2018-05-16 11:18:12.041-05
-74	Gianluca Artico	\N	41.7712882	12.227009599999974	gianluca_artico	Lazio, Italy	20425	2018-05-11 11:55:42.162-05	2018-05-16 11:01:17.878-05
 40	Lucy O'Connell	lucyoconnelltattoo@gmail.com	53.795967	-1.5401910000000498	lucylucyhorsehead	England, United Kingdom	31003	2018-05-11 11:55:42.162-05	2018-05-16 11:05:04.858-05
 35	Claudia De Sabe	Sabeontheroad@gmail.com	51.5073509	-0.12775829999998223	claudiadesabe	England, United Kingdom	96531	2018-05-11 11:55:42.162-05	2018-05-16 11:05:55.179-05
 18	Kelly Violet	Kellyviolettattoo@gmail.com	51.5073509	-0.12775829999998223	kellyviolence	England, United Kingdom	341719	2018-05-11 11:55:42.162-05	2018-05-16 11:05:57.191-05
 93	Brad Hill	\N	35.925885	-86.87273979999998	elchupacabrad	Tennessee, United States	1676	2018-05-11 11:55:42.162-05	2018-05-16 11:18:14.699-05
 67	Kija Barudi	tatueringvisby@gmail.com	57.6355946	18.307409199999938	kijabarudi	Gotlands län, Sweden	3211	2018-05-11 11:55:42.162-05	2018-05-16 11:13:26.132-05
-105	Little Andy	littleandytattoo@gmail.com	52.30791499999999	-1.9418580000000247	littleandytattoo	England, United Kingdom	163292	2018-05-14 17:01:32.962-05	2018-05-16 11:14:09.343-05
 51	Toni Donaire	\N	41.38506389999999	2.1734034999999494	tdonaire	Catalunya, Spain	274027	2018-05-11 11:55:42.162-05	2018-05-16 11:14:16.11-05
 100	Mike Dorsey	mikedorseytattoo@gmail.com	39.1031182	-84.51201960000003	mikedorseytattoo	Ohio, United States	102488	2018-05-11 11:55:42.162-05	2018-05-16 11:14:19.049-05
 20	Jonny Farq	jonnyfarq@gmail.com	-27.454654	153.02981799999998	jon_ftw	Queensland, Australia	97498	2018-05-11 11:55:42.162-05	2018-05-16 11:14:21.554-05
@@ -484,6 +510,21 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 90	Vika Kiwi	\N	59.91482699999999	30.30701399999998	vika_kiwitattoo	Saint Petersburg, Russia	48150	2018-05-11 11:55:42.162-05	2018-05-16 11:16:23.684-05
 89	Jesse Rix	info@jesserix.com	42.933692	-72.27814089999998	jesse_rix	New Hampshire, United States	177254	2018-05-11 11:55:42.162-05	2018-05-16 11:19:51.322-05
 99	Betty Rose	bettyrosetattoos@gmail.com	40.6781784	-73.9441579	bettyrosetattoos	New York, United States	21848	2018-05-11 11:55:42.162-05	2018-05-16 11:19:45.792-05
+105	Little Andy	littleandytattoo@gmail.com	52.30791499999999	-1.9418580000000247	littleandytattoo	England, United Kingdom	163319	2018-05-14 17:01:32.962-05	2018-05-16 14:40:37.492-05
+74	Gianluca Artico	\N	41.7712882	12.227009599999974	gianluca_artico	Lazio, Italy	20427	2018-05-11 11:55:42.162-05	2018-05-16 14:40:42.429-05
+44	Aaron Ashworth	\N	-31.9307198	115.85960219999993	aj_tattoo	Western Australia, Australia	43959	2018-05-11 11:55:42.162-05	2018-05-16 14:40:45.199-05
+76	Marco Giovanni	marcofgiovanni@gmail.com	52.6308859	1.2973550000000387	thehallowedharetattoo	England, United Kingdom	3023	2018-05-11 11:55:42.162-05	2018-05-16 14:41:09.375-05
+106	Cutty Bage	\N	36.2173223	-81.680725	cuttybage	North Carolina, United States	22689	2018-05-16 14:46:09.51-05	2018-05-16 14:46:15.434-05
+107	Mike Adams	homesteadtattoo@gmail.com	39.41426879999999	-77.4105409	mikeadamstattoo	Maryland, United States	102726	2018-05-16 14:48:18.934-05	2018-05-16 14:48:19.921-05
+108	Henning	art@royaltattoo.com	56.030787	12.592127000000005	henning_royaltattoo	\N	97104	2018-05-16 14:50:09.619-05	2018-05-16 14:51:10.004-05
+110	Aaron Torres	\N	33.6797332	-117.9046113	aaron_torres_tattoo	California, United States	2250	2018-05-16 14:54:59.251-05	2018-05-16 14:55:00.451-05
+111	Ian Wiedrick	ianwiedrick@gmail.com	40.705617	-73.93128300000001	ianwtattoo	New York, United States	29214	2018-05-16 14:56:08.735-05	2018-05-16 14:56:09.654-05
+112	J Smalley	\N	33.7391223	-84.36790409999998	jsmalleytattooer	Georgia, United States	10238	2018-05-16 14:58:00.55-05	2018-05-16 14:58:06.709-05
+82	Lauren Harper	harpertattoos@gmail.com	53.4837261	-2.2324212999999418	laurenharpertattoo	England, United Kingdom	7386	2018-05-11 11:55:42.162-05	2018-05-16 15:01:43.948-05
+113	Kate Mackay Gill	hello.selkie@gmail.com	50.92801430000001	-0.4617074999999886	kate_selkie	England, United Kingdom	63787	2018-05-16 15:03:01.065-05	2018-05-16 15:03:02.165-05
+114	Ryan Buttar	buttartattoo@gmail.com	53.5205807	-113.51235380000003	ryanbuttar	Alberta, Canada	9222	2018-05-16 15:05:52.57-05	2018-05-16 15:05:53.972-05
+115	Nick Whybrow	\N	51.56686499999999	-0.11459100000001854	nick_whybrow	England, United Kingdom	39136	2018-05-16 15:08:44.714-05	2018-05-16 15:08:45.896-05
+116	Aniela Señora Paloma	fruduva@blackbyran.com	59.3158779	18.013542400000006	fruduva	Stockholms län, Sweden	157622	2018-05-16 15:12:38.467-05	2018-05-16 15:12:39.815-05
 \.
 
 
@@ -491,7 +532,7 @@ COPY public."Artists" (id, name, email, lat, lng, insta, region, followers, "cre
 -- Name: Artists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kenzie
 --
 
-SELECT pg_catalog.setval('public."Artists_id_seq"', 105, true);
+SELECT pg_catalog.setval('public."Artists_id_seq"', 116, true);
 
 
 --
@@ -524,6 +565,7 @@ COPY public."Favorites" ("createdAt", "updatedAt", "artistId", "userId") FROM st
 2018-05-15 20:31:01.612-05	2018-05-15 20:31:01.612-05	71	1
 2018-05-15 20:31:15.958-05	2018-05-15 20:31:15.958-05	61	1
 2018-05-16 11:16:08.662-05	2018-05-16 11:16:08.662-05	70	1
+2018-05-16 15:00:51.674-05	2018-05-16 15:00:51.674-05	82	1
 \.
 
 

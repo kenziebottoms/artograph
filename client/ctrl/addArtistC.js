@@ -35,14 +35,14 @@ angular.module('artograph').controller('AddArtistCtrl', function ($rootScope, $s
             $rootScope.view = 'home';
             $location.path('/');
           })
-          .catch(err => console.log(err));
+          .catch(err => $scope.error = err);
       } else if ($scope.mode == 'new') {
         ArtistFactory.create($scope.newArtist)
           .then(response => {
             $rootScope.view = 'home';
             $location.path('/');
           })
-          .catch(err => console.log(err));
+          .catch(err => $scope.error = err);
       }
     }
   };
