@@ -12,17 +12,13 @@ angular.module('artograph').controller('ArtistCardCtrl', function ($rootScope, $
     if (faveValue) {
       UserFactory.addFave(artistId)
         .then(response => $scope.faves.push(+artistId))
-        .catch(err => {
-          (err == null) ? $location.path('/login') : console.log(err);
-        });
+        .catch(err => $location.path('/login'));
     } else {
       UserFactory.removeFave(artistId)
         .then(response => {
           $scope.faves = _.pull($scope.faves, artistId);
         })
-        .catch(err => {
-          (err == null) ? $location.path('/login') : console.log(err);
-        });
+        .catch(err => $location.path('/login'));
     }
   };
 });
