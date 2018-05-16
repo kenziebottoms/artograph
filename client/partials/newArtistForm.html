@@ -33,7 +33,12 @@
       <input id='address' types='["geocode","establishment"]' ng-model='newArtist.address' type='text' class='form-control' placeholder='{{mode == "new" ? "High Voltage Tattoo" : "Leave blank if unchanged"}}' aria-label='address'>
     </div>
   <div class='alert alert-danger' ng-show='error'>{{error}}</div>
-  <button class='btn btn-primary btn-block' ng-click='submit()'>
-    {{mode == new ? "Add Artist" : "Save Changes"}}
-  </button>
+  <div class='row'>
+    <button class='col button mx-2' ng-click='submit()'>
+      {{mode == new ? "Add Artist" : "Save Changes"}}
+    </button>
+    <a class='col mx-2 error button' href='/#!/'>
+      Cancel
+    </a>
+  </div>
 </div>

@@ -16,24 +16,45 @@ a
   &:hover
     color: $blue-hl
     text-decoration: none
-.button, .chill-button, button, input[type=submit]
+.button, button, input[type=submit]
+  cursor: pointer
+  text-align: center
+  display: inline-block
   padding: .375rem .75rem
   border-radius: .18rem
   border: 1px solid $blue
   transition: .15s
-.button, button, input[type=submit]
   background: $blue
   color: $bg1
-  &:hover, &:active
+  &:hover
     background: transparent
     color: $blue
-.chill-button
+.chill.button
   background: transparent
-  &:hover, &:active
+  color: $blue
+  &:hover
     color: $bg1
     background: $blue
-.large-button
+.large.button
   font-size: 1.2em
+.small.button
+  font-size: .9em
+  padding: .25em .5em
+  margin: .6em .6em 0 0
+.error.button
+  background: $red
+  color: $bg1
+  border-color: $red
+  &:hover
+    color: $red
+    background: $bg1
+.chill.error.button
+  background: transparent
+  color: $red
+  border-color: $red
+  &:hover
+    background: $red
+    color: $bg1
 img
   max-width: 100%
 h5
@@ -86,7 +107,7 @@ body
       .btn
         padding: 0.25rem 0.5rem 0 0.5rem
 #content
-  background: $bg2;
+  background: $bg2
   height: 100%
   display: grid
   grid-template-columns: 1fr 1fr
@@ -160,13 +181,6 @@ body
           display: inline-block
           color: $gray
           margin-right: .5rem
-      .tag
-        font-size: .9rem
-.tag
-  opacity: 1
-  padding: .25em .5em
-  display: inline-block
-  margin: .5rem .5rem 0 0
 .form
   margin: 3rem auto
   background: $bg1

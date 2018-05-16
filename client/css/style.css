@@ -4,27 +4,50 @@ a {
     color: #477ff1;
     text-decoration: none; }
 
-.button, .chill-button, button, input[type=submit] {
+.button, button, input[type=submit] {
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
   padding: .375rem .75rem;
   border-radius: .18rem;
   border: 1px solid #3D6BC8;
-  transition: .15s; }
-
-.button, button, input[type=submit] {
+  transition: .15s;
   background: #3D6BC8;
   color: #ffffff; }
-  .button:hover, .button:active, button:hover, button:active, input[type=submit]:hover, input[type=submit]:active {
+  .button:hover, button:hover, input[type=submit]:hover {
     background: transparent;
     color: #3D6BC8; }
 
-.chill-button {
-  background: transparent; }
-  .chill-button:hover, .chill-button:active {
+.chill.button {
+  background: transparent;
+  color: #3D6BC8; }
+  .chill.button:hover {
     color: #ffffff;
     background: #3D6BC8; }
 
-.large-button {
+.large.button {
   font-size: 1.2em; }
+
+.small.button {
+  font-size: .9em;
+  padding: .25em .5em;
+  margin: .6em .6em 0 0; }
+
+.error.button {
+  background: #E64B5C;
+  color: #ffffff;
+  border-color: #E64B5C; }
+  .error.button:hover {
+    color: #E64B5C;
+    background: #ffffff; }
+
+.chill.error.button {
+  background: transparent;
+  color: #E64B5C;
+  border-color: #E64B5C; }
+  .chill.error.button:hover {
+    background: #E64B5C;
+    color: #ffffff; }
 
 img {
   max-width: 100%; }
@@ -158,14 +181,6 @@ body {
         display: inline-block;
         color: #909090;
         margin-right: .5rem; }
-      .artist .body .header .tag {
-        font-size: .9rem; }
-
-.tag {
-  opacity: 1;
-  padding: .25em .5em;
-  display: inline-block;
-  margin: .5rem .5rem 0 0; }
 
 .form {
   margin: 3rem auto;
