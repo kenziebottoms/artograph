@@ -114,6 +114,7 @@ body
   height: 100%
   display: grid
   grid-template-columns: 1fr 1fr
+  border-bottom: .5px solid fade-out($gray, .5)
   &.home
     @media (min-width: 50rem)
       grid-template-columns: 2fr 3fr
@@ -182,12 +183,18 @@ body
       .text
         span
           display: inline-block
-          color: $gray
           margin-right: .5rem
+          &:nth-child(3)
+            font-weight: 100
 .form
   margin: 3rem auto
   background: $bg1
   grid-column: 1 / span 2
   align-self: start
   padding: 1rem
+#footer
+  background: $bg3
+  color: $gray
+  font-weight: 100
+  padding: .8rem
 @import loading

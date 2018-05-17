@@ -113,7 +113,8 @@ body {
   background: #f5f5f5;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr; }
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 0.5px solid rgba(144, 144, 144, 0.5); }
   @media (min-width: 50rem) {
     #content.home {
       grid-template-columns: 2fr 3fr; } }
@@ -183,8 +184,9 @@ body {
         font-size: 1.8rem; }
       .artist .body .header .text span {
         display: inline-block;
-        color: #909090;
         margin-right: .5rem; }
+        .artist .body .header .text span:nth-child(3) {
+          font-weight: 100; }
 
 .form {
   margin: 3rem auto;
@@ -192,6 +194,12 @@ body {
   grid-column: 1 / span 2;
   align-self: start;
   padding: 1rem; }
+
+#footer {
+  background: #E4E3DE;
+  color: #909090;
+  font-weight: 100;
+  padding: .8rem; }
 
 .lds-hourglass {
   display: block;
