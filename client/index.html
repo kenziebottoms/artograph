@@ -5,13 +5,19 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Artograph</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- bootstrap -->
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+  <!-- material icons -->
   <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+  <!-- mine -->
   <link rel='stylesheet' href='css/style.css'>
 </head>
 <body ng-app='artograph'>
   <div id='nav' ng-include='"partials/nav.html"' ng-controller='NavCtrl'></div>
   <div id='content' class='{{view}}' ui-view></div>
+  <div id='footer' class='text-center'>
+    &copy; 2018 <a href='http://kenzie.ink' target='blank'>Kenzie Bottoms</a> | <a href='https://github.com/kenziebottoms/artograph' target='blank'>Source on GitHub</a>
+  </div>
   <!-- jquery -->
   <script src='/js/jquery.min.js'></script>
   <!-- lodash -->
