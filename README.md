@@ -33,6 +33,8 @@ npm start
 - `npm run db:save`: save current database to `server/db/export.sql`
 - `npm run db:reset`: reset database to last saved
 - `heroku pg:backups:restore 'https://github.com/kenziebottoms/artograph/blob/master/server/db/export.sql?raw=true' DATABASE_URL`: reset production Heroku database to `export.sql`
+- `heroku pg:backups:capture`: back up production database
+- `heroku pg:backups:download`: download production database backup
 
 ---
 
