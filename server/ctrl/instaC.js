@@ -13,22 +13,16 @@ const getSharedData = user => {
         status: 500,
         message: "Instagram's being a bitch."
       });
-      let $ = cheerio.load(body);
-      let data = $('script').eq(2).html();
-      if (!data) return reject({
-        status: 500,
-        message: "Instagram's being a bitch."
-      });
-      data = data.split(' = ')[1].slice(0, -1);
-      if (!data) return reject({
-        status: 500,
-        message: "Instagram's being a bitch."
-      });
-      resolve(JSON.parse(data));
+      // find the `_sharedData` variable in `body`
+      let script = body.split('window._sharedData')[1];
+      // grab the next JSON object starting with `{` until it ends with `;`
+      script = script.slice(script.indexOf('{')).split(';')[0];
+      resolve(JSON.parse(script));
     });
   });
 };
 
+// translate raw scraped data into my API's version
 module.exports.getInfo = user => {
   return new Promise((resolve, reject) => {
     getSharedData(user)
