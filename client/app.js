@@ -107,7 +107,7 @@ angular.module('artograph', ['ui.router'])
   .config($sceDelegateProvider => {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      'http://*.google.com/**'
+      '//*.google.com/**'
     ]);
   })
   .constant('API', {
