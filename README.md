@@ -1,10 +1,11 @@
 # Artograph
 
-![](https://img.shields.io/badge/data-postgres-blue.svg)
+![](https://img.shields.io/badge/data-postgres-316391.svg)
 ![](https://img.shields.io/badge/data-instagram-cc006c.svg)
-![](https://img.shields.io/badge/modularity-node+express-61BC62.svg)
-![](https://img.shields.io/badge/css_framework-bootstrap-5F2C7C.svg)
+![](https://img.shields.io/badge/node-v9.11.1-61BC62.svg)
+![](https://img.shields.io/badge/css-bootstrap-5F2C7C.svg)
 ![](https://img.shields.io/badge/css_preprocessor-sass-DC4497.svg)
+![](https://img.shields.io/badge/lodash-v4.17.10-3554FF.svg)
 ![](https://img.shields.io/badge/mvp-working-green.svg)
 ![](https://img.shields.io/badge/stretch-wip-yellow.svg)
 
