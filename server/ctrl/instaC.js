@@ -1,7 +1,6 @@
 'use strict';
 
 const request = require('request');
-const cheerio = require('cheerio');
 const INSTA = 'https://www.instagram.com';
 const _ = require('lodash');
 
