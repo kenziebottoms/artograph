@@ -26,7 +26,7 @@
     "css:build": "node-sass client/sass/style.sass client/css/style.css",
     "css:watch": "nodemon -e sass -x \"npm run css:build\"",
     "db:save": "pg_dump --format=c artograph > server/db/export.sql",
-    "db:reset": "npm run db:wipe && psql artograph < server/db/export.sql",
+    "db:reset": "npm run db:wipe && pg_restore -d artograph server/db/export.sql",
     "db:wipe": "psql -c 'drop database if exists artograph;' && psql -c 'create database artograph;'"
   },
   "repository": {
