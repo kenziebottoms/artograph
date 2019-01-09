@@ -23,6 +23,9 @@ An app to geographically visualize and organize tattoo artist information.
 git clone git@github.com:kenziebottoms/artograph.git
 cd artograph
 npm install
+```
+Copy `server/db/config/config.sample.json` to `../config.json` and updated the credentials for your local environment.
+```
 npm run db:reset
 npm start
 ```
