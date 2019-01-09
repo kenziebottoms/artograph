@@ -10,17 +10,18 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.17.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.4.3",
     "request": "^2.87.0",
-    "sequelize": "^4.37.10"
+    "sequelize": "^4.37.6"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node server/server.js",
+    "start:dev": "nodemon server/server.js",
     "db:regen": "node server/db/createDb.js",
     "css:build": "node-sass client/sass/style.sass client/css/style.css",
     "css:watch": "nodemon -e sass -x \"npm run css:build\"",
