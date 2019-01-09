@@ -27,7 +27,7 @@ npm install
 Copy `server/db/config/config.sample.json` to `../config.json` and updated the credentials for your local environment.
 ```
 npm run db:reset
-npm start
+npm start:dev
 ```
 
 ## Database ops
