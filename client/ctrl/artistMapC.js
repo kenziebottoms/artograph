@@ -18,19 +18,7 @@ angular
       if (isNaN(id)) return ($scope.highlight = null);
       $scope.highlight = null;
       $scope.highlight = _.find($scope.artists, ["id", +id]);
-      // get instagram data
-      ArtistFactory.getInsta(id, $scope.highlight.insta)
-        .then(data => {
-          let { followers, posts } = data;
-          $scope.highlight.followers = followers;
-          $scope.highlight.posts = posts;
-          // update follower count in db
-          $rootScope.$broadcast("updateArtist", { id, followers });
-        })
-        .catch(err => {
-          alert("This user's Instagram doesn't seem to be right.");
-          $scope.highlight = null;
-        });
+      
       ArtistFactory.getRegion(id)
         .then(region => {
           $scope.highlight.region = region;
