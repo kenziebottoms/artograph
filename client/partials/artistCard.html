@@ -14,7 +14,7 @@
         {{artist.followers}} followers
       </span>
     </div>
-    <a target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
+    <a ng-show='highlight' target='_blank' ng-show='artist.email' ng-href='mailto:{{artist.email}}'>
       <i class='material-icons'>email</i>
     </a>
     <a target='blank' class='insta' ng-show='artist.insta' ng-href='https://www.instagram.com/{{artist.insta}}'>
@@ -30,6 +30,3 @@
     </a>
   </div>
 </div>
-
-<!-- instagram posts -->
-<div ng-show='highlight' ng-include='"partials/artistPosts.html"'></div>
