@@ -113,6 +113,7 @@ body {
   background: #f5f5f5;
   height: 100%;
   display: grid;
+  overflow: scroll;
   grid-template-columns: 1fr 1fr;
   border-bottom: 0.5px solid rgba(144, 144, 144, 0.5); }
   @media (min-width: 50rem) {
