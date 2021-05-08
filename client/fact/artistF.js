@@ -29,21 +29,6 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     });
   };
 
-  // get a user's recent instagram posts
-  const getInsta = (id, insta) => {
-    return $q((resolve, reject) => {
-      let instaData;
-      $http.get(`${API.v1}/insta/${insta}`)
-        .then(({ data }) => {
-          instaData = data;
-          let { followers } = data;
-          return $http.patch(`${API.v1}/artists/${id}`, { followers });
-        })
-        .then(({ data }) => resolve(instaData))
-        .catch(err => reject(err));
-    });
-  };
-
   // fetch or reverse geocode an artist's region name
   const getRegion = (id) => {
     return $q((resolve, reject) => {
@@ -84,11 +69,8 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
         .then(response => {
           if (response.status != 200) return reject(response);
           let artist = response.data;
-          Promise.all([
-            getInsta(artist.id, artist.insta),
-            getRegion(artist.id)
-          ])
-            .then(responses => resolve(artist))
+          getRegion(artist.id)
+            .then(response => resolve(artist))
             .catch(err => console.log(err));
         })
         .catch(err => reject(err));
@@ -122,7 +104,6 @@ angular.module('artograph').factory('ArtistFactory', function ($q, $http, GeoFac
     getAll,
     getOne,
     getAllByDistance,
-    getInsta,
     getRegion,
     edit,
     create,

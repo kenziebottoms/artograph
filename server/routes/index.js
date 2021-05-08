@@ -4,7 +4,6 @@ const { Router } = require('express');
 const router = Router();
 
 router.use(require('./authR'));
-router.use('/insta', require('./instaR'));
 router.use('/artists', require('./artistsR'));
 router.use('/tags', require('./tagsR'));
 router.use('/user', require('./userR'));

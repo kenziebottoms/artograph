@@ -24,6 +24,11 @@
       <i class='material-icons'>edit</i>
     </a>
   </div>
+  
+  <div ng-show='highlightError' class="alert alert-danger" role="alert">
+    {{highlightError}}
+  </div>
+  
   <div ng-show='artist.tags' class='tags'>
     <a ng-repeat='tag in artist.tags.split(",")' ng-href='/#!/tags/{{tag}}' class='chill small button'>
       {{tag}}

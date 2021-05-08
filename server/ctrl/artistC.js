@@ -183,7 +183,7 @@ const validate = body => {
       }
     };
   }
-  let { email, name, lat, lng, insta, tags, region, followers } = body;
+  let { email, name, lat, lng, tags, region, followers } = body;
   if (email) {
     email = email.toLowerCase();
     let emailRx = /[a-z0-9]+@[a-z0-9]+\.[a-z]+/g;
@@ -193,22 +193,6 @@ const validate = body => {
           // 400: bad request
           status: 400,
           message: 'Please provide a valid email address.'
-        }
-      };
-    }
-  }
-  if (insta) {
-    insta = insta.toLowerCase().trim();
-    if (insta.split('').reverse()[0] == '/') {
-      insta = insta.slice(0, insta.length - 1);
-    }
-    let instaRx = /[a-z0-9_\.]+/gi;
-    if (!instaRx.test(insta)) {
-      return {
-        error: {
-          // 400: bad request
-          status: 400,
-          message: 'Please provide a valid Instagram profile.'
         }
       };
     }
@@ -241,7 +225,7 @@ const validate = body => {
   }
   // splits by , trims whitespace, removes empty strings
   if (tags) tags = _.compact(tags.split(',').map(s => s.trim(/\s/)));
-  return { email, name, lat, lng, insta, tags, region, followers };
+  return { email, name, lat, lng, tags, region, followers };
 };
 
 module.exports = {
